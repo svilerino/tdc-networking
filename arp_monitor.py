@@ -28,8 +28,8 @@ class PackageStatistics(object):
         try:
             actual_weight = int(self.graph.get_edge(*package.as_edge()).attr['label'])
         except KeyError:
+            self.graph.add_edge(package.as_edge())
             actual_weight = 0
-        self.graph.add_edge(package.as_edge())
         self.graph.get_edge(*package.as_edge()).attr['label'] = str(actual_weight + 1)
 
     def get_entropy(self):
