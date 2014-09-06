@@ -1,1 +1,2 @@
 sudo apt-get install python-pygraph python-pygraphviz python-scapy
+correr programa con permisos de super usuario
