@@ -136,6 +136,19 @@ Además cada una de las máquinas posee una tabla asociando direcciones MAC con 
 La herramienta para el análisis de la red fue desarrollada en el lenguaje de programación Python, con la ayuda de diversas librerías que proveen herramientas para la manipulación de paquetes en la red \footnote{Scapy: http://www.secdev.org/projects/scapy/} y generación de visualizaciones amigables de los datos recopilados. Una vez ejecutado, el programa se encarga de filtrar los paquetes ARP que detecte en la red y obtener datos estadísticos a partir de estos. Entre otras cosas, calcula la entropía considerando a las direcciones IP destino u origen de los paquetes como una fuente de información.
 
 \section{Experimentación}
+Se llevaron a cabo experimentos sobre tres redes distintas para analizarlas y sacar conclusiones sobre ellas. El análisis se basó considerar una red como una fuente de información y usar ciertos conceptos de la teoría clásica de información. Se usaron los dos modelos siguientes:
+$$ S_{dst} = \{s_1, \dots, s_n \} $$
+donde $s_i$ es una dirección IP que es el destino de un paquete ARP del tipo \textit{who-has}. Es decir, se considera a la dirección IP $s_i$ como un símbolo posible que la fuente $S_{dst}$ puede emitir. El otro modelo es similar:
+$$ S_{src} = \{s_1, \dots, s_n \} $$
+donde, nuevamente, $s_i$ es una dirección IP, pero en este caso es la dirección IP orígen en un paquete ARP del tipo \textit{who-has}.
+\par Usando las herramientas desarrolladas, se capturaron paquetes ARP \textit{who-has} para estimar las probabilidades de ocurrencia de cada símbolo en las fuentes $S_{dst}$ y $S_{src}$ en cada red analizada. Para realizar esta estimación se modeló probabilidad de ocurrencia del símbolo $s_i$ (en alguna de las fuentes) con una variable binomial $Bi(k, p_{s_i})$, con $k$ la cantidad de capturas en la red y $p_{s_i}$ la probabilidad de ocurrencia del símbolo $s_i$. Luego usando las capturas, se estimó $p_{s_i}$ con el cociente $\frac{fr(s_i)}{k}$, donde $fr(s_i)$ es la cantidad de veces que se observó el símbolo $s_i$ y $k$ se definió anteriormente.
+
+\\ \\ \\ \\ 
+ESTO ES DUDOSO
+\par También se estimó usando la información obtenida la entropía en las redes analizadas (según los modelos anteriores). La información que nos puede brindar este concepto es una medida de que tan centralizado está el intercambio de paquetes ARP en una red. Esto es así porque la entropía es considerada una medida del desorden del sistema, es decir, una entropía alta se interpreta como un desorden alto. Este desorden en nuestro modelo es máximo cuando $p_{s_1} = \dots = p_{s_n}$, es decir cuando cualquier símbolo tiene la misma probabilidad de ser emitido por la fuente, lo que se traduce en que toda dirección IP tiene iguales probabilidades de aparecer como dirección orígen o destino (según el modelo) en un paquete ARP \textit{who-has}.
+\\ \\ \\ \\
+ 
+
 Para facilitar la lectura de ambos tipos de direcciones a los humanos, generalmente las primeras son escritas como números hexadecimales separados por ':', mientras que las direcciones IP se escriben como números decimales separados por puntos. Siendo, por ejemplo, 00:22:b0:00:f2:61 una MAC Address válida y 192.168.1.10 una dirección IP.
 
 \section{Conclusiones}
