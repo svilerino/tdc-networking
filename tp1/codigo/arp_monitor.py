@@ -54,6 +54,7 @@ class EntropyStatistics(object):
     def add_info(self, info):
         self.information.setdefault(info, 0)
         self.information[info] = self.information[info] + 1
+        self.calculate_entropy()
 
     def calculate_entropy(self):
         time = datetime.datetime.now()
@@ -105,14 +106,10 @@ class PackageStatistics(object):
 
     def add_to_entropys(self, package):
         self.entropy_dst.add_info(package.destination)
-        self.entropy_dst.calculate_entropy()
         self.entropy_src.add_info(package.source)
-        self.entropy_src.calculate_entropy()
         if package.operation == 'who-has':
             self.entropy_src_who_has.add_info(package.source)
-            self.entropy_src_who_has.calculate_entropy()
             self.entropy_dst_who_has.add_info(package.destination)
-            self.entropy_dst_who_has.calculate_entropy()
 
     def add_to_histograms(self, package):
         self.histogram_dst.increase_column(package.destination)
