@@ -24,9 +24,16 @@ class Package(object):
 
 
 class Histogram(object):
-    def __init__(self, name, data):
+    def __init__(self, name):
         self.name = name
-        self.data = data
+        self.data = {}
+
+    def add_column(self, name):
+        self.data[name] = 0
+
+    def increase_column(self, name, amount=1):
+        self.data.setdefault(name, 0)
+        self.data[name] = self.data[name] + amount
 
     def draw(self):
         pylab.figure()
@@ -34,6 +41,35 @@ class Histogram(object):
         pylab.bar(X, self.data.values(), align='center', width=0.5)
         pylab.xticks(X, self.data.keys(), rotation='vertical')
         pylab.ylim(0, max(self.data.values()) + 1)
+        pylab.savefig('%s.png' % self.name, bbox_inches='tight')
+        pylab.close()
+
+
+class EntropyStatistics(object):
+    def __init__(self, name):
+        self.name = name
+        self.history = []
+        self.information = {}
+
+    def add_info(self, info):
+        self.information.setdefault(info, 0)
+        self.information[info] = self.information[info] + 1
+
+    def calculate_entropy(self):
+        time = datetime.datetime.now()
+        total = sum(self.information.values())
+        probabilities = dict([(key, value / float(total)) for key, value in self.information.iteritems()])
+        entropy = sum([-math.log(p, 2) * p for p in probabilities.values()])
+        self.history.append({'entropy': entropy, 'probabilities': probabilities, 'time': time})
+
+    def draw(self):
+        x = matplotlib.dates.date2num([e['time'] for e in self.history])
+        y = [e['entropy'] for e in self.history]
+        pylab.figure()
+        fig, ax = pylab.subplots()
+        pylab.setp(pylab.xticks()[1], rotation=30, ha='right')
+        ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M'))
+        pylab.plot_date(x, y)
         pylab.savefig('%s.png' % self.name, bbox_inches='tight')
         pylab.close()
         
@@ -49,14 +85,15 @@ class PackageStatistics(object):
 
     def __init__(self):
         self.graph = pgv.AGraph(bgcolor='white', directed=True)
-        self.data_dst = {}
-        self.data_dst_who_has = {}
-        self.data_src = {}
-        self.data_src_who_has = {}
-        self.entropy_list_dst = []
-        self.entropy_list_dst_who_has = []
-        self.entropy_list_src = []
-        self.entropy_list_src_who_has = []
+
+        # Entropys
+        self.entropy_dst = EntropyStatistics(name='entropy_dst')
+        self.entropy_src = EntropyStatistics(name='entropy_src')
+        self.entropy_src_who_has = EntropyStatistics(name='entropy_src_who_has')
+        self.entropy_dst_who_has = EntropyStatistics(name='entropy_dst_who_has')
+
+        # Histograms
+        self.histogram_dst = Histogram(name='histogram_dst')
 
     def add_to_graph(self, package):
         try:
@@ -66,116 +103,42 @@ class PackageStatistics(object):
             actual_weight = 0
         self.graph.get_edge(*package.as_edge()).attr['label'] = str(actual_weight + 1)
 
-    def add_to_data(self, package):
-        self.data_dst.setdefault(package.destination, []).append(package.source)
-        self.data_src.setdefault(package.source, []).append(package.destination)
+    def add_to_entropys(self, package):
+        self.entropy_dst.add_info(package.destination)
+        self.entropy_dst.calculate_entropy()
+        self.entropy_src.add_info(package.source)
+        self.entropy_src.calculate_entropy()
         if package.operation == 'who-has':
-			self.data_dst_who_has.setdefault(package.destination, []).append(package.source)
-			self.data_src_who_has.setdefault(package.source, []).append(package.destination)
+            self.entropy_src_who_has.add_info(package.source)
+            self.entropy_src_who_has.calculate_entropy()
+            self.entropy_dst_who_has.add_info(package.destination)
+            self.entropy_dst_who_has.calculate_entropy()
+
+    def add_to_histograms(self, package):
+        self.histogram_dst.increase_column(package.destination)
 
     def add_package(self, package):
         self.add_to_graph(package)
-        self.add_to_data(package)
-        self.get_entropy_dst()
-        self.get_entropy_src()
-        self.get_entropy_dst_who_has()
-        self.get_entropy_src_who_has()
-        
-    def get_entropy_dst_who_has(self):
-        time = datetime.datetime.now()
-        total = sum([len(value) for value in self.data_dst_who_has.values()])
-        probabilities = dict([(key, len(value) / float(total)) for key, value in self.data_dst_who_has.iteritems()])
-        entropy = sum([-math.log(p, 2) * p for p in probabilities.values()])
-        self.entropy_list_dst_who_has.append({'entropy': entropy, 'probabilities': probabilities, 'time': time})
-        print probabilities
-
-    def get_entropy_src_who_has(self):
-        time = datetime.datetime.now()
-        total = sum([len(value) for value in self.data_src_who_has.values()])
-        probabilities = dict([(key, len(value) / float(total)) for key, value in self.data_src_who_has.iteritems()])
-        entropy = sum([-math.log(p, 2) * p for p in probabilities.values()])
-        self.entropy_list_src_who_has.append({'entropy': entropy, 'probabilities': probabilities, 'time': time})
-        print probabilities
-
-    def get_entropy_dst(self):
-        time = datetime.datetime.now()
-        total = sum([len(value) for value in self.data_dst.values()])
-        probabilities = dict([(key, len(value) / float(total)) for key, value in self.data_dst.iteritems()])
-        entropy = sum([-math.log(p, 2) * p for p in probabilities.values()])
-        self.entropy_list_dst.append({'entropy': entropy, 'probabilities': probabilities, 'time': time})
-        print probabilities
-
-    def get_entropy_src(self):
-        time = datetime.datetime.now()
-        total = sum([len(value) for value in self.data_src.values()])
-        probabilities = dict([(key, len(value) / float(total)) for key, value in self.data_src.iteritems()])
-        entropy = sum([-math.log(p, 2) * p for p in probabilities.values()])
-        self.entropy_list_src.append({'entropy': entropy, 'probabilities': probabilities, 'time': time})
-        print probabilities
-
-    def draw_entropy_dst(self):
-        x = matplotlib.dates.date2num([e['time'] for e in self.entropy_list_dst])
-        y = [e['entropy'] for e in self.entropy_list_dst]
-        pylab.figure()
-        fig, ax = pylab.subplots()
-        pylab.setp(pylab.xticks()[1], rotation=30, ha='right')
-        ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M'))
-        pylab.plot_date(x, y)
-        pylab.savefig('entropy_dst.png', bbox_inches='tight')
-        pylab.close()
-
-    def draw_entropy_src(self):
-        x = matplotlib.dates.date2num([e['time'] for e in self.entropy_list_src])
-        y = [e['entropy'] for e in self.entropy_list_src]
-        pylab.figure()
-        fig, ax = pylab.subplots()
-        pylab.setp(pylab.xticks()[1], rotation=30, ha='right')
-        ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M'))
-        pylab.plot_date(x, y)
-        pylab.savefig('entropy_src.png', bbox_inches='tight')
-        pylab.close()
-        
-    def draw_entropy_dst_who_has(self):
-        x = matplotlib.dates.date2num([e['time'] for e in self.entropy_list_dst_who_has])
-        y = [e['entropy'] for e in self.entropy_list_dst_who_has]
-        pylab.figure()
-        fig, ax = pylab.subplots()
-        pylab.setp(pylab.xticks()[1], rotation=30, ha='right')
-        ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M'))
-        pylab.plot_date(x, y)
-        pylab.savefig('entropy_dst_who_has.png', bbox_inches='tight')
-        pylab.close()
-
-    def draw_entropy_src_who_has(self):
-        x = matplotlib.dates.date2num([e['time'] for e in self.entropy_list_src_who_has])
-        y = [e['entropy'] for e in self.entropy_list_src_who_has]
-        pylab.figure()
-        fig, ax = pylab.subplots()
-        pylab.setp(pylab.xticks()[1], rotation=30, ha='right')
-        ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%H:%M'))
-        pylab.plot_date(x, y)
-        pylab.savefig('entropy_src_who_has.png', bbox_inches='tight')
-        pylab.close()
+        self.add_to_entropys(package)
+        self.add_to_histograms(package)
 
     def draw_graph(self):
         self.graph.layout(prog='dot')
         self.graph.draw('graph.png')
 
-    def draw_histogram(self):
-        data = dict([(key, len(value)) for key, value in self.data_dst.iteritems()])
-        histogram = Histogram(name='data', data=data)
-        histogram.draw()
+    def draw_entropys(self):
+        self.entropy_dst.draw()
+        self.entropy_src.draw()
+        self.entropy_src_who_has.draw()
+        self.entropy_dst_who_has.draw()
 
-    def draw_entropy(self):
-        self.draw_entropy_src()
-        self.draw_entropy_src_who_has()
-        self.draw_entropy_dst()
-        self.draw_entropy_dst_who_has()
+    def draw_histograms(self):
+        self.histogram_dst.draw()
 
     def draw(self):
         self.draw_graph()
-        self.draw_histogram()
-        self.draw_entropy()
+        self.draw_histograms()
+        self.draw_entropys()
 
 
 def monitor_callback(pkt):
