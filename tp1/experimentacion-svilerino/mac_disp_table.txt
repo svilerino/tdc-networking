@@ -1,0 +1,9 @@
+ ------ Discovered dispositives in network table:  ------ 
+| Ip Addr: 192.168.1.101\nMac Addr: a0:f3:c1:24:f4:0d\nCompany: TP-LINK TECHNOLOGIES CO., LTD. |
+| Ip Addr: 192.168.1.1\nMac Addr: 00:22:6b:8c:39:ce\nCompany: Cisco-Linksys, LLC |
+| Ip Addr: 192.168.1.100\nMac Addr: 88:32:9b:cb:1a:04\nCompany: Samsung Electro Mechanics co.,LTD. |
+| Ip Addr: 192.168.1.103\nMac Addr: 08:00:27:b9:f1:9c\nCompany: CADMUS COMPUTER SYSTEMS |
+| Ip Addr: 192.168.1.106\nMac Addr: 5c:ac:4c:2d:dd:18\nCompany: Hon Hai Precision Ind. Co.,Ltd. |
+| Ip Addr: 192.168.1.102\nMac Addr: 1c:6f:65:94:70:68\nCompany: GIGA-BYTE TECHNOLOGY CO.,LTD. |
+| Ip Addr: 192.168.1.104\nMac Addr: 00:26:5e:2f:31:30\nCompany: Hon Hai Precision Ind. Co.,Ltd. |
+------------------------------------------------------------------------------------------------------------------------------------------------------

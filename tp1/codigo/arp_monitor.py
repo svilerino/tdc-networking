@@ -10,7 +10,16 @@ import json
 from scapy.all import *
 
 #mac : disp description table
-disp_table = dict()
+mac_disp_table = dict()
+ip_disp_table = dict()
+
+def hex_to_rgb(value):
+    value = value.lstrip('#')
+    lv = len(value)
+    return tuple(int(value[i:i+lv/3], 16) for i in range(0, lv, lv/3))
+   
+def rgb_to_hex(rgb):
+    return '%02x%02x%02x' % rgb
 
 class Package(object):
     def __init__(self, source, destination, operation):
@@ -25,6 +34,12 @@ class Package(object):
 
     def as_edge(self):
         return self.source, self.destination
+
+    def set_src(self, source):
+        self.source=source
+
+    def set_dst(self, destination):
+        self.destination=destination
 
 
 class Histogram(object):
@@ -90,6 +105,19 @@ class PackageStatistics(object):
 
     def __init__(self):
         self.graph = pgv.AGraph(bgcolor='white', directed=True)
+        # ----- Atributos de grafo -----
+        self.graph.graph_attr['label'] = 'Esquema de red'        
+        self.graph.graph_attr['ratio'] = 0.4
+
+        # ----- Atributos de aristas -----
+        self.graph.edge_attr['style']='setlinewidth(2)'
+        
+        # ----- Atributos de nodos -----
+        self.graph.node_attr['fontsize'] = '11'
+        self.graph.node_attr['style']='filled'
+        #self.graph.node_attr['fillcolor']='#BABABA'
+        self.graph.node_attr['fillcolor']='#EFEFEF'
+        self.graph.node_attr['fontcolor']='#000000'
 
         # Entropys
         self.entropy_dst = EntropyStatistics(name='entropy_dst')
@@ -101,12 +129,62 @@ class PackageStatistics(object):
         self.histogram_dst = Histogram(name='histogram_dst')
 
     def add_to_graph(self, package):
+        # ----- Set color for directed edge -----
+        if package.operation == 'who-has':
+            edge_color='red'
+        elif package.operation == 'is-at':
+            edge_color='green'
+            
+        # ----- Update graph edge weigth -----                
         try:
             actual_weight = int(self.graph.get_edge(*package.as_edge()).attr['label'])
         except KeyError:
-            self.graph.add_edge(package.as_edge())
+            self.graph.add_edge(package.as_edge(), color=edge_color)
             actual_weight = 0
-        self.graph.get_edge(*package.as_edge()).attr['label'] = str(actual_weight + 1)
+        actual_weight = actual_weight + 1
+        self.graph.get_edge(*package.as_edge()).attr['label'] = str(actual_weight)
+        
+        # ----- Update ip definition with metadata(company vendor) -----
+        if (package.as_edge()[0] in ip_disp_table):
+            disp_descr=str(ip_disp_table[package.as_edge()[0]])
+            print "Se descubrio que la IP " + package.as_edge()[0] + " corresponde a " + disp_descr
+            node_src = self.graph.get_node(package.as_edge()[0])
+            node_src.attr['label'] = disp_descr
+
+        # ----- Update destination node color in function of its "who-has" activity -----
+        if(package.operation == 'who-has'):            
+            if (package.as_edge()[1] in ip_disp_table):
+                disp_descr=str(ip_disp_table[package.as_edge()[1]])
+                if(self.graph.has_node(disp_descr)):                    
+                    node_dst = self.graph.get_node(disp_descr)
+                else:
+                    node_dst = self.graph.get_node(package.as_edge()[1])
+            else:
+                node_dst = self.graph.get_node(package.as_edge()[1])
+
+            new_color = hex_to_rgb(node_dst.attr['fillcolor'])
+            red = new_color[0]
+            green = new_color[1]
+            blue = new_color[2]
+
+            if(blue > 0):
+                blue = blue - 15
+            elif(green > 0):
+                green = green - 15
+                blue = 255
+            elif(red > 0):
+                #cross-over de colores por la vista(intercambio blanco negro fontcolor y bgcolor)
+                self.graph.node_attr['fontcolor']='#FFFFFF'
+                red = red - 15
+                blue = 255
+                green = 255
+            else:
+                blue=0
+                green=0
+                red=0
+
+            new_color = red, green, blue
+            node_dst.attr['fillcolor']="#" + rgb_to_hex(new_color)
 
     def add_to_entropys(self, package):
         self.entropy_dst.add_info(package.destination)
@@ -175,7 +253,7 @@ def monitor_callback(pkt):
         try:
             vendor_src = json.loads(urllib2.urlopen("http://www.macvendorlookup.com/api/v2/" + pkt.hwsrc).read())
             #print json.dumps(vendor_src, sort_keys=True, indent=4)
-            vendor_src = "Ip Addr: " + pkt.psrc +  " - Mac Addr: " + pkt.hwsrc + " - Company: " + vendor_src[0]["company"]
+            vendor_src = "Ip Addr: " + pkt.psrc +  "\\nMac Addr: " + pkt.hwsrc + "\\nCompany: " + vendor_src[0]["company"]
         except (ValueError, KeyError, TypeError):
             vendor_src = pkt.hwsrc
     else:
@@ -185,7 +263,7 @@ def monitor_callback(pkt):
         try:
             vendor_dst = json.loads(urllib2.urlopen("http://www.macvendorlookup.com/api/v2/" + pkt.hwdst).read())
             #print json.dumps(vendor_dst, sort_keys=True, indent=4)
-            vendor_dst = "Ip Addr: " + pkt.pdst +  " - Mac Addr: " + pkt.hwdst + " - Company: " + vendor_dst[0]["company"]
+            vendor_dst = "Ip Addr: " + pkt.pdst +  "\\nMac Addr: " + pkt.hwdst + "\\nCompany: " + vendor_dst[0]["company"]
         except (ValueError, KeyError, TypeError):
             vendor_dst = pkt.hwdst
     else:
@@ -195,27 +273,31 @@ def monitor_callback(pkt):
 
     print "ARP '" + arp_operation_name + "' operation was sent from (" + vendor_src + ")" + " to (" + vendor_dst + ")"
     #print pkt.sprintf("from %ARP.psrc% (%ARP.hwsrc%) to %ARP.pdst% (%ARP.hwdst%)")
+
+    # -------- Update mac disp table -------
+    mac_disp_table[pkt.hwsrc] = vendor_src
+
+    # -------- Update disp table to file and print it -------    
+    print " ------ Updated dispositives table:  ------ "    
+    for mac, disp in mac_disp_table.iteritems():
+        print "| " + disp + " |"
+    print "------------------------------------------------------------------------------------------------------------------------------------------------------"
     
+    f = open("mac_disp_table.txt", "w")    
+    f.write(" ------ Discovered dispositives in network table:  ------ \n")
+    for mac, disp in mac_disp_table.iteritems():
+        f.write("| " + disp + " |\n")
+    f.write("------------------------------------------------------------------------------------------------------------------------------------------------------")
+    f.close()
+
+    # -------- Update ip disp table -------
+    ip_disp_table[pkt.psrc] = vendor_src
+
+    # ----- Update graphics -----
     package = Package(source=pkt.psrc, destination=pkt.pdst, operation=pkt.op)
     #package = Package(source=str(pkt.psrc) + " " + vendor_src, destination=str(pkt.pdst) + " " + vendor_dst, operation=pkt.op)
     PackageStatistics.get_instance().add_package(package)
     PackageStatistics.get_instance().draw()
-
-    # -------- Update disp table -------
-
-    disp_table[pkt.hwsrc] = vendor_src
-    print " ------ Updated dispositives table:  ------ "    
-    for mac, disp in disp_table.iteritems():
-        print "| " + disp + " |"
-    print "------------------------------------------------------------------------------------------------------------------------------------------------------"
-
-    # -------- Update disp table to file -------    
-    f = open("disp_table.txt", "w")    
-    f.write(" ------ Discovered dispositives in network table:  ------ \n")
-    for mac, disp in disp_table.iteritems():
-        f.write("| " + disp + " |\n")
-    f.write("------------------------------------------------------------------------------------------------------------------------------------------------------")
-    f.close()
 
 if __name__ == '__main__':
     sniff(prn=monitor_callback, filter="arp", store=0)
