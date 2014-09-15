@@ -5,8 +5,12 @@ import numpy
 import matplotlib
 import pygraphviz as pgv
 import datetime
+import urllib2
+import json
 from scapy.all import *
 
+#mac : disp description table
+disp_table = dict()
 
 class Package(object):
     def __init__(self, source, destination, operation):
@@ -139,11 +143,79 @@ class PackageStatistics(object):
 
 
 def monitor_callback(pkt):
+#    ls(pkt)  command to get package field list
+#   package fields list
+    #dst        : DestMACField         = 'ff:ff:ff:ff:ff:ff' (None)
+    #src        : SourceMACField       = '1c:6f:65:94:70:68' (None)
+    #type       : XShortEnumField      = 2054            (0)
+    #--
+    #hwtype     : XShortField          = 1               (1)
+    #ptype      : XShortEnumField      = 2048            (2048)
+    #hwlen      : ByteField            = 6               (6)
+    #plen       : ByteField            = 4               (4)
+    #op         : ShortEnumField       = 1               (1)
+    #hwsrc      : ARPSourceMACField    = '1c:6f:65:94:70:68' (None)
+    #psrc       : SourceIPField        = '192.168.1.102' (None)
+    #hwdst      : MACField             = '00:00:00:00:00:00' ('00:00:00:00:00:00')
+    #pdst       : IPField              = '192.168.1.1'   ('0.0.0.0')
+    #--
+    #load       : StrField             = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00' ('')
+
+
+    # ------- Parse Operation Type  -------
+
+    if pkt.op == 1:
+        arp_operation_name = 'who-has'
+    elif pkt.op == 2:
+        arp_operation_name = 'is-at'
+
+    # ------- Parse MAC Vendors  -------
+    # ------- Parse URL GET response  -------
+    if pkt.hwsrc != "00:00:00:00:00:00":
+        try:
+            vendor_src = json.loads(urllib2.urlopen("http://www.macvendorlookup.com/api/v2/" + pkt.hwsrc).read())
+            #print json.dumps(vendor_src, sort_keys=True, indent=4)
+            vendor_src = "Ip Addr: " + pkt.psrc +  " - Mac Addr: " + pkt.hwsrc + " - Company: " + vendor_src[0]["company"]
+        except (ValueError, KeyError, TypeError):
+            vendor_src = pkt.hwsrc
+    else:
+        vendor_src = pkt.hwsrc
+
+    if pkt.hwdst != "00:00:00:00:00:00":
+        try:
+            vendor_dst = json.loads(urllib2.urlopen("http://www.macvendorlookup.com/api/v2/" + pkt.hwdst).read())
+            #print json.dumps(vendor_dst, sort_keys=True, indent=4)
+            vendor_dst = "Ip Addr: " + pkt.pdst +  " - Mac Addr: " + pkt.hwdst + " - Company: " + vendor_dst[0]["company"]
+        except (ValueError, KeyError, TypeError):
+            vendor_dst = pkt.hwdst
+    else:
+        vendor_dst = pkt.hwdst
+
+    # -------- Print info -------
+
+    print "ARP '" + arp_operation_name + "' operation was sent from (" + vendor_src + ")" + " to (" + vendor_dst + ")"
+    #print pkt.sprintf("from %ARP.psrc% (%ARP.hwsrc%) to %ARP.pdst% (%ARP.hwdst%)")
+    
     package = Package(source=pkt.psrc, destination=pkt.pdst, operation=pkt.op)
+    #package = Package(source=str(pkt.psrc) + " " + vendor_src, destination=str(pkt.pdst) + " " + vendor_dst, operation=pkt.op)
     PackageStatistics.get_instance().add_package(package)
     PackageStatistics.get_instance().draw()
-    print pkt.sprintf("from %ARP.psrc% to %ARP.pdst%")
 
+    # -------- Update disp table -------
+
+    disp_table[pkt.hwsrc] = vendor_src
+    print " ------ Updated dispositives table:  ------ "    
+    for mac, disp in disp_table.iteritems():
+        print "| " + disp + " |"
+    print "------------------------------------------------------------------------------------------------------------------------------------------------------"
+
+    # -------- Update disp table to file -------    
+    f = open("disp_table.txt", "w")    
+    f.write(" ------ Discovered dispositives in network table:  ------ \n")
+    for mac, disp in disp_table.iteritems():
+        f.write("| " + disp + " |\n")
+    f.write("------------------------------------------------------------------------------------------------------------------------------------------------------")
+    f.close()
 
 if __name__ == '__main__':
     sniff(prn=monitor_callback, filter="arp", store=0)
