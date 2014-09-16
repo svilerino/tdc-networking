@@ -7,9 +7,9 @@ import pygraphviz as pgv
 import datetime
 import urllib2
 import json
+import httplib
 from scapy.all import *
 
-#mac : disp description table
 mac_disp_table = dict()
 ip_disp_table = dict()
 
@@ -63,6 +63,18 @@ class Histogram(object):
         pylab.savefig('%s.png' % self.name, bbox_inches='tight')
         pylab.close()
 
+    def draw_probabilities(self):
+        #calculate probabilities
+        total_events = sum([amount for amount in self.data.values()])#sumo la cantidad total de paquetes de todas las ips
+        normalized_values = [value/float(total_events) for value in self.data.values()]
+        pylab.figure()
+        X = numpy.arange(len(self.data))
+        pylab.bar(X, normalized_values, align='center', width=0.5)
+        pylab.xticks(X, self.data.keys(), rotation='vertical')
+        pylab.ylim(0, 1)#probabilidades siempre entre 0 y 1...
+        pylab.savefig('%s_probabilities.png' % self.name, bbox_inches='tight')
+        pylab.close()
+
 
 class EntropyStatistics(object):
     def __init__(self, name):
@@ -92,15 +104,6 @@ class EntropyStatistics(object):
         pylab.plot_date(x, y)
         pylab.savefig('%s.png' % self.name, bbox_inches='tight')
         pylab.close()
-        
-        #print probabilities
-        probs = self.history[-1]['probabilities']#obtengo las ultimas probabilidades
-        f = open("ip_probabilities_table.txt", "w")
-        f.write("Ip - probability table\n")
-        for ip, prob in probs.iteritems():
-            f.write("| " + ip + " - " + str(prob) + " |\n")
-        f.close()
-
 
 class PackageStatistics(object):
     instance = None
@@ -130,11 +133,10 @@ class PackageStatistics(object):
         # Entropys
         self.entropy_dst = EntropyStatistics(name='entropy_dst')
         self.entropy_src = EntropyStatistics(name='entropy_src')
-        self.entropy_src_who_has = EntropyStatistics(name='entropy_src_who_has')
-        self.entropy_dst_who_has = EntropyStatistics(name='entropy_dst_who_has')
 
         # Histograms
         self.histogram_dst = Histogram(name='histogram_dst')
+        self.histogram_src = Histogram(name='histogram_src')
 
     def add_to_graph(self, package):
         # ----- Set color for directed edge -----
@@ -195,14 +197,14 @@ class PackageStatistics(object):
             node_dst.attr['fillcolor']="#" + rgb_to_hex(new_color)
 
     def add_to_entropys(self, package):
-        self.entropy_dst.add_info(package.destination)
-        self.entropy_src.add_info(package.source)
         if package.operation == 'who-has':
-            self.entropy_src_who_has.add_info(package.source)
-            self.entropy_dst_who_has.add_info(package.destination)
+            self.entropy_dst.add_info(package.destination)
+            self.entropy_src.add_info(package.source)
 
     def add_to_histograms(self, package):
-        self.histogram_dst.increase_column(package.destination)
+        if package.operation == 'who-has':
+            self.histogram_dst.increase_column(package.destination)
+            self.histogram_src.increase_column(package.source)
 
     def add_package(self, package):
         self.add_to_graph(package)
@@ -216,38 +218,19 @@ class PackageStatistics(object):
     def draw_entropys(self):
         self.entropy_dst.draw()
         self.entropy_src.draw()
-        self.entropy_src_who_has.draw()
-        self.entropy_dst_who_has.draw()
 
     def draw_histograms(self):
+        self.histogram_src.draw()
+        self.histogram_src.draw_probabilities()
         self.histogram_dst.draw()
+        self.histogram_dst.draw_probabilities()
 
     def draw(self):
         self.draw_graph()
         self.draw_histograms()
         self.draw_entropys()
 
-
 def monitor_callback(pkt):
-#    ls(pkt)  command to get package field list
-#   package fields list
-    #dst        : DestMACField         = 'ff:ff:ff:ff:ff:ff' (None)
-    #src        : SourceMACField       = '1c:6f:65:94:70:68' (None)
-    #type       : XShortEnumField      = 2054            (0)
-    #--
-    #hwtype     : XShortField          = 1               (1)
-    #ptype      : XShortEnumField      = 2048            (2048)
-    #hwlen      : ByteField            = 6               (6)
-    #plen       : ByteField            = 4               (4)
-    #op         : ShortEnumField       = 1               (1)
-    #hwsrc      : ARPSourceMACField    = '1c:6f:65:94:70:68' (None)
-    #psrc       : SourceIPField        = '192.168.1.102' (None)
-    #hwdst      : MACField             = '00:00:00:00:00:00' ('00:00:00:00:00:00')
-    #pdst       : IPField              = '192.168.1.1'   ('0.0.0.0')
-    #--
-    #load       : StrField             = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00' ('')
-
-
     # ------- Parse Operation Type  -------
 
     if pkt.op == 1:
@@ -278,9 +261,7 @@ def monitor_callback(pkt):
         vendor_dst = pkt.hwdst
 
     # -------- Print info -------
-
     print "ARP '" + arp_operation_name + "' operation was sent from (" + vendor_src + ")" + " to (" + vendor_dst + ")"
-    #print pkt.sprintf("from %ARP.psrc% (%ARP.hwsrc%) to %ARP.pdst% (%ARP.hwdst%)")
 
     # -------- Update mac disp table -------
     mac_disp_table[pkt.hwsrc] = vendor_src
@@ -301,9 +282,8 @@ def monitor_callback(pkt):
     # -------- Update ip disp table -------
     ip_disp_table[pkt.psrc] = vendor_src
 
-    # ----- Update graphics -----
+    # ----- Update statistics -----
     package = Package(source=pkt.psrc, destination=pkt.pdst, operation=pkt.op)
-    #package = Package(source=str(pkt.psrc) + " " + vendor_src, destination=str(pkt.pdst) + " " + vendor_dst, operation=pkt.op)
     PackageStatistics.get_instance().add_package(package)
     PackageStatistics.get_instance().draw()
 
