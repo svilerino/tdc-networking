@@ -264,7 +264,7 @@ def monitor_callback(pkt):
             vendor_dst = json.loads(urllib2.urlopen("http://www.macvendorlookup.com/api/v2/" + pkt.hwdst).read())
             #print json.dumps(vendor_dst, sort_keys=True, indent=4)
             vendor_dst = "Ip Addr: " + pkt.pdst +  "\\nMac Addr: " + pkt.hwdst + "\\nCompany: " + vendor_dst[0]["company"]
-        except (ValueError, KeyError, TypeError):
+        except (ValueError, KeyError, TypeError, urllib2.URLError):
             vendor_dst = pkt.hwdst
     else:
         vendor_dst = pkt.hwdst
