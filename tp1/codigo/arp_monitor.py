@@ -93,6 +93,14 @@ class EntropyStatistics(object):
         pylab.savefig('%s.png' % self.name, bbox_inches='tight')
         pylab.close()
         
+        #print probabilities
+        probs = self.history[-1]['probabilities']#obtengo las ultimas probabilidades
+        f = open("ip_probabilities_table.txt", "w")
+        f.write("Ip - probability table\n")
+        for ip, prob in probs.iteritems():
+            f.write("| " + ip + " - " + str(prob) + " |\n")
+        f.close()
+
 
 class PackageStatistics(object):
     instance = None
@@ -264,7 +272,7 @@ def monitor_callback(pkt):
             vendor_dst = json.loads(urllib2.urlopen("http://www.macvendorlookup.com/api/v2/" + pkt.hwdst).read())
             #print json.dumps(vendor_dst, sort_keys=True, indent=4)
             vendor_dst = "Ip Addr: " + pkt.pdst +  "\\nMac Addr: " + pkt.hwdst + "\\nCompany: " + vendor_dst[0]["company"]
-        except (ValueError, KeyError, TypeError, urllib2.URLError):
+        except (ValueError, KeyError, TypeError, urllib2.URLError, httplib.BadStatusLine):
             vendor_dst = pkt.hwdst
     else:
         vendor_dst = pkt.hwdst
