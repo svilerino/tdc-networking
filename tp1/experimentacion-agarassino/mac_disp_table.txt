@@ -1,0 +1,18 @@
+ ------ Discovered dispositives in network table:  ------ 
+| Ip Addr: 192.168.3.73\nMac Addr: 00:23:4d:35:4f:13\nCompany: Hon Hai Precision Ind. Co., Ltd. |
+| Ip Addr: 192.168.3.142\nMac Addr: 6c:71:d9:21:3f:a7\nCompany: AzureWave Technologies, Inc |
+| Ip Addr: 192.168.3.96\nMac Addr: 5c:96:9d:85:7a:e3\nCompany: Apple |
+| Ip Addr: 192.168.3.119\nMac Addr: a4:17:31:dc:e3:c7\nCompany: Hon Hai Precision Ind. Co.,Ltd. |
+| Ip Addr: 192.168.3.44\nMac Addr: a8:44:81:76:42:ac\nCompany: Nokia Corporation |
+| Ip Addr: 192.168.3.22\nMac Addr: 90:4c:e5:b8:8b:77\nCompany: Hon Hai Precision Ind. Co.,Ltd. |
+| Ip Addr: 192.168.3.38\nMac Addr: c4:da:26:04:a5:ed\nCompany: NOBLEX SA |
+| Ip Addr: 192.168.3.121\nMac Addr: 78:31:c1:c7:29:4e\nCompany: Apple |
+| Ip Addr: 192.168.3.158\nMac Addr: c4:85:08:db:53:cb\nCompany: Intel Corporate |
+| Ip Addr: 192.168.3.100\nMac Addr: 54:26:96:d0:6f:b5\nCompany: Apple |
+| Ip Addr: 192.168.3.19\nMac Addr: 90:f6:52:57:77:aa\nCompany: TP-LINK TECHNOLOGIES CO., LTD. |
+| Ip Addr: 192.168.3.205\nMac Addr: c4:da:26:04:8b:53\nCompany: NOBLEX SA |
+| Ip Addr: 192.168.3.24\nMac Addr: 88:1f:a1:41:7d:aa\nCompany: Apple |
+| Ip Addr: 192.168.3.152\nMac Addr: 88:32:9b:ce:8f:7a\nCompany: Samsung Electro Mechanics co.,LTD. |
+| Ip Addr: 192.168.3.112\nMac Addr: e0:91:53:63:82:89\nCompany: XAVi Technologies Corp. |
+| Ip Addr: 192.168.3.254\nMac Addr: 08:5b:0e:14:a5:e8\nCompany: Fortinet, Inc. |
+------------------------------------------------------------------------------------------------------------------------------------------------------
