@@ -1,0 +1,23 @@
+ ------ Discovered dispositives in network table:  ------ 
+| Ip Addr: 10.251.14.249\nMac Addr: 90:00:4e:80:fe:80\nCompany: Hon Hai Precision Ind. Co.,Ltd. |
+| Ip Addr: 10.251.14.70\nMac Addr: 8c:3a:e3:0f:7f:88\nCompany: LG Electronics |
+| Ip Addr: 169.254.74.237\nMac Addr: d8:9e:3f:d8:cd:96\nCompany: Apple |
+| Ip Addr: 10.251.14.220\nMac Addr: c0:65:99:9b:a1:45\nCompany: Samsung Electronics Co.,Ltd |
+| Ip Addr: 10.251.14.100\nMac Addr: b0:79:94:f8:ca:06\nCompany: Motorola Mobility LLC |
+| Ip Addr: 10.251.14.138\nMac Addr: b4:3a:28:82:b6:45\nCompany: Samsung Electronics Co.,Ltd |
+| Ip Addr: 10.251.14.247\nMac Addr: a8:06:00:2c:f1:0f\nCompany: Samsung Electronics Co.,Ltd |
+| Ip Addr: 10.251.14.234\nMac Addr: 18:26:66:ab:60:91\nCompany: Samsung Electronics Co.,Ltd |
+| Ip Addr: 10.251.14.38\nMac Addr: 64:e6:82:b1:2b:d7\nCompany: Apple |
+| Ip Addr: 10.251.14.46\nMac Addr: 70:aa:b2:4f:2b:1b\nCompany: Research In Motion |
+| Ip Addr: 10.251.14.214\nMac Addr: 48:9d:24:72:5b:ee\nCompany: Research In Motion |
+| Ip Addr: 10.251.14.19\nMac Addr: 00:e3:b2:ed:69:37\nCompany: Samsung Electronics Co.,Ltd |
+| Ip Addr: 10.251.14.21\nMac Addr: d8:90:e8:2f:7d:1e\nCompany: Samsung Electronics Co.,Ltd |
+| Ip Addr: 10.251.14.5\nMac Addr: 00:25:d3:f6:1c:ec\nCompany: AzureWave Technologies, Inc |
+| Ip Addr: 10.251.14.67\nMac Addr: 40:6a:ab:3f:42:f9\nCompany: RIM |
+| Ip Addr: 10.251.14.158\nMac Addr: 70:f9:27:ce:bb:e9\nCompany: Samsung Electronics |
+| Ip Addr: 10.251.14.118\nMac Addr: 38:0b:40:05:ae:8f\nCompany: Samsung Electronics Co.,Ltd |
+| Ip Addr: 10.251.14.11\nMac Addr: f0:5a:09:ab:c9:1f\nCompany: Samsung Electronics Co.,Ltd |
+| Ip Addr: 0.0.0.0\nMac Addr: b0:35:8d:fa:d8:e0\nCompany: Nokia Corporation |
+| Ip Addr: 10.251.14.8\nMac Addr: a8:88:08:b9:25:0f\nCompany: Apple |
+| Ip Addr: 10.251.14.219\nMac Addr: 48:9d:24:72:4f:d0\nCompany: Research In Motion |
+------------------------------------------------------------------------------------------------------------------------------------------------------
