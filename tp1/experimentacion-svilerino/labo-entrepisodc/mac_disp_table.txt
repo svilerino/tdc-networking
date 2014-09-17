@@ -1,0 +1,17 @@
+ ------ Discovered dispositives in network table:  ------ 
+| Ip Addr: 10.1.200.30\nMac Addr: dc:85:de:8e:58:3a\nCompany: Azurewave Technologies., inc. |
+| Ip Addr: 10.1.200.169\nMac Addr: 5c:0a:5b:78:54:00\nCompany: SAMSUNG ELECTRO-MECHANICS CO., LTD. |
+| Ip Addr: 10.1.200.66\nMac Addr: c0:d9:62:0b:ad:d3\nCompany: Askey Computer Corp. |
+| Ip Addr: 10.1.200.254\nMac Addr: 00:1b:21:7f:6c:fc\nCompany: Intel Corporate |
+| Ip Addr: 10.1.0.185\nMac Addr: 00:1a:c1:d1:5e:42\nCompany: 3Com Ltd |
+| Ip Addr: 10.1.100.132\nMac Addr: 70:71:bc:ac:f2:e9\nCompany: PEGATRON CORPORATION |
+| Ip Addr: 10.1.200.78\nMac Addr: 84:38:38:3d:20:89\nCompany: Samsung Electro Mechanics co., LTD. |
+| Ip Addr: 10.1.200.185\nMac Addr: 98:fc:11:d5:be:69\nCompany: Cisco-Linksys, LLC |
+| Ip Addr: 10.1.100.228\nMac Addr: 00:26:18:d3:2c:0a\nCompany: ASUSTek COMPUTER INC. |
+| Ip Addr: 10.1.200.69\nMac Addr: b4:74:9f:f9:b6:5c\nCompany: askey computer corp |
+| Ip Addr: 10.1.11.34\nMac Addr: 08:00:27:9d:04:dc\nCompany: CADMUS COMPUTER SYSTEMS |
+| Ip Addr: 10.1.100.1\nMac Addr: 00:1c:c0:ea:d2:4d\nCompany: Intel Corporate |
+| Ip Addr: 10.1.200.9\nMac Addr: 60:be:b5:42:a3:0b\nCompany: Motorola Mobility LLC |
+| Ip Addr: 10.1.200.56\nMac Addr: 5c:0a:5b:ec:36:b0\nCompany: SAMSUNG ELECTRO-MECHANICS CO., LTD. |
+| Ip Addr: 10.1.0.190\nMac Addr: 1c:af:f7:42:cb:1b\nCompany: D-LINK INTERNATIONAL PTE LIMITED |
+------------------------------------------------------------------------------------------------------------------------------------------------------
