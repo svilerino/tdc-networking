@@ -60,6 +60,7 @@
 \usepackage[usenames,dvipsnames]{color}
 \usepackage{hyperref}
 \usepackage{listings}
+\usepackage{color}
 \usepackage{xcolor}
 \usepackage{amsmath}
 
@@ -99,7 +100,7 @@
 
 \integrante{Barbeito, Nicolás}{147/10}{nicolasbarbeiton@gmail.com}
 \integrante{Garassino, Agustín Javier}{394/12}{ajgarassino@gmail.com}
-\integrante{Vileriño, Silvio}{LLL/AA}{svilerino@gmail.com}
+\integrante{Vileriño, Silvio}{106/12}{svilerino@gmail.com}
 
 \maketitle
 
@@ -109,14 +110,13 @@
 \section{Introducción}
 El objetivo de este trabajo es construir una herramienta para el análisis de redes, más específicamente de la interacción de sus miembros a través de paquetes ARP (Address Resolution Protocol). Posteriormente, esta se utilizará como medio para la realización de experimentos en diversos entornos y sacar conclusiones a partir de los datos recolectados. Es decir, se recopilárá información sobre distintas redes y se tratará de deducir información significante para cada una de ellas a partir de su tráfico de paquetes ARP.
 
-\section{Herramienta para análisis de la red}
-\subsection{Paquetes ARP}
+\section{Herramienta desarrollada para análisis de la red}
+\subsection{Motivaci\'on: Protocolo ARP}
 Hoy en día la mayoría de los dispositivos con acceso a la red poseen al menos dos direcciones asociadas que permiten identificarlo unívocamente y diferenciarlo del resto. La primera de ellas, denominada MAC Address o dirección física, consiste en un identificador de 6 bytes. Esta es utilizada por diversas tecnologías de capa 2 según el modelo OSI \footnote{Modelo OSI: http://www.ecma-international.org/activities/Communications/TG11/s020269e.pdf}, por ejemplo en ethernet\footnote{Ethernet: IEEE 802.3} o las redes inalámbricas\footnote{Wi-Fi: IEEE 802.11}. La segunda es llamada dirección IP: está formada por 4 bytes y opera en la capa 3 del modelo OSI. Como estas direcciones operan a distintas capas del modelo necesitan un protocolo auxiliar que asocie las direcciones de ambos tipos a una misma máquina.
 
 \vspace{\baselineskip}
         \begin{center}
-        \includegraphics[scale=0.40]{osimodel.jpeg}
-        \\
+        \includegraphics[scale=0.40]{fig/osimodel.jpeg}        
         \vspace{1pt}
         \footnotesize\textit{Modelo OSI. Se puede ver como el protocolo ARP se encarga de la comunicación entre la capa 2 y la capa 3.}
       \end{center}
@@ -126,31 +126,50 @@ Hoy en día la mayoría de los dispositivos con acceso a la red poseen al menos 
 Es decir que el protocolo ARP surge por la necesidad de una máquina de comunicarse con otra en su misma red utilizando una tecnología de la capa nivel 2, teniendo en su poder una dirección de nivel 3. Para cumplir con su objetivo, el protocolo ARP provee dos operaciones:
 
 \begin{itemize}
-\item \textit{who-has}: La máquina manda una señal broadcast (paquete que reciben todas las computadoras en la red) preguntando quién posee una dirección IP determinada, con el fin de obtener la MAC Address asociada.
-\item \textit{reply}: Cuando la máquina recibe un paquete ARP \textit{who-has} preguntando por su dirección, contesta únicamente al dispositivo de donde provino avisando cuál es su MAC Address.
+    \item \textit{who-has}: La máquina manda una señal broadcast (paquete que reciben todas las computadoras en la red) preguntando quién posee una dirección IP determinada, con el fin de obtener la MAC Address asociada.
+    \item \textit{reply}: Cuando la máquina recibe un paquete ARP \textit{who-has} preguntando por su dirección, contesta únicamente al dispositivo de donde provino avisando cuál es su MAC Address.
 \end{itemize}
 
 Además cada una de las máquinas posee una tabla asociando direcciones MAC con IP de los dispositivos en la red. El propósito de esta tabla es reducir el tráfico de paquetes ARP, utilizando las operaciones solo cuando sea necesario actualizar la tabla.
 
 \subsection{Implementación y uso}
-La herramienta para el análisis de la red fue desarrollada en el lenguaje de programación Python, con la ayuda de diversas librerías que proveen herramientas para la manipulación de paquetes en la red \footnote{Scapy: http://www.secdev.org/projects/scapy/} y generación de visualizaciones amigables de los datos recopilados. Una vez ejecutado, el programa se encarga de filtrar los paquetes ARP que detecte en la red y obtener datos estadísticos a partir de estos. Entre otras cosas, calcula la entropía considerando a las direcciones IP destino u origen de los paquetes como una fuente de información.
+La herramienta para el análisis de la red fue desarrollada en el lenguaje de programación Python, con la ayuda de diversas librerías que proveen herramientas para la manipulación de paquetes en la red \footnote{Scapy: http://www.secdev.org/projects/scapy/} y generación de visualizaciones amigables de los datos recopilados. Una vez ejecutado, el programa se encarga de filtrar los paquetes ARP que detecte en la red y obtener datos estadísticos a partir de estos. 
 
 \section{Experimentación}
-Se llevaron a cabo experimentos sobre tres redes distintas para analizarlas y sacar conclusiones sobre ellas. El análisis se basó considerar una red como una fuente de información y usar ciertos conceptos de la teoría clásica de información. Se usaron los dos modelos siguientes:
-$$ S_{dst} = \{s_1, \dots, s_n \} $$
-donde $s_i$ es una dirección IP que es el destino de un paquete ARP del tipo \textit{who-has}. Es decir, se considera a la dirección IP $s_i$ como un símbolo posible que la fuente $S_{dst}$ puede emitir. El otro modelo es similar:
-$$ S_{src} = \{s_1, \dots, s_n \} $$
-donde, nuevamente, $s_i$ es una dirección IP, pero en este caso es la dirección IP orígen en un paquete ARP del tipo \textit{who-has}.
-\par Usando las herramientas desarrolladas, se capturaron paquetes ARP \textit{who-has} para estimar las probabilidades de ocurrencia de cada símbolo en las fuentes $S_{dst}$ y $S_{src}$ en cada red analizada. Para realizar esta estimación se modeló probabilidad de ocurrencia del símbolo $s_i$ (en alguna de las fuentes) con una variable binomial $Bi(k, p_{s_i})$, con $k$ la cantidad de capturas en la red y $p_{s_i}$ la probabilidad de ocurrencia del símbolo $s_i$. Luego usando las capturas, se estimó $p_{s_i}$ con el cociente $\frac{fr(s_i)}{k}$, donde $fr(s_i)$ es la cantidad de veces que se observó el símbolo $s_i$ y $k$ se definió anteriormente.
+\subsection{Enfoque del analisis}
+    Se llevaron a cabo experimentos sobre varias redes distintas para analizarlas y sacar conclusiones sobre ellas. El análisis se basó considerar una red como una fuente de información y usar ciertos conceptos de la teoría clásica de información. Se usaron los dos modelos siguientes:
+    $$ S_{dst} = \{s_1, \dots, s_n \} $$
+    donde $s_i$ es una dirección IP que es el destino de un paquete ARP del tipo \textit{who-has}. Es decir, se considera a la dirección IP $s_i$ como un símbolo posible que la fuente $S_{dst}$ puede emitir. El otro modelo es similar:
+    $$ S_{src} = \{s_1, \dots, s_n \} $$
+    donde, nuevamente, $s_i$ es una dirección IP, pero en este caso es la dirección IP orígen en un paquete ARP del tipo \textit{who-has}.
 
-\\ \\ \\ \\ 
-ESTO ES DUDOSO
-\par También se estimó usando la información obtenida la entropía en las redes analizadas (según los modelos anteriores). La información que nos puede brindar este concepto es una medida de que tan centralizado está el intercambio de paquetes ARP en una red. Esto es así porque la entropía es considerada una medida de la incertidumbre del sistema, es decir, una entropía alta se interpreta como una incertidumbre alto. Esta incertidumbre en nuestro modelo es máxima cuando $p_{s_1} = \dots = p_{s_n}$, es decir cuando cualquier símbolo tiene la misma probabilidad de ser emitido por la fuente, lo que se traduce en que toda dirección IP tiene iguales probabilidades de aparecer como dirección orígen o destino (según el modelo) en un paquete ARP \textit{who-has}.
-\\ \\ \\ \\
+\subsection{Estimaci\'on de probabilidad de aparicion de los simbolos en cada fuente}
+\par Usando las herramientas desarrolladas, se capturaron paquetes ARP \textit{who-has} para estimar las probabilidades de ocurrencia de cada símbolo en las fuentes $S_{dst}$ y $S_{src}$ en cada red analizada.
+Para obtener la estimaci\'on de las probabilidades de los simbolos en cada una de las fuentes, se va llevando registro de la frecuencia de aparicion $fr(s_i, f_j)$ de cada simbolo(direccion ip) $s_i$ en la fuente(red analizada)$f_j$ en una tabla \texttt{IP - Cantidad Apariciones}, luego, usando estas tablas internas(distintas para cada fuente), se obtiene la probabilidad estimada de cada simbolo $s_i$ para la fuente $f_j$ realizando el siguiente calculo $p_{(s_i, f_j)} = \frac{fr(s_i, f_j)}{N}$, siendo $N$ la cantidad de paquetes capturados en la red $f_j$.
+% Para realizar esta estimación se modeló probabilidad de ocurrencia del símbolo $s_i$ (en alguna de las fuentes) con una variable binomial $Bi(k, p_{s_i})$, con $k$ la cantidad de capturas en la red y $p_{s_i}$ la probabilidad de ocurrencia del símbolo $s_i$. Luego usando las capturas, se estimó $p_{s_i}$ con el cociente $\frac{fr(s_i)}{k}$, donde $fr(s_i)$ es la cantidad de veces que se observó el símbolo $s_i$ y $k$ se definió anteriormente.
+\\
+\subsection{Estimaci\'on de la entropia de la fuente}
+También se estimó usando la información obtenida la entropía en las redes analizadas (según los modelos anteriores), La estimaci\'on para una fuente $f_j$ fue realizada realizando el calculo $H_{(f_j)} = \sum\limits_{s_i \in simbolos(f_j)} p(s_i, f_j) * log_2(\frac{1}{p(s_i,f_j)})$.
+La información que nos puede brindar este concepto es una medida de que tan centralizado está el intercambio de paquetes ARP en una red. Esto es así porque la entropía es considerada una medida de la incertidumbre del sistema, es decir, una entropía alta se interpreta como una incertidumbre alto. Esta incertidumbre en nuestro modelo es máxima cuando $p_{s_1} = \dots = p_{s_n}$, es decir cuando cualquier símbolo tiene la misma probabilidad de ser emitido por la fuente, lo que se traduce en que toda dirección IP tiene iguales probabilidades de aparecer como dirección orígen o destino (según el modelo) en un paquete ARP \textit{who-has}.
  
+\subsection{Estimacion de la topologia de la red}
+Con el objetivo de investigar un poco mas acerca de la red analizada, utilizando librerias gr\'aficas para python se modelo la red analizada como un grafo indicando en ella, un nodo por cada host en la red, y una arista dirigida entre $h_i$ y $h_j$ de color {\color{green}verde} si se trata de un paquete \texttt{is-at} con origen $h_i$ y destino $h_j$, asimismo, si la flecha fuera de color {\color{red}rojo} se trata de un paquete \texttt{who-has} entre los dos hosts mencionados. Dado que la interaccion entre 2 hosts puede ser m\'ultiple, se asocia un peso al eje entre ambos nodos, indicando la cantidad de paquetes de ese tipo(color) fueron enviados entre ellos. Como medica adicional para detectar nodos distinguidos, se realiza una variaci\'on del color de fondo del nodo, mientras mas cercano al (0, 0, 0) en RGB se encuentre el fondo del nodo en el gr\'afico, esto es proporcional a la cantidad de paquetes con destino a ese host existen en la red.
 
+\subsection{Aclaraciones}
 Para facilitar la lectura de ambos tipos de direcciones a los humanos, generalmente las primeras son escritas como números hexadecimales separados por ':', mientras que las direcciones IP se escriben como números decimales separados por puntos. Siendo, por ejemplo, 00:22:b0:00:f2:61 una MAC Address válida y 192.168.1.10 una dirección IP.
 
+\subsection{Redes analizadas}
+
+\subsubsection{Sitio de trabajo}
+    \include{experimento_trabajo.tex} 
+\subsubsection{Laboratorios del DC - WiFi1}%entrepisoDC
+    \include{experimento_wifi1dc.tex} 
+\subsubsection{Laboratorios del DC - WiFi2}%licar
+    \include{experimento_wifi2dc.tex} 
+\subsubsection{Red domestica}
+    \include{experimento_reddomestica1.tex} 
+\subsubsection{Starbucks}
+    \include{experimento_starbucks1.tex} 
 \section{Conclusiones}
 
 \end{document}
