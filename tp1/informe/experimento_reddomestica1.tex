@@ -4,6 +4,7 @@
   \centering	
 	\includegraphics[scale=0.22]{../experimentacion-svilerino/casa/graph.png}
   \caption{Topologia de red estimada.}
+	\label{fig:grafo-casa}
 \end{figure}
 
 
@@ -12,12 +13,14 @@
   \centering
 	\includegraphics[scale=0.66]{../experimentacion-svilerino/casa/entropy_src.png}
   \caption{Entropia de la fuente origen.}
+	\label{fig:entropia-src-casa}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
 	\includegraphics[scale=0.66]{../experimentacion-svilerino/casa/histogram_src_probabilities.png}
   \caption{Probabilidades asociadas a las IP de la fuente origen.}
+	\label{fig:probabilidad-src-casa}
 \end{figure}
 
 %---------------------------------------------------------------------------------------------------------------
@@ -27,16 +30,19 @@
   \centering
 	\includegraphics[scale=0.66]{../experimentacion-svilerino/casa/entropy_dst.png}
   \caption{Entropia de la fuente destino.}
+	\label{fig:entropia-dst-casa}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
 	\includegraphics[scale=0.66]{../experimentacion-svilerino/casa/histogram_dst_probabilities.png}
   \caption{Probabilidades asociadas a las IP de la fuente destino.}
+	\label{fig:probabilidad-dst-casa}
 \end{figure}
 
 \subsubsection{Tabla de dispositivos detectados}
 \rowcolors{1}{Gray}{White}
+\label{table:disp-table-casa}
 \begin{tabular}{ |c|c|c| }
 	\hline
 	Ip Addr & Mac Addr & Company \\	
@@ -60,4 +66,4 @@
 \end{tabular}
 
 \subsubsection{Conclusiones del experimento}
-Con respecto a los resultados obtenidos podemos inferir con cierta alta probabilidad que el nodo con IP \texttt{192.168.1.1} es el router de la red, tanto por el fabricante \texttt{Cisco-Linksys} como por la cantidad de pedidos who-has que preguntan por dicho nodo. El host 192.168.1.103 es el que realiza la escucha de la red por lo tanto tiene mas actividad que el resto de los nodos.
+Este experimento se realizo sobre una red controlada en una casa, con respecto a los resultados obtenidos podemos inferir con cierta alta probabilidad que el nodo con IP \texttt{192.168.1.1} es el \texttt{access-point} de la red, tanto por el fabricante \texttt{Cisco-Linksys} como por la cantidad de pedidos who-has que preguntan por dicho nodo, observar figuras \ref{fig:grafo-casa} y \ref{fig:probabilidad-dst-casa}. El host 192.168.1.103 es el que realiza la escucha de la red por lo tanto tiene mas actividad que el resto de los nodos, como puede observarse en la figura \ref{fig:probabilidad-src-casa}. El resto de los hosts tienen una actividad similar respecto a las probabilidades en ambas fuentes origen y destino. La entropia parece converger a cierto valor, lo cual tiene sentido pues seria de esperar que la red se estabilice luego de un tiempo en sentido de las fuentes de informacion(probabilidades estables de las IPs). Faltaria analizar ciertos paquetes entre los hosts \texttt{192.168.1.101} y \texttt{192.168.1.102}, creemos que esto se debe a que ambas pcs comparten archivos y una impresora en la red. Por ultimo se observa un \href{http://wiki.wireshark.org/Gratuitous_ARP}{ARP gratuito} del host \texttt{192.168.1.101}, puede deberse a validaciones(IPs repetidas) o bien con el fin de actualizar las \texttt{ARP caches} de la red.

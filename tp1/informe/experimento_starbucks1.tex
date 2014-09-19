@@ -3,7 +3,8 @@
 \begin{figure}[h!]
   \centering	
 	\includegraphics[scale=0.15]{../experimentacion-svilerino/starbucks/graph-starbucks-3.png}
-  \caption{(grafo con experimento mas pequeño, el grafo completo puede encontrarse en la carpeta de experimentacion)}
+  \caption{(grafo con experimento mas pequeño, el grafo completo puede encontrarse en la carpeta de experimentacion starbucks/full-experiment-1)}
+  \label{fig:grafo-starbucks}
 \end{figure}
 
 \subsubsection{Probabilidades y entropia de fuente origen}
@@ -11,12 +12,14 @@
   \centering
 	\includegraphics[scale=0.66]{../experimentacion-svilerino/starbucks/full-experiment-1/entropy_src.png}
   \caption{Entropia de la fuente origen.}
+  \label{fig:entropia-src-starbucks}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
 	\includegraphics[scale=0.66]{../experimentacion-svilerino/starbucks/full-experiment-1/histogram_src_probabilities.png}
   \caption{Probabilidades asociadas a las IP de la fuente origen.}
+  \label{fig:probabilidad-src-starbucks}
 \end{figure}
 
 %---------------------------------------------------------------------------------------------------------------
@@ -26,12 +29,14 @@
   \centering
 	\includegraphics[scale=0.66]{../experimentacion-svilerino/starbucks/full-experiment-1/entropy_dst.png}
   \caption{Entropia de la fuente destino.}
+  \label{fig:entropia-dst-starbucks}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
 	\includegraphics[scale=0.66]{../experimentacion-svilerino/starbucks/full-experiment-1/histogram_dst_probabilities.png}
   \caption{Probabilidades asociadas a las IP de la fuente destino.}
+  \label{fig:probabilidad-dst-starbucks}
 \end{figure}
 
 \subsubsection{Tabla de dispositivos detectados}
@@ -85,3 +90,4 @@
 \end{tabular}
 
 \subsubsection{Conclusiones del experimento}
+Este experimento se realizo sobre una red \textbf{no} controlada en una sucursal de \texttt{Starbucks}, los resultados obtenidos son relativamente los que se esperarian en una simple red abierta de \texttt{WiFi}. Puede observarse un nodo central y muchos hosts accediendo a el para obtener un servicio, en este caso \texttt{Internet}. Dado que luego de un tiempo muy corto el grafo comienza a ser poco claro dada la cantidad de hosts, el grafo mostrado en este informe es una version reducida(un experimento mas corto en tiempo), mientras que las estadisticas se sacaron con un experimento mas largo respecto al tiempo de escucha de la red. Nuevamente podemos inferir que el \texttt{access-point} de la red es el host \texttt{10.254.14.1} Dadas las figuras \ref{fig:grafo-starbucks} y \ref{fig:probabilidad-dst-starbucks}. Se observan ademas varios \href{http://wiki.wireshark.org/Gratuitous_ARP}{ARP gratuitos} en varios hosts de la figura \ref{fig:grafo-starbucks}. Como dato atipico adicional se observan pedidos a la direccion IP \texttt{169.254.255.255} que segun esta explicado en este sitio \url{http://packetlife.net/blog/2008/sep/24/169-254-0-0-addresses-explained/} podria deberse a no poder obtener una IP dinamicamente en la red y autoasignarse esta default IP. El resto de los hosts muestran un comportamiento estable. En consideracion respecto a las fuentes de informacion modeladas, podemos observar que nuevamente lo que pensamos es el \texttt{access-point} dado el fabricante \texttt{Cisco} en la IP \texttt{10.254.14.1} es el que con mas probabilidad es el destino de los paquetes \texttt{who-has} y el resto de los hosts reciben estos paquetes de forma mas equiprobable(aproximadamente). La entropia de la fuente destino va en aumento(creemos que va a estabilizarse luego de un tiempo) dado que observando el calculo de la entropia, los terminos de la suma se mantendran estable, salvo en del simbolo(IP) del \texttt{access-point} que seguira en aumento hasta cierto punto. Se observa similarmente en la fuente origen, que la entropia va en aumento, y tenemos una IP distinguida que aparece como origen \texttt{0.0.0.0}, observando la tabla de resolucion de dispositivos vemos que es un dispositivo del fabricante \texttt{Nokia Corporation}, asumimos que es algun dispositivo movil que no puede conectarse(e intenta muchas veces) el reenvio de paquetes a la red. Mas alla de esto el resto de las IPs(Simbolos) son mas equiprobables(aproximadamente) en la fuente origen por lo tanto creemos que la entropia ira en aumento hasta estabilizarse al este dispositivo lograr conectarse o dejar de intentar.
