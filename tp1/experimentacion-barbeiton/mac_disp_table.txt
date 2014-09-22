@@ -1,0 +1,10 @@
+ ------ Discovered dispositives in network table:  ------ 
+| Ip Addr: 192.168.1.101\nMac Addr: dc:c7:93:10:c3:84\nCompany: Nokia Corporation |
+| 10:08:c1:51:bd:1f |
+| Ip Addr: 186.182.50.80\nMac Addr: 00:23:be:81:ab:96\nCompany: Cisco SPVTG |
+| Ip Addr: 192.168.1.128\nMac Addr: 64:66:b3:ce:67:58\nCompany: TP-LINK TECHNOLOGIES CO., LTD. |
+| Ip Addr: 192.168.1.1\nMac Addr: 00:23:be:81:ab:95\nCompany: Cisco SPVTG |
+| Ip Addr: 192.168.1.119\nMac Addr: 14:10:9f:a1:d2:b5\nCompany: Apple |
+| Ip Addr: 192.168.1.118\nMac Addr: 28:37:37:b5:98:8f\nCompany: Apple |
+| Ip Addr: 192.168.1.114\nMac Addr: 84:4b:f5:11:cc:76\nCompany: Hon Hai Precision Ind. Co.,Ltd. |
+------------------------------------------------------------------------------------------------------------------------------------------------------
