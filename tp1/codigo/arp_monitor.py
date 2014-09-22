@@ -89,18 +89,11 @@ class EntropyStatistics(object):
         self.calculate_entropy()
 
     def calculate_entropy(self):
-	if len(self.information) > 1:
-		time = datetime.datetime.now()
-		total = sum(self.information.values())
-		probabilities = dict([(key, value / float(total)) for key, value in self.information.iteritems()])
-		entropy = sum([-math.log(p, len(self.information)) * p for p in probabilities.values()])
-		self.history.append({'entropy': entropy, 'probabilities': probabilities, 'time': time})
-
-		# Recalcular entropia de viejos considerando que el alfabeto puede tener una ip nueva.
-		# Si todavía no había llegado la IP, se considerará que la probabilidad de esta es 0.
-		for entropy_info in self.history:
-			entropy = sum([-math.log(p, len(self.information)) * p for p in entropy_info['probabilities'].values()])
-			entropy_info['entropy'] = entropy
+        time = datetime.datetime.now()
+        total = sum(self.information.values())
+        probabilities = dict([(key, value / float(total)) for key, value in self.information.iteritems()])
+        entropy = sum([-math.log(p, 2) * p for p in probabilities.values()])
+        self.history.append({'entropy': entropy, 'probabilities': probabilities, 'time': time})
 
     def draw(self):
         x = matplotlib.dates.date2num([e['time'] for e in self.history])
