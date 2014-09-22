@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# coding=utf-8
 import pylab
 import math
 import numpy
