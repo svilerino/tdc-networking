@@ -1,16 +1,37 @@
 #!/usr/bin/python
 # coding=utf-8
+
 from scapy.all import *
 import sys
 
-#print 'Number of arguments:', len(sys.argv), 'arguments.'
-#print 'Argument List:', str(sys.argv)
+def main():
+	dst_host = sys.argv[1]
+	current_ttl=1
+	hop_list = []
+	hops_limit=30
+	host_reached = False
+	while not(host_reached) or current_ttl>hops_limit:
+		#enviando paquete ICMP con ttl incremental en la iteracion actual
+		answered, unanswered = sr(IP(dst=dst_host, ttl=current_ttl)/ICMP())
+		
+		#viendo si el tipo de respuesta es ICMP echo reply
+		if answered.res[0][1].type == 0:#echo reply
+			host_reached = True
+		elif answered.res[0][1].type == 11:#time exceeded
+			#time exceeded, entonces guardo el hop intermedio e incremento el ttl para la proxima iteracion.
+			hop_list.append(answered.res[0][1].src)
+		else:
+			#hop desconocido
+			hop_list.append("*")
+		
+		#incremento el ttl para la proxima iteracion
+		current_ttl +=1
+	
+	#imprimimos la lista de hops
+	hop_index = 1
+	for hop in hop_list:
+		print hop_index, " " + hop
+		hop_index+=1
 
-host_dst=sys.argv[1]
-max_hops=int(sys.argv[2])
-
-print "Calculating trace to " + host_dst + " with " + str(max_hops) + " max hops..."
-
-for ttl_iter in xrange(1, max_hops):
-	res=sr(IP(dst=host_dst, ttl=ttl_iter))
-	res[0][ICMP].display()
+if __name__ == "__main__":
+	main()
