@@ -15,7 +15,7 @@ def trace(dst_host):
 	host_reached = False
 	
 	print "----------------------------------------------------------------------"
-	while not(host_reached) and current_ttl<hops_limit:
+	while not(host_reached) and current_ttl<=hops_limit:
 		#enviando paquete ICMP con ttl incremental en la iteracion actual
 		print "TTL: " + str(current_ttl)
 		packet=IP(dst=dst_host, ttl=current_ttl)/ICMP()
@@ -30,7 +30,7 @@ def trace(dst_host):
 			#calculo el rtt acumulado(de origen a current_ttl saltos a lo sumo) usando los tiempos de envio 
 			#y recepcion de los paquetes
 			rtt_time  = 1000 * (rcv.time - snd.sent_time)
-			print "Rtt for this packet: " + str(round(rtt_time, 2))
+			print "Rtt de este request: " + str(round(rtt_time, 2))
 			print "Respuesta obtenida de tipo: " + str(rcv.type)
 
 			#chequeo el tipo de paquete recibido
@@ -47,7 +47,7 @@ def trace(dst_host):
 			#no llego respuesta
 			print "Se agotaron los " + str(timeout_constant) + " segundos para este pedido."
 			#hop desconocido
-			ruta.add_hop("\t*", "*", "*")
+			ruta.add_hop("\t\t*", "*", "*")
 
 		#incremento el ttl para la proxima iteracion
 		current_ttl+=1		

@@ -1,0 +1,32 @@
+Traceroute a infobae.com (max 30 hops)
+Hop#	Hop IP		Hop RTT Acumulado	Hop RTT Incremental	Hop Resp. Type	Hop Location				Hop Name
+1	10.2.100.254	0.38			0.38			Time exceeded	(Private Address), (Private Address)		(Unknown)
+2	157.92.18.99	0.64			0.26			Time exceeded	ARGENTINA, (Unknown city)		ccc-pab2.fcen.uba.ar.
+3	157.92.47.98	2.08			1.44			Time exceeded	ARGENTINA, Buenos Aires		(Unknown)
+4			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+5			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+6			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+7	208.48.239.69	124.71			122.63			Time exceeded	UNITED STATES, (Unknown city)		ethernet14-4.ar4.mia1.gblx.net.
+8	67.16.145.53	142.86			18.15			Time exceeded	UNITED STATES, (Unknown city)		po5.ar3.MIA2.gblx.net.
+9	67.16.140.189	371.35			228.49			Time exceeded	UNITED STATES, (Unknown city)		(Unknown)
+10	129.250.9.117	128.38			-242.97			Time exceeded	UNITED STATES, Ashburn, VA		xe-0-0-0-10.r05.miamfl02.us.bb.gin.ntt.net.
+11	129.250.2.184	128.26			-0.12			Time exceeded	NETHERLANDS, Amsterdam		ae-4.r20.miamfl02.us.bb.gin.ntt.net.
+12			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+13	129.250.4.41	157.46			29.2			Time exceeded	JAPAN, Osaka		ae-2.r05.asbnva02.us.bb.gin.ntt.net.
+14	168.143.232.50	156.42			-1.04			Time exceeded	UNITED STATES, Newport News, VA		ae-4.amazon.asbnva02.us.bb.gin.ntt.net.
+15	72.21.220.55	159.3			2.88			Time exceeded	(Unknown Country?), (Unknown City?)		(Unknown)
+16	205.251.245.55	160.58			1.28			Time exceeded	CANADA, (Unknown city)		(Unknown)
+17			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+18			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+19			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+20	216.182.224.203	160.49			-0.09			Time exceeded	UNITED STATES, (Unknown city)		(Unknown)
+21			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+22			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+23			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+24			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+25			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+26			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+27			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+28			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+29			*	*			*			*	(Unknown Country?), (Unknown City?)				*
+30			*	*			*			*	(Unknown Country?), (Unknown City?)				*
