@@ -1,0 +1,346 @@
+[sudo] password for svilerino: 
+WARNING: No route found for IPv6 destination :: (no default route?)
+----------------------------------------------------------------------
+TTL: 1
+Rtt de este request: 2.15
+Respuesta obtenida de tipo: 11
+Unable to solve reverse DNS(192.168.43.1)
+DNS Forward query: (Unknown)
+IP GeoLocation Result: Reserved  0 0
+Nearest hop behind 192.168.43.1 is 192.168.43.1
+Incremental RTT time is 2.15
+----------------------------------------------------------------------
+TTL: 2
+Se agotaron los 2 segundos para este pedido.
+----------------------------------------------------------------------
+TTL: 3
+Rtt de este request: 87.92
+Respuesta obtenida de tipo: 11
+Unable to solve reverse DNS(172.21.217.125)
+DNS Forward query: (Unknown)
+IP GeoLocation Result: Reserved  0 0
+Nearest hop behind 172.21.217.125 is 192.168.43.1
+Incremental RTT time is 42.885
+----------------------------------------------------------------------
+TTL: 4
+Rtt de este request: 433.95
+Respuesta obtenida de tipo: 11
+Unable to solve reverse DNS(172.21.220.226)
+DNS Forward query: (Unknown)
+IP GeoLocation Result: Reserved  0 0
+Nearest hop behind 172.21.220.226 is 172.21.217.125
+Incremental RTT time is 346.03
+----------------------------------------------------------------------
+TTL: 5
+Rtt de este request: 804.89
+Respuesta obtenida de tipo: 11
+Unable to solve reverse DNS(172.21.220.226)
+DNS Forward query: (Unknown)
+IP GeoLocation Result: Reserved  0 0
+Nearest hop behind 172.21.220.226 is 172.21.220.226
+Incremental RTT time is 370.94
+----------------------------------------------------------------------
+TTL: 6
+Rtt de este request: 45.05
+Respuesta obtenida de tipo: 11
+Unable to solve reverse DNS(172.21.224.142)
+DNS Forward query: (Unknown)
+IP GeoLocation Result: Reserved  0 0
+Nearest hop behind 172.21.224.142 is 172.21.220.226
+Incremental RTT time is -759.84
+----------------------------------------------------------------------
+TTL: 7
+Rtt de este request: 50.02
+Respuesta obtenida de tipo: 11
+Unable to solve reverse DNS(172.21.224.142)
+DNS Forward query: (Unknown)
+IP GeoLocation Result: Reserved  0 0
+Nearest hop behind 172.21.224.142 is 172.21.224.142
+Incremental RTT time is 4.97
+----------------------------------------------------------------------
+TTL: 8
+Rtt de este request: 65.11
+Respuesta obtenida de tipo: 11
+Unable to solve reverse DNS(172.21.224.141)
+DNS Forward query: (Unknown)
+IP GeoLocation Result: Reserved  0 0
+Nearest hop behind 172.21.224.141 is 172.21.224.142
+Incremental RTT time is 15.09
+----------------------------------------------------------------------
+TTL: 9
+Rtt de este request: 53.08
+Respuesta obtenida de tipo: 11
+Unable to solve reverse DNS(172.16.2.13)
+DNS Forward query: (Unknown)
+IP GeoLocation Result: Reserved  0 0
+Nearest hop behind 172.16.2.13 is 172.21.224.141
+Incremental RTT time is -12.03
+----------------------------------------------------------------------
+TTL: 10
+Rtt de este request: 94.5
+Respuesta obtenida de tipo: 11
+DNS Forward query: host49.186-153-152.telecom.net.ar.
+IP GeoLocation Result: Argentina Federal -30.9546 -58.7833
+Nearest hop behind 186.153.152.49 is 172.16.2.13
+Incremental RTT time is 41.42
+----------------------------------------------------------------------
+TTL: 11
+Rtt de este request: 86.55
+Respuesta obtenida de tipo: 11
+DNS Forward query: host110.186-153-152.telecom.net.ar.
+IP GeoLocation Result: Argentina Federal -30.9546 -58.7833
+Nearest hop behind 186.153.152.110 is 186.153.152.49
+Incremental RTT time is -7.95
+----------------------------------------------------------------------
+TTL: 12
+Rtt de este request: 86.41
+Respuesta obtenida de tipo: 11
+DNS Forward query: xe-0-0-2.baires5.bai.seabone.net.
+IP GeoLocation Result: Italy  42.8333 12.8333
+Nearest hop behind 195.22.220.97 is 186.153.152.110
+Incremental RTT time is -0.14
+----------------------------------------------------------------------
+TTL: 13
+Rtt de este request: 179.93
+Respuesta obtenida de tipo: 11
+DNS Forward query: xe-2-2-3.miami15.mia.seabone.net.
+IP GeoLocation Result: Italy  42.8333 12.8333
+Nearest hop behind 195.22.199.65 is 195.22.220.97
+Incremental RTT time is 93.52
+----------------------------------------------------------------------
+TTL: 14
+Se agotaron los 2 segundos para este pedido.
+----------------------------------------------------------------------
+TTL: 15
+Rtt de este request: 487.65
+Respuesta obtenida de tipo: 11
+DNS Forward query: teleglobe.miami15.mia.seabone.net.
+IP GeoLocation Result: Italy  42.8333 12.8333
+Nearest hop behind 89.221.41.94 is 195.22.199.65
+Incremental RTT time is 153.86
+----------------------------------------------------------------------
+TTL: 16
+Rtt de este request: 292.92
+Respuesta obtenida de tipo: 11
+DNS Forward query: if-1-2.tcore1.MLN-Miami.as6453.net.
+IP GeoLocation Result: United States Wilmington 39.7351 -75.6684
+Nearest hop behind 63.243.152.61 is 89.221.41.94
+Incremental RTT time is -194.73
+----------------------------------------------------------------------
+TTL: 17
+Rtt de este request: 767.06
+Respuesta obtenida de tipo: 11
+DNS Forward query: if-7-2.tcore1.AEQ-Ashburn.as6453.net.
+IP GeoLocation Result: United States Wilmington 39.7351 -75.6684
+Nearest hop behind 66.198.154.177 is 63.243.152.61
+Incremental RTT time is 474.14
+----------------------------------------------------------------------
+TTL: 18
+Rtt de este request: 290.94
+Respuesta obtenida de tipo: 11
+DNS Forward query: if-2-2.tcore2.AEQ-Ashburn.as6453.net.
+IP GeoLocation Result: United States Wilmington 39.7351 -75.6684
+Nearest hop behind 216.6.87.1 is 66.198.154.177
+Incremental RTT time is -476.12
+----------------------------------------------------------------------
+TTL: 19
+Rtt de este request: 295.89
+Respuesta obtenida de tipo: 11
+DNS Forward query: if-11-2.tcore2.NJY-Newark.as6453.net.
+IP GeoLocation Result: United States Wilmington 39.7351 -75.6684
+Nearest hop behind 216.6.87.138 is 216.6.87.1
+Incremental RTT time is 4.95
+----------------------------------------------------------------------
+TTL: 20
+Rtt de este request: 290.66
+Respuesta obtenida de tipo: 11
+DNS Forward query: if-2-2.tcore1.NJY-Newark.as6453.net.
+IP GeoLocation Result: United States Wilmington 39.7351 -75.6684
+Nearest hop behind 66.198.70.1 is 216.6.87.138
+Incremental RTT time is -5.23
+----------------------------------------------------------------------
+TTL: 21
+Rtt de este request: 324.64
+Respuesta obtenida de tipo: 11
+DNS Forward query: if-4-2.tcore1.L78-London.as6453.net.
+IP GeoLocation Result: Europe  47 8
+Nearest hop behind 80.231.130.33 is 66.198.70.1
+Incremental RTT time is 33.98
+----------------------------------------------------------------------
+TTL: 22
+Rtt de este request: 475.86
+Respuesta obtenida de tipo: 11
+DNS Forward query: if-17-2.tcore1.LDN-London.as6453.net.
+IP GeoLocation Result: Europe  47 8
+Nearest hop behind 80.231.130.130 is 80.231.130.33
+Incremental RTT time is 151.22
+----------------------------------------------------------------------
+TTL: 23
+Rtt de este request: 285.22
+Respuesta obtenida de tipo: 11
+Unable to solve reverse DNS(80.231.60.50)
+DNS Forward query: (Unknown)
+IP GeoLocation Result: Europe  47 8
+Nearest hop behind 80.231.60.50 is 80.231.130.130
+Incremental RTT time is -190.64
+----------------------------------------------------------------------
+TTL: 24
+Rtt de este request: 292.57
+Respuesta obtenida de tipo: 11
+DNS Forward query: ae29.londtw-sbr1.ja.net.
+IP GeoLocation Result: United Kingdom  51.5 -0.13
+Nearest hop behind 146.97.33.9 is 80.231.60.50
+Incremental RTT time is 7.35
+----------------------------------------------------------------------
+TTL: 25
+Rtt de este request: 349.16
+Respuesta obtenida de tipo: 11
+DNS Forward query: ae31.lowdss-sbr1.ja.net.
+IP GeoLocation Result: United Kingdom  51.5 -0.13
+Nearest hop behind 146.97.33.29 is 146.97.33.9
+Incremental RTT time is 56.59
+----------------------------------------------------------------------
+TTL: 26
+Rtt de este request: 299.27
+Respuesta obtenida de tipo: 11
+DNS Forward query: ae0.camb-rbr2.ja.net.
+IP GeoLocation Result: United Kingdom  51.5 -0.13
+Nearest hop behind 146.97.37.186 is 146.97.33.29
+Incremental RTT time is -49.89
+----------------------------------------------------------------------
+TTL: 27
+Rtt de este request: 304.48
+Respuesta obtenida de tipo: 11
+DNS Forward query: University-of-Cambridge.Camb-rbr1.eastern.ja.net.
+IP GeoLocation Result: United Kingdom  51.5 -0.13
+Nearest hop behind 146.97.130.2 is 146.97.37.186
+Incremental RTT time is 5.21
+----------------------------------------------------------------------
+TTL: 28
+Rtt de este request: 287.59
+Respuesta obtenida de tipo: 11
+DNS Forward query: route-enet.route-mill.net.cam.ac.uk.
+IP GeoLocation Result: United Kingdom Cambridge 52.2 0.1167
+Nearest hop behind 192.84.5.93 is 146.97.130.2
+Incremental RTT time is -16.89
+----------------------------------------------------------------------
+TTL: 29
+Rtt de este request: 307.01
+Respuesta obtenida de tipo: 11
+DNS Forward query: route-mill.route-nwest.net.cam.ac.uk.
+IP GeoLocation Result: United Kingdom Cambridge 52.2 0.1167
+Nearest hop behind 192.84.5.138 is 192.84.5.93
+Incremental RTT time is 19.42
+----------------------------------------------------------------------
+TTL: 30
+Rtt de este request: 873.37
+Respuesta obtenida de tipo: 11
+DNS Forward query: mint.admin.cam.ac.uk.
+IP GeoLocation Result: United Kingdom Cambridge 52.2 0.1167
+Nearest hop behind 193.60.89.241 is 192.84.5.138
+Incremental RTT time is 566.36
+----------------------------------------------------------------------
+TTL: 31
+Rtt de este request: 879.08
+Respuesta obtenida de tipo: 0
+DNS Forward query: primary.admin.cam.ac.uk.
+IP GeoLocation Result: United Kingdom Cambridge 52.2 0.1167
+Nearest hop behind 131.111.150.25 is 193.60.89.241
+Incremental RTT time is 5.71
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+
+Traceroute a www.cam.ac.uk (max 50 hops)
+Hop Score	Hop#	Hop IP		Hop RTT Acumulado	Hop RTT Incremental	Hop Resp. Type	Hop Location					Hop Name
+-0.11		1	192.168.43.1	2.15			2.15			Time exceeded	Reserved, 		(Unknown)
+0.061		2		*	*			42.885				*	(Unknown Country?), (Unknown City?)			*
+0.061		3	172.21.217.125	87.92			42.885			Time exceeded	Reserved, 		(Unknown)
+1.337		4	172.21.220.226	433.95			346.03			Time exceeded	Reserved, 		(Unknown)
+1.442		5	172.21.220.226	804.89			370.94			Time exceeded	Reserved, 		(Unknown)
+-3.319		6	172.21.224.142	45.05			-759.84			Time exceeded	Reserved, 		(Unknown)
+-0.098		7	172.21.224.142	50.02			4.97			Time exceeded	Reserved, 		(Unknown)
+-0.056		8	172.21.224.141	65.11			15.09			Time exceeded	Reserved, 		(Unknown)
+-0.17		9	172.16.2.13	53.08			-12.03			Time exceeded	Reserved, 		(Unknown)
+0.055		10	186.153.152.49	94.5			41.42			Time exceeded	Argentina, Federal		host49.186-153-152.telecom.net.ar.
+-0.153		11	186.153.152.110	86.55			-7.95			Time exceeded	Argentina, Federal		host110.186-153-152.telecom.net.ar.
+-0.12		12	195.22.220.97	86.41			-0.14			Time exceeded	Italy, 		xe-0-0-2.baires5.bai.seabone.net.
+0.274		13	195.22.199.65	179.93			93.52			Time exceeded	Italy, 		xe-2-2-3.miami15.mia.seabone.net.
+0.528		14		*	*			153.86				*	(Unknown Country?), (Unknown City?)			*
+0.528		15	89.221.41.94	487.65			153.86			Time exceeded	Italy, 		teleglobe.miami15.mia.seabone.net.
+-0.939		16	63.243.152.61	292.92			-194.73			Time exceeded	United States, Wilmington		if-1-2.tcore1.MLN-Miami.as6453.net.
+1.877		17	66.198.154.177	767.06			474.14			Time exceeded	United States, Wilmington		if-7-2.tcore1.AEQ-Ashburn.as6453.net.
+-2.124		18	216.6.87.1	290.94			-476.12			Time exceeded	United States, Wilmington		if-2-2.tcore2.AEQ-Ashburn.as6453.net.
+-0.099		19	216.6.87.138	295.89			4.95			Time exceeded	United States, Wilmington		if-11-2.tcore2.NJY-Newark.as6453.net.
+-0.141		20	66.198.70.1	290.66			-5.23			Time exceeded	United States, Wilmington		if-2-2.tcore1.NJY-Newark.as6453.net.
+0.024		21	80.231.130.33	324.64			33.98			Time exceeded	Europe, 		if-4-2.tcore1.L78-London.as6453.net.
+0.517		22	80.231.130.130	475.86			151.22			Time exceeded	Europe, 		if-17-2.tcore1.LDN-London.as6453.net.
+-0.922		23	80.231.60.50	285.22			-190.64			Time exceeded	Europe, 		(Unknown)
+-0.088		24	146.97.33.9	292.57			7.35			Time exceeded	United Kingdom, 		ae29.londtw-sbr1.ja.net.
+0.119		25	146.97.33.29	349.16			56.59			Time exceeded	United Kingdom, 		ae31.lowdss-sbr1.ja.net.
+-0.329		26	146.97.37.186	299.27			-49.89			Time exceeded	United Kingdom, 		ae0.camb-rbr2.ja.net.
+-0.097		27	146.97.130.2	304.48			5.21			Time exceeded	United Kingdom, 		University-of-Cambridge.Camb-rbr1.eastern.ja.net.
+-0.191		28	192.84.5.93	287.59			-16.89			Time exceeded	United Kingdom, Cambridge		route-enet.route-mill.net.cam.ac.uk.
+-0.038		29	192.84.5.138	307.01			19.42			Time exceeded	United Kingdom, Cambridge		route-mill.route-nwest.net.cam.ac.uk.
+2.265		30	193.60.89.241	873.37			566.36			Time exceeded	United Kingdom, Cambridge		mint.admin.cam.ac.uk.
+-0.095		31	131.111.150.25	879.08			5.71			Echo reply	United Kingdom, Cambridge		primary.admin.cam.ac.uk.
+
+----------------------------------------------------------------------
+
+Nodos distinguidos hacia www.cam.ac.uk
+Hop Score	Hop#	Hop IP		Hop RTT Acumulado	Hop RTT Incremental	Hop Resp. Type	Hop Location					Hop Name
+1.337		4	172.21.220.226	433.95			346.03			Time exceeded	Reserved, 		(Unknown)
+1.442		5	172.21.220.226	804.89			370.94			Time exceeded	Reserved, 		(Unknown)
+0.528		14		*	*			153.86				*	(Unknown Country?), (Unknown City?)			*
+0.528		15	89.221.41.94	487.65			153.86			Time exceeded	Italy, 		teleglobe.miami15.mia.seabone.net.
+1.877		17	66.198.154.177	767.06			474.14			Time exceeded	United States, Wilmington		if-7-2.tcore1.AEQ-Ashburn.as6453.net.
+0.517		22	80.231.130.130	475.86			151.22			Time exceeded	Europe, 		if-17-2.tcore1.LDN-London.as6453.net.
+2.265		30	193.60.89.241	873.37			566.36			Time exceeded	United Kingdom, Cambridge		mint.admin.cam.ac.uk.
+promedio de RTT entre hops: 28.357
+stdev de RTT entre hops: 237.513
+['186.153.152.49', '186.153.152.110', '195.22.220.97', '195.22.199.65', '89.221.41.94', '63.243.152.61', '66.198.154.177', '216.6.87.1', '216.6.87.138', '66.198.70.1', '80.231.130.33', '80.231.130.130', '80.231.60.50', '146.97.33.9', '146.97.33.29', '146.97.37.186', '146.97.130.2', '192.84.5.93', '192.84.5.138', '193.60.89.241', '131.111.150.25']
+[0.055, -0.153, -0.12, 0.274, 0.528, -0.939, 1.877, -2.124, -0.099, -0.141, 0.024, 0.517, -0.922, -0.088, 0.119, -0.329, -0.097, -0.191, -0.038, 2.265, -0.095]
+[-30.9546, -30.9546, 42.8333, 42.8333, 42.8333, 39.7351, 39.7351, 39.7351, 39.7351, 39.7351, 47.0, 47.0, 47.0, 51.5, 51.5, 51.5, 51.5, 52.2, 52.2, 52.2, 52.2]
+[-58.7833, -58.7833, 12.8333, 12.8333, 12.8333, -75.6684, -75.6684, -75.6684, -75.6684, -75.6684, 8.0, 8.0, 8.0, -0.13, -0.13, -0.13, -0.13, 0.1167, 0.1167, 0.1167, 0.1167]
+186.153.152.49 msize: 0.66
+186.153.152.110 msize: 1.836
+195.22.220.97 msize: 1.44
+195.22.199.65 msize: 3.288
+89.221.41.94 msize: 6.336
+63.243.152.61 msize: 11.268
+66.198.154.177 msize: 21.0
+216.6.87.1 msize: 21.0
+216.6.87.138 msize: 1.188
+66.198.70.1 msize: 1.692
+80.231.130.33 msize: 0.288
+80.231.130.130 msize: 6.204
+80.231.60.50 msize: 11.064
+146.97.33.9 msize: 1.056
+146.97.33.29 msize: 1.428
+146.97.37.186 msize: 3.948
+146.97.130.2 msize: 1.164
+192.84.5.93 msize: 2.292
+192.84.5.138 msize: 0.456
+193.60.89.241 msize: 21.0
+131.111.150.25 msize: 1.14
+Drawing route from 186.153.152.49 to 186.153.152.110
+Drawing route from 186.153.152.110 to 195.22.220.97
+Drawing route from 195.22.220.97 to 195.22.199.65
+Drawing route from 195.22.199.65 to 89.221.41.94
+Drawing route from 89.221.41.94 to 63.243.152.61
+Drawing route from 63.243.152.61 to 66.198.154.177
+Drawing route from 66.198.154.177 to 216.6.87.1
+Drawing route from 216.6.87.1 to 216.6.87.138
+Drawing route from 216.6.87.138 to 66.198.70.1
+Drawing route from 66.198.70.1 to 80.231.130.33
+Drawing route from 80.231.130.33 to 80.231.130.130
+Drawing route from 80.231.130.130 to 80.231.60.50
+Drawing route from 80.231.60.50 to 146.97.33.9
+Drawing route from 146.97.33.9 to 146.97.33.29
+Drawing route from 146.97.33.29 to 146.97.37.186
+Drawing route from 146.97.37.186 to 146.97.130.2
+Drawing route from 146.97.130.2 to 192.84.5.93
+Drawing route from 192.84.5.93 to 192.84.5.138
+Drawing route from 192.84.5.138 to 193.60.89.241
+Drawing route from 193.60.89.241 to 131.111.150.25
+svilerino@T4400:~/devel/tdc-networking/tp2/codigo$ 
