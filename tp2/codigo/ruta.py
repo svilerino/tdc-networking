@@ -3,9 +3,11 @@
 import urllib2
 import json
 import httplib
+import numpy
 
 class Ruta:
-    def __init__(self, dst_host, max_hops):
+    def __init__(self, dst_host, max_hops, zscore_threshold):
+        self.zscore_threshold=zscore_threshold
         self.dst_host = dst_host    
         self.max_hops = max_hops    
         self.hop_ip_list = []
@@ -14,6 +16,7 @@ class Ruta:
         self.hop_rtt = []
         self.hop_rtt_acum = []
         self.hop_response = []
+        self.hop_zrtt = []
 
     def calculate_nearest_hop_behind(self, hop_index):
         if hop_index==0:
@@ -78,20 +81,54 @@ class Ruta:
                 current_hop_index = len(self.hop_ip_list)-1#ultimo indice de la lista de hops
                 nearest_hop_behind = self.calculate_nearest_hop_behind(current_hop_index)
                 print "Nearest hop behind " + self.hop_ip_list[current_hop_index] + " is " + self.hop_ip_list[nearest_hop_behind]
-                calculated_rtt=self.hop_rtt_acum[current_hop_index]-self.hop_rtt_acum[nearest_hop_behind]
+                calculated_rtt=(self.hop_rtt_acum[current_hop_index]-self.hop_rtt_acum[nearest_hop_behind])/float(current_hop_index-nearest_hop_behind)
                 self.hop_rtt.append(calculated_rtt)
                 print "Incremental RTT time is " + str(calculated_rtt)
             else:
                 self.hop_rtt.append("*")
 
+    def make_statistics(self):
+        effective_sample=[]        
+        for rtt in self.hop_rtt:
+            if rtt != "*":
+                effective_sample.append(rtt)
+        
+        rtt_mean=round(numpy.mean(effective_sample), 3)
+        rtt_stdev=round(numpy.std(effective_sample), 3)
+
+        print "promedio de RTT entre hops: " + str(rtt_mean)
+        print "stdev de RTT entre hops: " + str(rtt_stdev)
+
+        hop_index=0
+        for rtt in self.hop_rtt:
+            if rtt != "*":
+                zrtti = (self.hop_rtt[hop_index] - rtt_mean)/float(rtt_stdev)
+                self.hop_zrtt.append(round(zrtti, 3)) 
+            else:
+                self.hop_zrtt.append("*") 
+            hop_index+=1
+
     def display_trace(self):
+        #calculamos estadisticas y zcores
+        self.make_statistics()
         #imprimimos la lista de hops
         print ""
         print "----------------------------------------------------------------------"      
         print ""
         print "Traceroute a " + str(self.dst_host) + " (max " + str(self.max_hops) + " hops)"
-        print "Hop#\tHop IP\t\tHop RTT Acumulado\tHop RTT Incremental\tHop Resp. Type\tHop Location\t\t\t\tHop Name"
+        print "Hop Score\tHop#\tHop IP\t\tHop RTT Acumulado\tHop RTT Incremental\tHop Resp. Type\tHop Location\t\t\t\tHop Name"
         hop_index = 1
         for hop in self.hop_ip_list:
-            print str(hop_index) + "\t" + str(hop) + "\t" + str(self.hop_rtt_acum[hop_index-1]) + "\t\t\t" + str(self.hop_rtt[hop_index-1]) + "\t\t\t" + str(self.hop_response[hop_index-1]) + "\t" + self.hop_location_list[hop_index-1]["country_name"] + ", " + self.hop_location_list[hop_index-1]["city"] + "\t\t" + self.hop_name_list[hop_index-1]
+            print str(self.hop_zrtt[hop_index-1]) + "\t" + str(hop_index) + "\t" + str(hop) + "\t" + str(self.hop_rtt_acum[hop_index-1]) + "\t\t\t" + str(self.hop_rtt[hop_index-1]) + "\t\t\t" + str(self.hop_response[hop_index-1]) + "\t" + self.hop_location_list[hop_index-1]["country_name"] + ", " + self.hop_location_list[hop_index-1]["city"] + "\t\t" + self.hop_name_list[hop_index-1]
+            hop_index+=1
+
+        print ""
+        print "----------------------------------------------------------------------"      
+        print ""
+        print "Nodos distinguidos hacia " + str(self.dst_host)
+        print "Hop Score\tHop#\tHop IP\t\tHop RTT Acumulado\tHop RTT Incremental\tHop Resp. Type\tHop Location\t\t\t\tHop Name"
+        hop_index = 1
+        for hop in self.hop_ip_list:
+            if self.hop_zrtt[hop_index-1] != "*" and self.hop_zrtt[hop_index-1] > self.zscore_threshold:
+                print str(self.hop_zrtt[hop_index-1]) + "\t" + str(hop_index) + "\t" + str(hop) + "\t" + str(self.hop_rtt_acum[hop_index-1]) + "\t\t\t" + str(self.hop_rtt[hop_index-1]) + "\t\t\t" + str(self.hop_response[hop_index-1]) + "\t" + self.hop_location_list[hop_index-1]["country_name"] + ", " + self.hop_location_list[hop_index-1]["city"] + "\t\t" + self.hop_name_list[hop_index-1]
             hop_index+=1

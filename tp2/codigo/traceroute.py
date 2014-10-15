@@ -6,11 +6,12 @@ from ruta import Ruta
 import sys
 
 #constantes
-hops_limit=30
+hops_limit=20
 timeout_constant=1
+zscore_threshold=0.5
 
 def trace(dst_host):	
-	ruta=Ruta(dst_host, hops_limit)
+	ruta=Ruta(dst_host, hops_limit, zscore_threshold)
 	current_ttl=1
 	host_reached = False
 	
