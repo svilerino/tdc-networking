@@ -6,7 +6,7 @@ from ruta import Ruta
 import sys
 
 #constantes
-hops_limit=30
+hops_limit=50
 timeout_constant=2
 zscore_threshold=0.5
 

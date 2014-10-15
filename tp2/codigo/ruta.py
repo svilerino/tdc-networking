@@ -34,11 +34,11 @@ class Ruta:
 
     def solve_ip_location(self, ip_host):
         try:
-            query_response = json.loads(urllib2.urlopen("http://api.hostip.info/get_json.php?ip=" + ip_host + "&position=true").read())
+            query_response = json.loads(urllib2.urlopen("http://freegeoip.net/json/" + ip_host).read())
             return query_response
         except (ValueError, KeyError, TypeError, urllib2.URLError, httplib.BadStatusLine):
             print "Unable to solve IP GeoLocation(" + ip_host + ")"
-            return {"country_name":"(Unknown Country?)", "city":"(Unknown City?)", "lat": "None", "lng":"None"}
+            return {"country_name":"(Unknown Country?)", "city":"(Unknown City?)", "latitude": "None", "longitude":"None"}   
 
     def solve_host_name(self, ip_host):
         try:
@@ -68,10 +68,10 @@ class Ruta:
             #obtengo geolocalizacion aproximada
             ip_location = self.solve_ip_location(ip)
             self.hop_location_list.append(ip_location)
-            print "IP GeoLocation Result: " + ip_location["country_name"], ip_location["city"], ip_location["lat"], ip_location["lng"]
+            print "IP GeoLocation Result: " + ip_location["country_name"], ip_location["city"], ip_location["latitude"], ip_location["longitude"]
         else:
             self.hop_name_list.append(ip)
-            self.hop_location_list.append({"country_name":"(Unknown Country?)", "city":"(Unknown City?)", "lat": "None", "lng":"None"})
+            self.hop_location_list.append({"country_name":"(Unknown Country?)", "city":"(Unknown City?)", "latitude": "None", "longitude":"None"})
 
         #calculo el RTT incremental    
         if len(self.hop_ip_list) == 1:
@@ -158,23 +158,17 @@ class Ruta:
         lats=[]
         lons=[]
         for hop in self.hop_ip_list:
-            scores.append(self.hop_zrtt[idx])
-            title=hop
-            if self.hop_location_list[idx]["country_name"] != "(Unknown Country?)":
-                title=title + "\n" + self.hop_location_list[idx]["country_name"]
-            if self.hop_location_list[idx]["city"] != "(Unknown city?)":
-                title=title + "\n" + self.hop_location_list[idx]["city"]
-            titles.append(hop)
+            if self.hop_location_list[idx]["latitude"] != "None" and self.hop_location_list[idx]["latitude"] != None and self.hop_location_list[idx]["latitude"] != 0:
+                scores.append(self.hop_zrtt[idx])
+                title=hop
+                if self.hop_location_list[idx]["country_name"] != "(Unknown Country?)":
+                    title=title + "\n" + self.hop_location_list[idx]["country_name"]
+                if self.hop_location_list[idx]["city"] != "(Unknown city?)":
+                    title=title + "\n" + self.hop_location_list[idx]["city"]
+                titles.append(hop)
 
-            if self.hop_location_list[idx]["lat"] != "None" and self.hop_location_list[idx]["lat"] != None:
-                print self.hop_location_list[idx]["lat"]
-                print self.hop_location_list[idx]["lng"]
-
-                lats.append(float(self.hop_location_list[idx]["lat"]))
-                lons.append(float(self.hop_location_list[idx]["lng"]))
-            else:
-                lats.append(0.0)
-                lons.append(0.0)
+                lats.append(float(self.hop_location_list[idx]["latitude"]))
+                lons.append(float(self.hop_location_list[idx]["longitude"]))
             idx+=1
 
         print titles

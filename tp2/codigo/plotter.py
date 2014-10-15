@@ -18,27 +18,22 @@ class Plotter:
         map.drawcoastlines()
         map.drawcountries()
         map.bluemarble()
-        #map.fillcontinents(color='lightblue')
-        #map.fillcontinents(color='lightgray')
         map.drawmapboundary()
         map.drawrivers()
         map.drawmeridians(np.arange(0, 360, 30))
         map.drawparallels(np.arange(-90, 90, 30))
          
-        # draw markers
-        #x, y = map(self.lats, self.lons)
-        #map.plot(x, y, 'r*', markersize=10)
-
         min_marker_size = 15
         for lon, lat, mag, title in zip(self.lons, self.lats, self.scores, self.titles):
             x,y = map(lon, lat)
-            msize = mag * min_marker_size
+            msize = abs(mag/float(5)) * min_marker_size
+            print title + " msize: " + str(msize)
             map.plot(x, y, 'ro', markersize=msize)
             font = FontProperties()
-            #font.set_weight('semibold')
-            #font.set_size(12)
-            #plt.text(x+10000, y+5000, title, fontproperties=font)
-            plt.text(x+10000, y+5000, title, bbox=dict(facecolor='yellow', alpha=0.5))             
+            font.set_weight('semibold')
+            font.set_size(8)
+            plt.text(x+10000, y+5000, title, fontproperties=font)
+            #plt.text(x+10000, y+5000, title, bbox=dict(facecolor='yellow', alpha=0.5))             
 
         # draw great circle route between the points
         for i in range(1, len(self.titles)):
