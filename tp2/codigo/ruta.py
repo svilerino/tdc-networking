@@ -4,6 +4,7 @@ import urllib2
 import json
 import httplib
 import numpy
+from plotter import Plotter
 
 class Ruta:
     def __init__(self, dst_host, max_hops, zscore_threshold):
@@ -17,6 +18,9 @@ class Ruta:
         self.hop_rtt_acum = []
         self.hop_response = []
         self.hop_zrtt = []
+        self.rtt_mean=0.0
+        self.rtt_stdev=0.0
+
 
     def calculate_nearest_hop_behind(self, hop_index):
         if hop_index==0:
@@ -34,7 +38,7 @@ class Ruta:
             return query_response
         except (ValueError, KeyError, TypeError, urllib2.URLError, httplib.BadStatusLine):
             print "Unable to solve IP GeoLocation(" + ip_host + ")"
-            return {"country_name":"(Unknown Country?)", "city":"(Unknown City?)", "lat": "(Unknown)", "lng":"(Unknown)"}
+            return {"country_name":"(Unknown Country?)", "city":"(Unknown City?)", "lat": "None", "lng":"None"}
 
     def solve_host_name(self, ip_host):
         try:
@@ -67,7 +71,7 @@ class Ruta:
             print "IP GeoLocation Result: " + ip_location["country_name"], ip_location["city"], ip_location["lat"], ip_location["lng"]
         else:
             self.hop_name_list.append(ip)
-            self.hop_location_list.append({"country_name":"(Unknown Country?)", "city":"(Unknown City?)", "lat": "(Unknown)", "lng":"(Unknown)"})
+            self.hop_location_list.append({"country_name":"(Unknown Country?)", "city":"(Unknown City?)", "lat": "None", "lng":"None"})
 
         #calculo el RTT incremental    
         if len(self.hop_ip_list) == 1:
@@ -82,8 +86,16 @@ class Ruta:
                 nearest_hop_behind = self.calculate_nearest_hop_behind(current_hop_index)
                 print "Nearest hop behind " + self.hop_ip_list[current_hop_index] + " is " + self.hop_ip_list[nearest_hop_behind]
                 calculated_rtt=(self.hop_rtt_acum[current_hop_index]-self.hop_rtt_acum[nearest_hop_behind])/float(current_hop_index-nearest_hop_behind)
-                self.hop_rtt.append(calculated_rtt)
-                print "Incremental RTT time is " + str(calculated_rtt)
+                #set calculated rtt
+                self.hop_rtt.append(round(calculated_rtt, 3))
+                
+                #fill gaps of unknown hops in the middle of current hop and nearest hop behind
+                for i in range(nearest_hop_behind+1, current_hop_index):
+                    #print str(self.hop_ip_list[i]) + " rtt is " + str(round(calculated_rtt, 3))
+                    self.hop_rtt[i]=round(calculated_rtt, 3)
+
+                
+                print "Incremental RTT time is " + str(round(calculated_rtt, 3))
             else:
                 self.hop_rtt.append("*")
 
@@ -94,11 +106,12 @@ class Ruta:
                 effective_sample.append(rtt)
         
         rtt_mean=round(numpy.mean(effective_sample), 3)
-        rtt_stdev=round(numpy.std(effective_sample), 3)
+        rtt_stdev=round(numpy.std(effective_sample), 3)        
+        #actualizamos los datos de la clase
+        self.rtt_mean=rtt_mean
+        self.rtt_stdev=rtt_stdev
 
-        print "promedio de RTT entre hops: " + str(rtt_mean)
-        print "stdev de RTT entre hops: " + str(rtt_stdev)
-
+        #calculamos zscores
         hop_index=0
         for rtt in self.hop_rtt:
             if rtt != "*":
@@ -106,29 +119,67 @@ class Ruta:
                 self.hop_zrtt.append(round(zrtti, 3)) 
             else:
                 self.hop_zrtt.append("*") 
-            hop_index+=1
+            hop_index+=1            
 
     def display_trace(self):
-        #calculamos estadisticas y zcores
-        self.make_statistics()
         #imprimimos la lista de hops
         print ""
         print "----------------------------------------------------------------------"      
         print ""
         print "Traceroute a " + str(self.dst_host) + " (max " + str(self.max_hops) + " hops)"
-        print "Hop Score\tHop#\tHop IP\t\tHop RTT Acumulado\tHop RTT Incremental\tHop Resp. Type\tHop Location\t\t\t\tHop Name"
+        print "Hop Score\tHop#\tHop IP\t\tHop RTT Acumulado\tHop RTT Incremental\tHop Resp. Type\tHop Location\t\t\t\t\tHop Name"
         hop_index = 1
         for hop in self.hop_ip_list:
-            print str(self.hop_zrtt[hop_index-1]) + "\t" + str(hop_index) + "\t" + str(hop) + "\t" + str(self.hop_rtt_acum[hop_index-1]) + "\t\t\t" + str(self.hop_rtt[hop_index-1]) + "\t\t\t" + str(self.hop_response[hop_index-1]) + "\t" + self.hop_location_list[hop_index-1]["country_name"] + ", " + self.hop_location_list[hop_index-1]["city"] + "\t\t" + self.hop_name_list[hop_index-1]
+            print str(self.hop_zrtt[hop_index-1]) + "\t\t" + str(hop_index) + "\t" + str(hop) + "\t" + str(self.hop_rtt_acum[hop_index-1]) + "\t\t\t" + str(self.hop_rtt[hop_index-1]) + "\t\t\t" + str(self.hop_response[hop_index-1]) + "\t" + self.hop_location_list[hop_index-1]["country_name"] + ", " + self.hop_location_list[hop_index-1]["city"] + "\t\t" + self.hop_name_list[hop_index-1]
             hop_index+=1
 
         print ""
         print "----------------------------------------------------------------------"      
         print ""
         print "Nodos distinguidos hacia " + str(self.dst_host)
-        print "Hop Score\tHop#\tHop IP\t\tHop RTT Acumulado\tHop RTT Incremental\tHop Resp. Type\tHop Location\t\t\t\tHop Name"
+        print "Hop Score\tHop#\tHop IP\t\tHop RTT Acumulado\tHop RTT Incremental\tHop Resp. Type\tHop Location\t\t\t\t\tHop Name"
         hop_index = 1
         for hop in self.hop_ip_list:
             if self.hop_zrtt[hop_index-1] != "*" and self.hop_zrtt[hop_index-1] > self.zscore_threshold:
-                print str(self.hop_zrtt[hop_index-1]) + "\t" + str(hop_index) + "\t" + str(hop) + "\t" + str(self.hop_rtt_acum[hop_index-1]) + "\t\t\t" + str(self.hop_rtt[hop_index-1]) + "\t\t\t" + str(self.hop_response[hop_index-1]) + "\t" + self.hop_location_list[hop_index-1]["country_name"] + ", " + self.hop_location_list[hop_index-1]["city"] + "\t\t" + self.hop_name_list[hop_index-1]
+                print str(self.hop_zrtt[hop_index-1]) + "\t\t" + str(hop_index) + "\t" + str(hop) + "\t" + str(self.hop_rtt_acum[hop_index-1]) + "\t\t\t" + str(self.hop_rtt[hop_index-1]) + "\t\t\t" + str(self.hop_response[hop_index-1]) + "\t" + self.hop_location_list[hop_index-1]["country_name"] + ", " + self.hop_location_list[hop_index-1]["city"] + "\t\t" + self.hop_name_list[hop_index-1]
             hop_index+=1
+        print "promedio de RTT entre hops: " + str(self.rtt_mean)
+        print "stdev de RTT entre hops: " + str(self.rtt_stdev)
+
+    def plot_map(self):
+        #plot markers and polylines
+        #nylat = 40.78; nylon = -73.98
+        #lonlat = 51.53; lonlon = 0.08
+        #plot = Plotter([nylat, lonlat], [nylon, lonlon], ['NY', 'London'], [0.5, 1.3])
+        
+        idx=0
+        titles=[]
+        scores=[]
+        lats=[]
+        lons=[]
+        for hop in self.hop_ip_list:
+            scores.append(self.hop_zrtt[idx])
+            title=hop
+            if self.hop_location_list[idx]["country_name"] != "(Unknown Country?)":
+                title=title + "\n" + self.hop_location_list[idx]["country_name"]
+            if self.hop_location_list[idx]["city"] != "(Unknown city?)":
+                title=title + "\n" + self.hop_location_list[idx]["city"]
+            titles.append(hop)
+
+            if self.hop_location_list[idx]["lat"] != "None" and self.hop_location_list[idx]["lat"] != None:
+                print self.hop_location_list[idx]["lat"]
+                print self.hop_location_list[idx]["lng"]
+
+                lats.append(float(self.hop_location_list[idx]["lat"]))
+                lons.append(float(self.hop_location_list[idx]["lng"]))
+            else:
+                lats.append(0.0)
+                lons.append(0.0)
+            idx+=1
+
+        print titles
+        print scores
+        print lats
+        print lons
+        plot = Plotter(lats, lons, titles, scores)
+        plot.plot()

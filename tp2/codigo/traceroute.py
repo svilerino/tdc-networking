@@ -6,8 +6,8 @@ from ruta import Ruta
 import sys
 
 #constantes
-hops_limit=20
-timeout_constant=1
+hops_limit=30
+timeout_constant=2
 zscore_threshold=0.5
 
 def trace(dst_host):	
@@ -48,14 +48,17 @@ def trace(dst_host):
 			#no llego respuesta
 			print "Se agotaron los " + str(timeout_constant) + " segundos para este pedido."
 			#hop desconocido
-			ruta.add_hop("\t\t*", "*", "*")
+			ruta.add_hop("\t*", "*", "\t*")
 
 		#incremento el ttl para la proxima iteracion
 		current_ttl+=1		
 		print "----------------------------------------------------------------------"		
+	#calculamos estadisticas y zcores
+	ruta.make_statistics()
 	return ruta
 
 if __name__ == "__main__":
 	dst_host = sys.argv[1]
-	ruta = trace(dst_host)
+	ruta = trace(dst_host)	
 	ruta.display_trace()
+	ruta.plot_map()
