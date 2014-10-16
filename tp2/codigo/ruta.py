@@ -4,7 +4,8 @@ import urllib2
 import json
 import httplib
 import numpy
-from plotter import Plotter
+from mapplotter import MapPlotter
+from distrplotter import BarPlotter
 
 class Ruta:
     def __init__(self, dst_host, max_hops, zscore_threshold):
@@ -20,7 +21,6 @@ class Ruta:
         self.hop_zrtt = []
         self.rtt_mean=0.0
         self.rtt_stdev=0.0
-
 
     def calculate_nearest_hop_behind(self, hop_index):
         if hop_index==0:
@@ -147,11 +147,7 @@ class Ruta:
         print "stdev de RTT entre hops: " + str(self.rtt_stdev)
 
     def plot_map(self):
-        #plot markers and polylines
-        #nylat = 40.78; nylon = -73.98
-        #lonlat = 51.53; lonlon = 0.08
-        #plot = Plotter([nylat, lonlat], [nylon, lonlon], ['NY', 'London'], [0.5, 1.3])
-        
+        filename=self.dst_host + "_map_trace"
         idx=0
         titles=[]
         scores=[]
@@ -175,5 +171,44 @@ class Ruta:
         print scores
         print lats
         print lons
-        plot = Plotter(lats, lons, titles, scores)
+        plot = MapPlotter(lats, lons, titles, scores, filename)
+        plot.plot()
+
+    def plot_rtt(self):
+        #plot rtt bar chart
+        filename=self.dst_host + "_bar_rtt"
+        data_rtt=[]
+        hop_idx=0
+        for hop in self.hop_ip_list:
+            if hop != "\t*":
+                data_rtt.append((hop, self.hop_rtt[hop_idx]))
+            hop_idx+=1
+
+        plot = BarPlotter(filename, "RTT", data_rtt, "Distribucion de RTT")
+        plot.plot()
+
+    def plot_rtt_acum(self):
+        #plot rtt bar chart
+        filename=self.dst_host + "_bar_rtt_acum"
+        data_rtt=[]
+        hop_idx=0
+        for hop in self.hop_ip_list:
+            if hop != "\t*":
+                data_rtt.append((hop, self.hop_rtt_acum[hop_idx]))
+            hop_idx+=1
+
+        plot = BarPlotter(filename, "RTT", data_rtt, "Distribucion de RTT Acumulado")
+        plot.plot()
+
+    def plot_zscore(self):
+        #plot zscore bar chart
+        filename=self.dst_host + "_bar_zscore"
+        data_zscore=[]
+        hop_idx=0
+        for hop in self.hop_ip_list:
+            if hop != "\t*":
+                data_zscore.append((hop, self.hop_zrtt[hop_idx]))
+            hop_idx+=1
+
+        plot = BarPlotter(filename, "ZScore", data_zscore, "Distribucion de ZScore")
         plot.plot()

@@ -61,4 +61,7 @@ if __name__ == "__main__":
 	dst_host = sys.argv[1]
 	ruta = trace(dst_host)	
 	ruta.display_trace()
+	ruta.plot_zscore()
+	ruta.plot_rtt()
+	ruta.plot_rtt_acum()
 	ruta.plot_map()
