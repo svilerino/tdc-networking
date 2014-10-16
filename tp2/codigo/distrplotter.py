@@ -25,5 +25,5 @@ class BarPlotter:
         plt.xticks(x + width/2.0, labels, rotation=17 )
         plt.grid(True)
         #plt.show()
-        plt.savefig(self.filename + ".png", format="png" )
+        plt.savefig(self.filename + ".svg", format="svg" )
         plt.close()

@@ -16,7 +16,7 @@ class MapPlotter:
     def plot(self):
         #map instantiation and configuration
         map = Basemap(projection='robin', lat_0=0, lon_0=-100,
-                      resolution='i', area_thresh=1000.0)
+                      resolution='h', area_thresh=1000.0)
          
         map.drawcoastlines()
         map.drawcountries()
@@ -50,4 +50,4 @@ class MapPlotter:
             map.drawgreatcircle(self.lons[i-1], self.lats[i-1], self.lons[i], self.lats[i], linewidth=1, color='g')
 
         #plt.show()
-        plt.savefig(self.filename, format="png" )
+        plt.savefig(self.filename + ".jpg", format="jpg" )
