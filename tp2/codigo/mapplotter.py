@@ -49,5 +49,5 @@ class MapPlotter:
             print "Drawing route from " + self.titles[i-1] + " to " + self.titles[i]
             map.drawgreatcircle(self.lons[i-1], self.lats[i-1], self.lons[i], self.lats[i], linewidth=1, color='g')
 
-        #plt.show()
-        plt.savefig(self.filename + ".jpg", format="jpg" )
+        plt.show()
+        #plt.savefig(self.filename + ".jpg", format="jpg" )

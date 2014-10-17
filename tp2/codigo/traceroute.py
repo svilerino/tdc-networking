@@ -7,7 +7,7 @@ import sys
 
 #constantes
 hops_limit=50
-timeout_constant=2
+timeout_constant=3
 zscore_threshold=0.5
 
 def trace(dst_host):	
