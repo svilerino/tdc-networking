@@ -9,7 +9,7 @@ informe.pdf: $(ARCHIVOS)
 #se hace 2 veces el latex para que cargue bien la TOC y redirije todo a loginforme para no imprimir 23098230982309823 lineas en el makefile.
 	$(LATEX) informe.tex
 	$(LATEX) informe.tex
-	okular informe.pdf
+	evince informe.pdf
 clean: 
 	@echo "Cleaning informe"	
 	- rm -f *.loginforme
