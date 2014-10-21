@@ -192,10 +192,10 @@ class Ruta:
                 scores.append(self.hop_zrtt[idx])
                 title=hop
                 if self.hop_location_list[idx]["country_name"] != "(Unknown Country?)":
-                    title=title + "\n" + self.hop_location_list[idx]["country_name"]
+                    title=title + ", " + self.hop_location_list[idx]["country_name"]
                 if self.hop_location_list[idx]["city"] != "(Unknown city?)":
-                    title=title + "\n" + self.hop_location_list[idx]["city"]
-                titles.append(hop)
+                    title=title + ", " + self.hop_location_list[idx]["city"]
+                titles.append(title)
 
                 lats.append(float(self.hop_location_list[idx]["latitude"]))
                 lons.append(float(self.hop_location_list[idx]["longitude"]))

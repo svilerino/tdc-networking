@@ -1,0 +1,41 @@
+Traceroute a www.unsw.edu.au (max 50 hops)
+Hop Score	Hop#	Hop IP		Hop RTT Acumulado	Hop RTT Incremental	Hop Resp. Type	Hop Location					Hop Name
+-0.385		1	10.2.100.254	0.35			0.35			Time exceeded	Reserved, 		(Unknown)
+-0.386		2	157.92.18.99	0.63			0.28			Time exceeded	Argentina, Buenos Aires		ccc-pab2.fcen.uba.ar.
+-0.372		3	157.92.47.98	1.43			0.8			Time exceeded	Argentina, Buenos Aires		(Unknown)
+0.515		4		*	*			32.758				*	(Unknown Country?), (Unknown City?)			*
+0.515		5		*	*			32.758				*	(Unknown Country?), (Unknown City?)			*
+0.515		6		*	*			32.758				*	(Unknown Country?), (Unknown City?)			*
+0.515		7	208.48.239.69	132.46			32.758			Time exceeded	United States, Lawrenceville		ethernet14-4.ar4.mia1.gblx.net.
+0.818		8	67.16.145.53	176.14			43.68			Time exceeded	United States, 		po5.ar3.MIA2.gblx.net.
+-0.371		9		*	*			0.825				*	(Unknown Country?), (Unknown City?)			*
+-0.371		10		*	*			0.825				*	(Unknown Country?), (Unknown City?)			*
+-0.371		11		*	*			0.825				*	(Unknown Country?), (Unknown City?)			*
+-0.371		12		*	*			0.825				*	(Unknown Country?), (Unknown City?)			*
+-0.371		13		*	*			0.825				*	(Unknown Country?), (Unknown City?)			*
+-0.371		14		*	*			0.825				*	(Unknown Country?), (Unknown City?)			*
+-0.371		15		*	*			0.825				*	(Unknown Country?), (Unknown City?)			*
+-0.371		16	4.69.144.208	182.74			0.825			Time exceeded	United States, 		ae-4-90.edge1.LosAngeles6.Level3.net.
+4.604		17	4.26.0.166	362.88			180.14			Time exceeded	United States, 		AAPT-LIMITE.edge1.LosAngeles6.Level3.net.
+-0.076		18	202.10.14.24	374.35			11.47			Time exceeded	Australia, 		po9.sclardist02.aapt.net.au.
+-0.427		19	202.10.12.128	373.16			-1.19			Time exceeded	Australia, 		te2-1-110.sclardist01.aapt.net.au.
+-0.384		20	202.10.12.3	373.52			0.36			Time exceeded	Australia, 		bu11.sclarcore01.aapt.net.au.
+-0.311		21	202.10.10.75	376.52			3.0			Time exceeded	Australia, 		bu1.mburncore01.aapt.net.au.
+-0.442		22	202.10.12.14	374.8			-1.72			Time exceeded	Australia, 		te2-2.mburndist01.aapt.net.au.
+-0.343		23	203.131.61.31	376.63			1.83			Time exceeded	Australia, Melbourne		1-1-1.mburninte01.aapt.net.au.
+-0.142		24	203.174.143.158	385.73			9.1			Time exceeded	Australia, Adelaide		203-174-143-158.ade.static-ipl.aapt.com.au.
+-0.621		25		*	*			-8.165				*	(Unknown Country?), (Unknown City?)			*
+-0.621		26	202.58.60.193	369.4			-8.165			Echo reply	Australia, Findon		(Unknown)
+
+----------------------------------------------------------------------
+
+Nodos distinguidos hacia www.unsw.edu.au
+Hop Score	Hop#	Hop IP		Hop RTT Acumulado	Hop RTT Incremental	Hop Resp. Type	Hop Location					Hop Name
+0.515		4		*	*			32.758				*	(Unknown Country?), (Unknown City?)			*
+0.515		5		*	*			32.758				*	(Unknown Country?), (Unknown City?)			*
+0.515		6		*	*			32.758				*	(Unknown Country?), (Unknown City?)			*
+0.515		7	208.48.239.69	132.46			32.758			Time exceeded	United States, Lawrenceville		ethernet14-4.ar4.mia1.gblx.net.
+0.818		8	67.16.145.53	176.14			43.68			Time exceeded	United States, 		po5.ar3.MIA2.gblx.net.
+4.604		17	4.26.0.166	362.88			180.14			Time exceeded	United States, 		AAPT-LIMITE.edge1.LosAngeles6.Level3.net.
+promedio de RTT entre hops: 14.208
+stdev de RTT entre hops: 36.041
