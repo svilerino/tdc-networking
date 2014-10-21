@@ -1,0 +1,26 @@
+\BOOKMARK [1][-]{section.1}{Introducci\363n}{}% 1
+\BOOKMARK [1][-]{section.2}{Desarrollo}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Implementacion de traceroute}{section.2}% 3
+\BOOKMARK [3][-]{subsubsection.2.1.1}{Envio de paquetes con ttl incremental}{subsection.2.1}% 4
+\BOOKMARK [3][-]{subsubsection.2.1.2}{Control de hops sin respuesta - Timeout}{subsection.2.1}% 5
+\BOOKMARK [3][-]{subsubsection.2.1.3}{Medicion del RTT}{subsection.2.1}% 6
+\BOOKMARK [2][-]{subsection.2.2}{Informacion obtenida de hops}{section.2}% 7
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Reverse DNS Lookup}{subsection.2.2}% 8
+\BOOKMARK [3][-]{subsubsection.2.2.2}{IP Geolocalization Lookup}{subsection.2.2}% 9
+\BOOKMARK [2][-]{subsection.2.3}{Problemas surgidos durante el desarrollo}{section.2}% 10
+\BOOKMARK [3][-]{subsubsection.2.3.1}{Hops con RTTi negativo}{subsection.2.3}% 11
+\BOOKMARK [3][-]{subsubsection.2.3.2}{Hops sin un hop inmediato anterior valido}{subsection.2.3}% 12
+\BOOKMARK [3][-]{subsubsection.2.3.3}{Varias iteraciones para descubrir rutas y rtt promedio}{subsection.2.3}% 13
+\BOOKMARK [3][-]{subsubsection.2.3.4}{TCPTraceroute para mejorar descubrimiento de hops}{subsection.2.3}% 14
+\BOOKMARK [2][-]{subsection.2.4}{Estadisticas y Nodos distinguidos}{section.2}% 15
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Promedio y Desv. Estandar del RTTi}{subsection.2.4}% 16
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Calculo de ZScore para cada hop}{subsection.2.4}% 17
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Eleccion emp\355rica del umbral para deteccion de nodos distinguidos}{subsection.2.4}% 18
+\BOOKMARK [2][-]{subsection.2.5}{Gr\341ficos y an\341lisis realizados}{section.2}% 19
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Traza sobre el planisferio}{subsection.2.5}% 20
+\BOOKMARK [1][-]{section.3}{Experimentacion}{}% 21
+\BOOKMARK [2][-]{subsection.3.1}{www.unsw.edu}{section.3}% 22
+\BOOKMARK [2][-]{subsection.3.2}{www.cam.ac}{section.3}% 23
+\BOOKMARK [2][-]{subsection.3.3}{home.web.cern.ch}{section.3}% 24
+\BOOKMARK [1][-]{section.4}{Experimentacion Adicional}{}% 25
+\BOOKMARK [1][-]{section.5}{Conclusiones}{}% 26

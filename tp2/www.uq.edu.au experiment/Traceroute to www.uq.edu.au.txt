@@ -1,0 +1,36 @@
+Traceroute a www.uq.edu.au (max 50 hops)
+Hop Score	Hop#	Hop IP		Hop RTT Acumulado	Hop RTT Incremental	Hop Resp. Type	Hop Location					Hop Name
+-0.522		1	10.2.100.254	0.38			0.38			Time exceeded	Reserved, 		(Unknown)
+-0.528		2	157.92.18.99	0.56			0.18			Time exceeded	Argentina, Buenos Aires		ccc-pab2.fcen.uba.ar.
+-0.505		3	157.92.47.98	1.47			0.91			Time exceeded	Argentina, Buenos Aires		(Unknown)
+-0.538		4	157.92.47.2	1.35			-0.12			Time exceeded	Argentina, Buenos Aires		(Unknown)
+-0.524		5		*	*			0.3				*	(Unknown Country?), (Unknown City?)			*
+-0.524		6	168.96.0.18	1.95			0.3			Time exceeded	Argentina, Buenos Aires		rnoc8a.innova-red.net.
+-0.466		7	200.0.204.154	4.1			2.15			Time exceeded	Uruguay, 		ar-inova.redclara.net.
+0.171		8	200.0.204.88	26.4			22.3			Time exceeded	Uruguay, 		cl-ar.redclara.net.
+3.271		9	200.0.204.58	146.7			120.3			Time exceeded	Uruguay, 		us-cl.redclara.net.
+-0.134		10	200.0.207.10	159.35			12.65			Time exceeded	Uruguay, 		i2-us.redclara.net.
+-0.183		11	198.71.45.13	170.44			11.09			Time exceeded	United States, Ann Arbor		et-1-0-0.105.rtr.hous.net.internet2.edu.
+0.459		12	198.71.45.21	201.85			31.41			Time exceeded	United States, Ann Arbor		et-5-0-0.111.rtr.losa.net.internet2.edu.
+0.683		13	207.231.241.4	240.33			38.48			Time exceeded	United States, Seattle		aarnet-2-is-jmb-776.sttlwa.pacificwave.net.
+1.104		14	202.158.194.109	292.12			51.79			Time exceeded	Australia, Canberra		et-0-0-1.pe1.a.hnl.aarnet.net.au.
+2.42		15	113.197.15.98	385.52			93.4			Time exceeded	Australia, Canberra		et-2-0-0.pe2.brwy.nsw.aarnet.net.au.
+-0.349		16	202.158.194.68	391.38			5.86			Time exceeded	Australia, Canberra		ge-5-1-0.bb1.b.bne.aarnet.net.au.
+-0.528		17	202.158.194.213	391.58			0.2			Time exceeded	Australia, Canberra		ge-0-0-0.bb1.a.bne.aarnet.net.au.
+-0.665		18	202.158.209.3	387.43			-4.15			Time exceeded	Australia, Research		tengigabitethernet2-1.er2.uq.cpe.aarnet.net.au.
+-0.547		19	113.197.8.34	387.02			-0.41			Time exceeded	Australia, Mitcham		gw2.er2.uq.cpe.aarnet.net.au.
+-0.509		20	130.102.159.1	387.81			0.79			Time exceeded	Australia, 		uq-se1-uq-gw1.router.uq.edu.au.
+-0.537		21	130.102.0.242	387.7			-0.11			Time exceeded	Australia, 		zeus-uqse1.router.uq.edu.au.
+-0.098		22	130.102.82.28	401.47			13.77			Time exceeded	Australia, Brisbane		a82-28.nat.uq.edu.au.
+-0.951		23	130.102.131.70	388.29			-13.18			Echo reply	Australia, 		wsa-www.soe.uq.edu.au.
+
+----------------------------------------------------------------------
+
+Nodos distinguidos hacia www.uq.edu.au
+Hop Score	Hop#	Hop IP		Hop RTT Acumulado	Hop RTT Incremental	Hop Resp. Type	Hop Location					Hop Name
+3.271		9	200.0.204.58	146.7			120.3			Time exceeded	Uruguay, 		us-cl.redclara.net.
+0.683		13	207.231.241.4	240.33			38.48			Time exceeded	United States, Seattle		aarnet-2-is-jmb-776.sttlwa.pacificwave.net.
+1.104		14	202.158.194.109	292.12			51.79			Time exceeded	Australia, Canberra		et-0-0-1.pe1.a.hnl.aarnet.net.au.
+2.42		15	113.197.15.98	385.52			93.4			Time exceeded	Australia, Canberra		et-2-0-0.pe2.brwy.nsw.aarnet.net.au.
+promedio de RTT entre hops: 16.882
+stdev de RTT entre hops: 31.617

@@ -1,0 +1,28 @@
+Traceroute a www.cam.ac.uk (max 50 hops)
+Hop Score	Hop#	Hop IP		Hop RTT Acumulado	Hop RTT Incremental	Hop Resp. Type	Hop Location					Hop Name
+-0.31		1	10.2.100.254	0.29			0.29			Time exceeded	Reserved, 		(Unknown)
+-0.313		2	157.92.18.99	0.44			0.15			Time exceeded	Argentina, Buenos Aires		ccc-pab2.fcen.uba.ar.
+-0.295		3	157.92.47.98	1.38			0.94			Time exceeded	Argentina, Buenos Aires		(Unknown)
+-0.315		4	157.92.47.2	1.45			0.07			Time exceeded	Argentina, Buenos Aires		(Unknown)
+-0.307		5		*	*			0.41				*	(Unknown Country?), (Unknown City?)			*
+-0.307		6	168.96.0.18	2.27			0.41			Time exceeded	Argentina, Buenos Aires		rnoc8a.innova-red.net.
+-0.319		7	200.0.204.154	2.14			-0.13			Time exceeded	Uruguay, 		ar-inova.redclara.net.
+0.658		8	200.0.204.63	44.13			41.99			Time exceeded	Uruguay, 		br-ar.redclara.net.
+3.895		9	62.40.124.36	225.67			181.54			Time exceeded	United Kingdom, 		redclara.lon.uk.geant.net.
+-0.304		10	62.40.124.198	226.19			0.52			Time exceeded	United Kingdom, 		janet-gw.mx1.lon.uk.geant.net.
+-0.21		11	146.97.33.18	230.79			4.6			Time exceeded	United Kingdom, 		ae28.lowdss-sbr1.ja.net.
+-0.292		12	146.97.37.186	231.84			1.05			Time exceeded	United Kingdom, 		ae0.camb-rbr2.ja.net.
+-0.314		13	146.97.130.2	231.94			0.1			Time exceeded	United Kingdom, 		University-of-Cambridge.Camb-rbr1.eastern.ja.net.
+-0.308		14	192.84.5.93	232.32			0.38			Time exceeded	United Kingdom, Cambridge		route-enet.route-mill.net.cam.ac.uk.
+-0.309		15	192.84.5.138	232.66			0.34			Time exceeded	United Kingdom, Cambridge		route-mill.route-nwest.net.cam.ac.uk.
+-0.319		16	193.60.89.241	232.57			-0.09			Time exceeded	United Kingdom, Cambridge		mint.admin.cam.ac.uk.
+-0.333		17	131.111.150.25	231.86			-0.71			Echo reply	United Kingdom, Cambridge		primary.admin.cam.ac.uk.
+
+----------------------------------------------------------------------
+
+Nodos distinguidos hacia www.cam.ac.uk
+Hop Score	Hop#	Hop IP		Hop RTT Acumulado	Hop RTT Incremental	Hop Resp. Type	Hop Location					Hop Name
+0.658		8	200.0.204.63	44.13			41.99			Time exceeded	Uruguay, 		br-ar.redclara.net.
+3.895		9	62.40.124.36	225.67			181.54			Time exceeded	United Kingdom, 		redclara.lon.uk.geant.net.
+promedio de RTT entre hops: 13.639
+stdev de RTT entre hops: 43.102
