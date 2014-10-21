@@ -1,0 +1,30 @@
+Traceroute a www.asianust.ac.th (max 50 hops)
+Hop Score	Hop#	Hop IP		Hop RTT Acumulado	Hop RTT Incremental	Hop Resp. Type	Hop Location					Hop Name
+-0.494		1	10.2.100.254	0.39			0.39			Time exceeded	Reserved, 		(Unknown)
+-0.496		2	157.92.18.99	0.7			0.31			Time exceeded	Argentina, Buenos Aires		ccc-pab2.fcen.uba.ar.
+-0.486		3	157.92.47.98	1.45			0.75			Time exceeded	Argentina, Buenos Aires		(Unknown)
+0.202		4		*	*			30.883				*	(Unknown Country?), (Unknown City?)			*
+0.202		5		*	*			30.883				*	(Unknown Country?), (Unknown City?)			*
+0.202		6		*	*			30.883				*	(Unknown Country?), (Unknown City?)			*
+0.202		7	208.48.239.69	124.98			30.883			Time exceeded	United States, Lawrenceville		ethernet14-4.ar4.mia1.gblx.net.
+-0.505		8	67.16.147.129	124.88			-0.1			Time exceeded	United States, 		ae9.scr4.MIA1.gblx.net.
+1.006		9	67.17.65.198	190.98			66.1			Time exceeded	United States, 		po2-20G.ar1.PAO2.gblx.net.
+-0.36		10	159.63.23.198	197.26			6.28			Time exceeded	United States, 		true-international-gateway-co.gigabitethernet9-16.ar1.pao2.gblx.net.
+3.875		11	122.144.26.13	389.1			191.84			Time exceeded	Thailand, Bangkok		(Unknown)
+-0.033		12	113.21.245.53	409.67			20.57			Time exceeded	Thailand, Bangkok		TIG-Net245-53.trueintergateway.com.
+-0.595		13	113.21.245.21	405.62			-4.05			Time exceeded	Thailand, Bangkok		TIG-Net245-21.trueintergateway.com.
+-0.498		14	122.144.25.94	405.85			0.23			Time exceeded	Thailand, Bangkok		TIG-Net25-94.trueintergateway.com.
+-0.519		15	103.3.177.193	405.16			-0.69			Time exceeded	Thailand, 		103-3-177-193.static.asianet.co.th.
+-0.56		16	203.144.144.8	402.65			-2.51			Time exceeded	Thailand, Bangkok		203-144-144-8.static.asianet.co.th.
+-0.152		17	61.91.99.238	418.03			15.38			Time exceeded	Thailand, Bangkok		vl115.node254-32.mtg.net.trueinternet.co.th.
+-0.496		18		*	*			0.315				*	(Unknown Country?), (Unknown City?)			*
+-0.496		19	203.144.255.27	418.66			0.315			Echo reply	Thailand, Bangkok		203-144-255-27.static.asianet.co.th.
+
+----------------------------------------------------------------------
+
+Nodos distinguidos hacia www.asianust.ac.th
+Hop Score	Hop#	Hop IP		Hop RTT Acumulado	Hop RTT Incremental	Hop Resp. Type	Hop Location					Hop Name
+1.006		9	67.17.65.198	190.98			66.1			Time exceeded	United States, 		po2-20G.ar1.PAO2.gblx.net.
+3.875		11	122.144.26.13	389.1			191.84			Time exceeded	Thailand, Bangkok		(Unknown)
+promedio de RTT entre hops: 22.035
+stdev de RTT entre hops: 43.821

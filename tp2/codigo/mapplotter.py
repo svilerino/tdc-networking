@@ -73,8 +73,8 @@ class MapPlotter:
             iptable_idx+=1
 
         bboxprops = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-        #plt.text(10000, 5000, str_to_print, style='italic', bbox=bboxprops)
-        plt.text(10000, 10, str_to_print, style='italic', bbox=bboxprops)
+        plt.text(10, 10, str_to_print, style='italic', bbox=bboxprops)
+        #plt.text(10, 10, str_to_print)
 
         plt.show()
         #plt.savefig(self.filename + ".jpg", format="jpg" )
