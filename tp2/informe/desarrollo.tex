@@ -27,8 +27,8 @@ Al momento de calcular los $RTT_i = RTT_{(acum, i)} - RTT_{(acum, i-1)}$ de cada
 Otro problema surge al calcular $RTT_i = RTT_{(acum, i)} - RTT_{(acum, i-1)}$, 
 el hop $i-1$ puede no existir, o ser desconocido. En el primer caso, coincide que $RTT_1 = RTT_{(acum, 1)}$ asi que no hay mayores inconvenientes. En caso de ser desconocido el hop anterior, asumiendo que el primer hop, usualmente el gateway del host origen es siempre descubierto, el enfoque utilizado para solucionar este problema fue iterar hacia atras desde el i-esimo hop, y realizar el calculo $RTT_i = RTT_{(acum, i)} - RTT_{(acum, j)}$, donde $j$ es el indice del primer hop detr\'as del i-esimo hop. El problema que trae esto, es que agrupamos hops desconocidos como uno solo, lo que nos va a afectar el descubrimiento de hops distinguidos, dando falsos positivos. Una segunda iteracion sobre este enfoque fue simular un RTT equitativo entre todos los hops intermedios ocultos entre el i-esimo y el j-esimo hop y asignarle $RTT_i = \frac{RTT_{(acum, i)} - RTT_{(acum, j)}}{cant. hops salteados}$. a cada hop intermedio entre los hops j e i. Finalmente utilizamos esta segunda iteracion de la solucion para nuestro analisis.
 
-\subsubsection{Varias iteraciones para descubrir rutas y rtt promedio}
-Dado que usualmente no cambian de forma significativa las rutas ni los tiempos para corridas muy inmediatas entre ellas, decidimos no analizar esto realizando varias iteraciones programaticamente.
+%\subsubsection{Varias iteraciones para descubrir rutas y rtt promedio}
+%Dado que usualmente no cambian de forma significativa las rutas ni los tiempos para corridas muy inmediatas entre ellas, decidimos no analizar esto realizando varias iteraciones programaticamente.
 
 \subsubsection{TCPTraceroute para mejorar descubrimiento de hops}
 Para intentar disminuir la cantidad de nodos desconocidos, realizamos una prueba enviando paquetes TCP y UDP adaptando las condiciones de terminacion del algoritmo de traza, los resultados obtenidos fueron identicos a las pruebas realizadas con ICMP con lo cual no avanzamos por este camino.
