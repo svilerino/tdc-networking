@@ -1,58 +1,36 @@
-\subsection{www.cam.ac}
-Traceroute a home.web.cern.ch (max 50 hops)
-\begin{center}
-	\begin{tabular}{ c | c | c | c | c | c | c | c }
-		\hline
-		Score & IP & RTT Acum & RTT Incr & Resp. Type & Location & Name\\
-		\hline
-		-0.31 & 10.2.100.254 & 0.3 & 0.3 & Reserved,  & (Unknown)\\
-		\hline
-		-0.31 & 157.92.18.99 & 0.6 & 0.3 & Argentina, Buenos Aires & ccc-pab2.fcen.uba.ar.\\
-		\hline
-		-0.297 & 157.92.47.98 & 1.48 & 0.88 & Argentina, Buenos Aires & (Unknown)\\
-		\hline
-		-0.318 & 157.92.47.2 & 1.45 & -0.03 & Argentina, Buenos Aires & (Unknown)\\
-		\hline
-		-0.306 & * & * & 0.465 & * & - & *\\
-		\hline
-		-0.306 & 168.96.0.18 & 2.38 & 0.465 & Argentina, Buenos Aires & rnoc8a.innova-red.net.\\
-		\hline
-		-0.298 & 200.0.204.154 & 3.21 & 0.83 & Uruguay,  & ar-inova.redclara.net.\\
-		\hline
-		0.673 & 200.0.204.63 & 44.75 & 41.54 & Uruguay,  & br-ar.redclara.net.\\
-		\hline
-		4.009 & 62.40.124.36 & 226.12 & 181.37 & United Kingdom,  & redclara.lon.uk.geant.net.\\
-		\hline
-		0.022 & 62.40.98.77 & 240.36 & 14.24 & United Kingdom,  & ae0.mx1.par.fr.geant.net.\\
-		\hline
-		-0.343 & 62.40.124.82 & 239.3 & -1.06 & United Kingdom,  & switch-bckp-gw.mx1.par.fr.geant.net.\\
-		\hline
-		-0.312 & 192.65.184.70 & 239.52 & 0.22 & Switzerland, Geneva & e513-e-rbrxl-2-te20.cern.ch.\\
-		\hline
-		-0.318 & * & * & -0.005 & - & *\\
-		\hline
-		-0.318 & * & * & -0.005 & - & *\\
-		\hline
-		-0.318 & * & * & -0.005 & - & *\\
-		\hline
-		-0.318 & 194.12.149.2 & 239.5 & -0.005 & Time exceeded & Switzerland, Geneva & r513-b-rbrml-1-sc1.cern.ch.\\
-		\hline
-		-0.316 & * & * & 0.07 & - & *\\
-		\hline
-		-0.316 & 137.138.76.28 & 239.64 & 0.07 & Echo reply & Switzerland, Geneva & drupalprod.cern.ch.\\
-	\end{tabular}
-\end{center}
+\subsection{www.cam.ac.uk}
 
-Nodos distinguidos hacia home.web.cern.ch
-\begin{center}
-	\begin{tabular}{ c | c | c | c | c | c | c | c }
-		\hline
-		Hop Score & Hop IP & Hop RTT Acumulado & Hop RTT Incremental & Hop Resp. Type & Hop Location & Hop Name\\
-		\hline
-		0.673 & 200.0.204.63 & 44.75 & 41.54 & Time exceeded & Uruguay,  & br-ar.redclara.net.\\
-		\hline
-		4.009 & 62.40.124.36 & 226.12 & 181.37 & Time exceeded & United Kingdom,  & redclara.lon.uk.geant.net.\\
-	\end{tabular}
-\end{center}
-promedio de RTT entre hops: 13.313
-stdev de RTT entre hops: 41.923
+En esta ocasión se envió un paquete ICMP con destino hacia la URL \textit{www.cam.ac.uk}, donde está hosteado el sitio de la Universidad de Cambridge en el Reino Unido. Con el fin de obtener los nodos distinguidos, posteriormente se calculo el Z-Score en base a los resultados obtenidos con la herramienta implementada para este trabajo práctico.
+En esta primera figura se puede ver el viaje que realizó el paquete hasta arribar a su destino, deduciendo la ubicación geográfica de los routers intermedios a partir de sus direcciones IP.
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.3]{../cambridge-experiment/figure_1.png}
+  \caption{Planisferio donde se puede ver el realizado por el paquete en rojo.}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+En los siguientes gráficos se hallan los valores asociados a los \textit{Round Trip Time} que se estimaron entre cada uno de los nodos. En el primero de ellos se muestra el \textit{RTT} entre dos nodos consecutivos, mientras que en el segundo se puede apreciar el acumulado de estos a medida que el paquete se acerca al destino.
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.3]{../cambridge-experiment/bar_rtt.jpeg}
+  \caption{RTT entre dos router consecutivos medido en milisegundos.}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.3]{../cambridge-experiment/bar_rtt_acum.jpeg}
+  \caption{RTT acumulado del paquete a medida que avanza en su camino hacia la Universidad de Cambridge.}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+Finalmente, los resultados obtenidos por el Z-Score permiten distinguir a los saltos de mayor importancia en el trayecto, como era de esperarse estos están relacionados con el del salto transoceánico que se realiza entre Uruguay y el Reino Unido.
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.3]{../cambridge-experiment/bar_z_score.jpeg}
+  \caption{Z-Score para cada uno de los saltos.}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
