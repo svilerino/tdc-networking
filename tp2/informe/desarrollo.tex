@@ -1,31 +1,31 @@
 \section{Desarrollo}
 \subsection{Implementacion de traceroute}
-En esta seccion explicaremos como fue realizada la herramienta en python que realiza el \texttt{traceroute}.
+En esta sección explicaremos como fue realizada la herramienta en python que realiza el \texttt{traceroute}.
 \subsubsection{Envio de paquetes con ttl incremental}
-Utilizamos el protocolo \texttt{ICMP} y la tecnica de \texttt{TTL incrementales} para obtener los hops intermedios de origen a destino, esta tecnica consiste en enviar paquetes \texttt{ICMP} con ttl en un rango creciente, comenzando en 1, y al recibir una respuesta, dependiendo el tipo de respuesta ir armando la ruta, particularmente si la respuesta es \textbf{Time Exceeded}, quiere decir que el ttl del paquete se agoto en camino y obtenemos un hop intermedio de la direccion origen del paquete de la respuesta de \texttt{ICMP}. Si la respuesta es \textbf{Echo Reply}, quiere decir que el host destino fue alcanzado. El incremento del \texttt{TTL} continua en cada iteracion hasta o bien llegar al host destino, o bien llegar a un limite de TTL, usualmente 30 saltos en el traceroute de linux, limite que adoptamos para nuestra herramienta.
+Utilizamos el protocolo \texttt{ICMP} y la tecnica de \texttt{TTL incrementales} para obtener los hops intermedios de origen a destino, esta tecnica consiste en enviar paquetes \texttt{ICMP} con ttl en un rango creciente, comenzando en 1, y al recibir una respuesta, dependiendo el tipo de respuesta ir armando la ruta, particularmente si la respuesta es \textbf{Time Exceeded}, quiere decir que el ttl del paquete se agoto en camino y obtenemos un hop intermedio de la direccion origen del paquete de la respuesta de \texttt{ICMP}. Si la respuesta es \textbf{Echo Reply}, quiere decir que el host destino fue alcanzado. El incremento del \texttt{TTL} continua en cada iteración hasta o bien llegar al host destino, o bien llegar a un limite de TTL, usualmente 30 saltos en el traceroute de linux, limite que adoptamos para nuestra herramienta.
 \subsubsection{Control de hops sin respuesta - Timeout}
 Puede ocurrir que para cierto \texttt{TTL} el hop correspondiente no conteste, es por esto que agregamos un \texttt{timeout} asociado a la petici\'on. Luego de este tiempo, el intento con dicho \texttt{TTL} es descartado, marcado el hop como desconocido y se procede a incrementar el \texttt{TTL} y continuar con el ciclo de la traza.
 \subsubsection{Medicion del RTT}
 Scapy nos provee de ciertos campos temporales en los paquetes, utilizamos estos campos para determinar el tiempo \texttt{Round trip time} o \texttt{Tiempo de ida y vuelta}, en los paquetes de envio y respuesta de la peticion, hay campos indicando el \texttt{Unix Time} en el que fueron enviados y recibidos, correspondientemente, al realizar la resta entre ellos, obtenemos la medicion que buscabamos y al multiplicarla por 1000 obtenemos el tiempo en milisegundos.
 
 \subsection{Informacion obtenida de hops}
-Para refinar el analisis, como mencionamos en la introduccion, se utilizaron APIs para obtener \texttt{metadatos} acerca de los hops con IP descubierta.
+Para refinar el análisis, como mencionamos en la introducción, se utilizaron APIs para obtener \texttt{metadatos} acerca de los hops con IP descubierta.
 
 \subsubsection{Reverse DNS Lookup}
 Utilizamos el \texttt{Servicio Web} situado en \texttt{http://api.statdns.com/x/<IpAddress>} para resolver los nombres de host de los hop a partir de su direccion IP.
 
 \subsubsection{IP Geolocalization Lookup}
-Utilizamos el \texttt{Servicio Web} situado en \texttt{http://freegeoip.net/json/<IpAddress>} para obtener datos de posicion geografica de los hops utilizando su direccion IP.
+Utilizamos el \texttt{Servicio Web} situado en \texttt{http://freegeoip.net/json/<IpAddress>} para obtener datos de posición geografica de los hops utilizando su dirección IP.
 
 \subsection{Problemas surgidos durante el desarrollo}
 \subsubsection{Hops con $RTT_i$ negativo}
 Si pensamos a internet como un grafo y los hosts origen y destino como 2 nodos, la traza es el camino entre origen y destino en el grafo, si pensamos que el \texttt{TTL} restringe la cantidad de saltos entre nodos consecutivos que pueden darse a partir del host origen, uno esperaria que el \texttt{RTT} fuera creciente, dado que es acumulativo. Pero al haber varias rutas posibles, diferente congestion a cada instante, diferentes tiempos de encolamiento a cada instante, y otras variables, es posible que en cada pedido el camino no sea el mismo. Esto produce que la medicion de \texttt{RTT} incrementando los \texttt{TTL} no sea creciente.\\
 
-Al momento de calcular los $RTT_i = RTT_{(acum, i)} - RTT_{(acum, i-1)}$ de cada hop la situacion explicada arriba puede producir \texttt{RTT incrementales} negativos. Por lo general los nodos distinguidos \textbf{tienen una variacion importante de RTT acumulado y no son afectados usualmente por este problema}, de forma que no implementamos ninguna soluci\'on a este problema porque no nos afecta en los resultados que buscamos.
+Al momento de calcular los $RTT_i = RTT_{(acum, i)} - RTT_{(acum, i-1)}$ de cada hop la situación explicada arriba puede producir \texttt{RTT incrementales} negativos. Por lo general los nodos distinguidos \textbf{tienen una variación importante de RTT acumulado y no son afectados usualmente por este problema}, de forma que no implementamos ninguna soluci\'on a este problema porque no nos afecta en los resultados que buscamos.
 
 \subsubsection{Hops sin un hop inmediato anterior valido}
 Otro problema surge al calcular $RTT_i = RTT_{(acum, i)} - RTT_{(acum, i-1)}$, 
-el hop $i-1$ puede no existir, o ser desconocido. En el primer caso, coincide que $RTT_1 = RTT_{(acum, 1)}$ asi que no hay mayores inconvenientes. En caso de ser desconocido el hop anterior, asumiendo que el primer hop, usualmente el gateway del host origen es siempre descubierto, el enfoque utilizado para solucionar este problema fue iterar hacia atras desde el i-esimo hop, y realizar el calculo $RTT_i = RTT_{(acum, i)} - RTT_{(acum, j)}$, donde $j$ es el indice del primer hop detr\'as del i-esimo hop. El problema que trae esto, es que agrupamos hops desconocidos como uno solo, lo que nos va a afectar el descubrimiento de hops distinguidos, dando falsos positivos. Una segunda iteracion sobre este enfoque fue simular un RTT equitativo entre todos los hops intermedios ocultos entre el i-esimo y el j-esimo hop y asignarle $RTT_i = \frac{RTT_{(acum, i)} - RTT_{(acum, j)}}{cant. hops salteados}$. a cada hop intermedio entre los hops j e i. Finalmente utilizamos esta segunda iteracion de la solucion para nuestro analisis.
+el hop $i-1$ puede no existir, o ser desconocido. En el primer caso, coincide que $RTT_1 = RTT_{(acum, 1)}$ asi que no hay mayores inconvenientes. En caso de ser desconocido el hop anterior, asumiendo que el primer hop, usualmente el gateway del host origen es siempre descubierto, el enfoque utilizado para solucionar este problema fue iterar hacia atras desde el i-esimo hop, y realizar el calculo $RTT_i = RTT_{(acum, i)} - RTT_{(acum, j)}$, donde $j$ es el indice del primer hop detr\'as del i-esimo hop. El problema que trae esto, es que agrupamos hops desconocidos como uno solo, lo que nos va a afectar el descubrimiento de hops distinguidos, dando falsos positivos. Una segunda iteración sobre este enfoque fue simular un RTT equitativo entre todos los hops intermedios ocultos entre el i-ésimo y el j-ésimo hop y asignarle $RTT_i = \frac{RTT_{(acum, i)} - RTT_{(acum, j)}}{cant. hops salteados}$ a cada hop intermedio entre los hops j e i. Finalmente utilizamos esta segunda iteración de la solución para nuestro análisis.
 
 \subsubsection{Varias iteraciones para descubrir rutas y rtt promedio}
 Dado que usualmente no cambian de forma significativa las rutas ni los tiempos para corridas muy inmediatas entre ellas, decidimos no analizar esto realizando varias iteraciones programaticamente.
@@ -33,12 +33,12 @@ Dado que usualmente no cambian de forma significativa las rutas ni los tiempos p
 \subsubsection{TCPTraceroute para mejorar descubrimiento de hops}
 Para intentar disminuir la cantidad de nodos desconocidos, realizamos una prueba enviando paquetes TCP y UDP adaptando las condiciones de terminacion del algoritmo de traza, los resultados obtenidos fueron identicos a las pruebas realizadas con ICMP con lo cual no avanzamos por este camino.
 
-\subsection{Estadisticas y Nodos distinguidos}
-Para la deteccion de nodos distinguidos en la ruta calculamos una serie de estimadores estadisticos.
+\subsection{Estadísticas y Nodos distinguidos}
+Para la detección de nodos distinguidos en la ruta calculamos una serie de estimadores estadisticos.
 \subsubsection{Promedio y Desv. Estandar del $RTT_i$}
 Al final de la traza, se calcula el promedio y la desviacion estandar del $RTT incremental$ de cada hop en la traza.
-\subsubsection{Calculo de ZScore para cada hop}
-Realizando el calculo $Zrtt_i = \frac{RTT_i - RTT_{prom}}{RTT_{stdev}}$ asignamos un puntaje signado a cada hop, si $Zrtt_i$ es negativo, se encuentra por debajo de la media, si es positivo, se encuentra por encima de la media.
+\subsubsection{Cálculo de ZScore para cada hop}
+Realizando el cálculo $Zrtt_i = \frac{RTT_i - RTT_{prom}}{RTT_{stdev}}$ asignamos un puntaje signado a cada hop, si $Zrtt_i$ es negativo, se encuentra por debajo de la media, si es positivo, se encuentra por encima de la media.
 
 \subsubsection{Eleccion emp\'irica del umbral para deteccion de nodos distinguidos}
 Tomamos un umbral arbitrario $\lambda=\frac{1}{2}$, todos los hops que se encuentren con puntaje por encima de este umbral, son considerados distinguidos. Dado que obtuvimos buenos resultados con este umbral, no vimos la necesidad de ajustarlo.
@@ -47,14 +47,14 @@ Tomamos un umbral arbitrario $\lambda=\frac{1}{2}$, todos los hops que se encuen
 Para los experimentos realizados a ciertos hosts de distintos continentes se presenta la informacion con las siguientes herramientas.
 \begin{itemize}
 	\item \texttt{Tabla de hops de la traza: }
-	Se muestra una tabla informando los hops entre origen y destino, con el \texttt{RTT acumulado}, el \texttt{RTT incremental} y el \texttt{zscore} de cada hop, y donde es posible, la resolucion del \texttt{host-name} y la \texttt{geolocalizacion} del host.
+	Se muestra una tabla informando los hops entre origen y destino, con el \texttt{RTT acumulado}, el \texttt{RTT incremental} y el \texttt{zscore} de cada hop, y donde es posible, la resolución del \texttt{host-name} y la \texttt{geolocalización} del host.
 
-	\item \texttt{Distribucion de $RTT_i$: }
-		Se muestra un grafico de barras donde el eje x indica las IP de los hops y en el eje Y de muestra una barra indicando el \texttt{RTT incremental} entre dicho hop y el anterior.
-	\item \texttt{Distribucion de $RTT_{ttl}$ acumulado: }
-		En este grafico mostramos de izquierda a derecha, los hops en orden desde origen a destino y en el eje Y el \texttt{RTT acumulado} desde origen hasta este hop.
+	\item \texttt{Distribución de $RTT_i$: }
+		Se muestra un gráfico de barras donde el eje x indica las IP de los hops y en el eje Y de muestra una barra indicando el \texttt{RTT incremental} entre dicho hop y el anterior.
+	\item \texttt{Distribución de $RTT_{ttl}$ acumulado: }
+		En este grafico mostramos de izquierda a derecha, los hops en orden desde origen a destino y en el eje Y el \texttt{RTT acumulado} desde orígen hasta este hop.
 	\item \texttt{Distribucion de $ZScore_i$: }
-		Para cada hop en el eje x, en este grafico, mostramos en el eje Y una barra indicando el puntaje estandar otorgado a este hop.
+		Para cada hop en el eje x, en este gráfico, mostramos en el eje Y una barra indicando el puntaje estandar otorgado a este hop.
 \end{itemize}
 
 \subsubsection{Traza sobre el planisferio}

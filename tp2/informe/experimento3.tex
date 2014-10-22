@@ -1,15 +1,17 @@
 \subsection{home.web.cern.ch}
 
-En este experimento se creo un paquete ICMP con dirección IP destino \textit{137.138.76.28}, correspondiente a la web \textit{http://home.web.cern.ch/} página oficial de la Organización Europea para la Investigación Nuclear (CERN). Los servidores de este sitio web se encuentran en la ciudad de Ginebra, Suiza. Se espera por lo tanto que a lo largo del camino que tome el paquete haya un salto transoceánico entre dos hops que obtendrá un alto puntaje según el z-score. Veamos primero una lista de las IPs junto a los lugares físicos asociados a esta para visualizar con mayor facilidad el recorrido que realizó el paquete a lo largo del experimento:
+En este experimento se creó un paquete ICMP con dirección IP destino \textit{137.138.76.28}, correspondiente a la web \textit{http://home.web.cern.ch/} página oficial de la Organización Europea para la Investigación Nuclear (CERN). Los servidores de este sitio web se encuentran en la ciudad de Ginebra, Suiza. Se espera por lo tanto que a lo largo del camino que tome el paquete haya un salto transoceánico entre dos hops que obtendrá un alto puntaje según el z-score. Veamos primero una lista de las IPs junto a los lugares físicos asociados a esta para visualizar con mayor facilidad el recorrido que realizó el paquete a lo largo del experimento:
 
+\begin{landscape}
 \begin{figure}[H]
   \centering	
-	\includegraphics[scale=0.3]{../cern-experiment/figure_1.jpeg}
+	\includegraphics[scale=0.5]{../cern-experiment/figure_1.jpeg}
   \caption{Mapamundi con un croquis del viaje realizado por el paquete en rojo.}
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
+\end{landscape}
 
-Como se puede ver el \textit{hop} entre el sexto y septimo hop es el transoceánico del que se habló anteriormente. El salto se produce entre Uruguay (\textit{200.0.204.63}) y el Reino Unido (\textit{62.40.124.36}). En el siguiente gráfico, que muestra el RTT entre dos hops consecutivos medido en milisegundos, el salto que arriba al Reino Unido es el que devuelve el valor más alto. Esto tiene sentido ya que este es el de mayor distancia geográfica.
+Como se puede ver el \textit{hop} entre el sexto y séptimo hop es el transoceánico del que se habló anteriormente. El salto se produce entre Uruguay (\textit{200.0.204.63}) y el Reino Unido (\textit{62.40.124.36}). En el siguiente gráfico, que muestra el RTT entre dos hops consecutivos medido en milisegundos, el salto que arriba al Reino Unido es el que devuelve el valor más alto. Esto tiene sentido ya que este es el de mayor distancia geográfica.
 
 \begin{figure}[H]
   \centering	
@@ -93,11 +95,11 @@ Finalmente, se pueden ver los resultados obtenidos con el \textit{z-score} donde
 	\end{tabular}}
 \end{center}
 
-\subsubsection{Estadistica sobre las mediciones de RTT incremental}
+\subsubsection{Estadística sobre las mediciones de RTT incremental}
 \begin{itemize}
 	\item $\overline{RTT_i}: 13.313$
 	\item $STDEV(RTT_i): 41.923$
 \end{itemize}
 
 \subsubsection{Conclusion y aclaraciones}
-Para comenzar notemos la similaridad con el experimento anterior, la traza hasta el Reino Unido es identica con resultados similares, los dos nodos distinguidos son los mismos que en el experimento anterior, denotando que la experimentacion arrojo buenos resultados respecto a lo esperado. 
+Para comenzar notemos la similaridad con el experimento anterior, la traza hasta el Reino Unido es idéntica con resultados similares, los dos nodos distinguidos son los mismos que en el experimento anterior, denotando que la experimentación arrojo buenos resultados respecto a lo esperado. 

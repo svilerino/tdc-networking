@@ -3,12 +3,14 @@
 En esta ocasión se envió un paquete ICMP con destino hacia la URL \textit{www.cam.ac.uk}, donde está hosteado el sitio de la Universidad de Cambridge en el Reino Unido. Con el fin de obtener los nodos distinguidos, posteriormente se calculo el Z-Score en base a los resultados obtenidos con la herramienta implementada para este trabajo práctico.
 En esta primera figura se puede ver el viaje que realizó el paquete hasta arribar a su destino, deduciendo la ubicación geográfica de los hops intermedios a partir de sus direcciones IP.
 
+\begin{landscape}
 \begin{figure}[H]
   \centering	
-	\includegraphics[scale=0.3]{../cambridge-experiment/figure_1.png}
+	\includegraphics[scale=0.5]{../cambridge-experiment/figure_1.png}
   \caption{Planisferio donde se puede ver el trayecto realizado por el paquete en rojo.}
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
+\end{landscape}
 
 En los siguientes gráficos se hallan los valores asociados a los \textit{Round Trip Time} que se estimaron entre cada uno de los nodos. En el primero de ellos se muestra el \textit{RTT} entre dos nodos consecutivos, mientras que en el segundo se puede apreciar el acumulado de estos a medida que el paquete se acerca al destino.
 
@@ -98,4 +100,4 @@ Finalmente, los resultados obtenidos por el Z-Score permiten distinguir a los sa
 \end{itemize}
 
 \subsubsection{Conclusion y aclaraciones}
-Para este experimento coincidieron perfectamente los resultados obtenidos con las herramientas de geolocalizacion de direcciones IP y los datos arrojados por los estimadores estadisticos. Se puede ver en el planisferio el salto dentro de Uruguay de mediana distancia(Hops 6 y 7 en grafico de RTT incremental y Zscore), asi tambien se observa la variacion de RTT entre los hops de Uruguay y Reino Unido de larga distancia en el planisferio (Hops 7 y 8 en el grafico de RTT incremental y Zscore). Estos son los 2 saltos de mayor distincion en la traza, y quedaron al descubierto con ambas herramientas utilizadas.
+Para este experimento coincidieron perfectamente los resultados obtenidos con las herramientas de geolocalización de direcciones IP y los datos arrojados por los estimadores estadistícos. Se puede ver en el planisferio el salto dentro de Uruguay de mediana distancia(Hops 6 y 7 en grafico de RTT incremental y Zscore), asi también se observa la variacion de RTT entre los hops de Uruguay y Reino Unido de larga distancia en el planisferio (Hops 7 y 8 en el grafico de RTT incremental y Zscore). Estos son los 2 saltos de mayor distincion en la traza, y quedaron al descubierto con ambas herramientas utilizadas.
