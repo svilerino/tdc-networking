@@ -1,5 +1,5 @@
 \section{Desarrollo}
-\subsection{Implementacion de traceroute}
+\subsection{Implementación de traceroute}
 En esta sección explicaremos como fue realizada la herramienta en python que realiza el \texttt{traceroute}.
 \subsubsection{Envio de paquetes con ttl incremental}
 Utilizamos el protocolo \texttt{ICMP} y la tecnica de \texttt{TTL incrementales} para obtener los hops intermedios de origen a destino, esta tecnica consiste en enviar paquetes \texttt{ICMP} con ttl en un rango creciente, comenzando en 1, y al recibir una respuesta, dependiendo el tipo de respuesta ir armando la ruta, particularmente si la respuesta es \textbf{Time Exceeded}, quiere decir que el ttl del paquete se agoto en camino y obtenemos un hop intermedio de la direccion origen del paquete de la respuesta de \texttt{ICMP}. Si la respuesta es \textbf{Echo Reply}, quiere decir que el host destino fue alcanzado. El incremento del \texttt{TTL} continua en cada iteración hasta o bien llegar al host destino, o bien llegar a un limite de TTL, usualmente 30 saltos en el traceroute de linux, limite que adoptamos para nuestra herramienta.
