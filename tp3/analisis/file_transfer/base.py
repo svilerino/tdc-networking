@@ -78,8 +78,12 @@ class FileTransferBase(object):
     def _connect_socket(self, sock):
         raise NotImplementedError
 
+# Delay por default = 0
+
     def set_delay(self):
         protocol.ACK_delay = 0
+
+# Probabilidad de enviar paquete por default = 1
 
     def set_chance(self):
         protocol.ACK_chance = 1
