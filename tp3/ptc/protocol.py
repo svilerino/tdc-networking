@@ -9,9 +9,6 @@
 #              Segundo cuatrimestre de 2014              #
 ##########################################################
 
-ACK_delay = int()
-ACK_chance = int()
-
 import threading
 import random
 
@@ -153,20 +150,7 @@ class PTCProtocol(object):
         if not self.retransmission_timer.is_running():
             # Usar la estimación actual del RTO para medir este paquete.
             current_rto = self.rto_estimator.get_current_rto()
-            self.retransmission_timer.start(current_rto)
-
-        r = random.random()
-
-        if r < ACK_chance:
-            if ACK_delay > 0:
-                threading.Timer(ACK_delay, send_packet())
-                print "Envie con delay"
-            else:
-                send_packet()
-                print "Envie sin delay"
-        else:
-            print "NO envie"   
-            print str(r)   
+            self.retransmission_timer.start(current_rto) 
         
     def set_destination_on_packet_builder(self, address, port):
         self.packet_builder.set_destination_address(address)
