@@ -9,12 +9,8 @@
 #              Segundo cuatrimestre de 2014              #
 ##########################################################
 
-ACK_delay = float()
-ACK_chance = float()
-
 import random
 import threading
-import time
 
 from constants import CLOSED, SYN_RCVD, ESTABLISHED, SYN_SENT,\
                       LISTEN, FIN_WAIT1, FIN_WAIT2, CLOSE_WAIT,\
@@ -39,18 +35,8 @@ class IncomingPacketHandler(object):
         self.protocol.set_state(state) 
         
     def send_ack(self):
-
-        r = random.random()
-
-        if r < ACK_chance:
-            if ACK_delay > 0:
-                time.sleep(ACK_delay)
-                ack_packet = self.build_packet()
-                self.socket.send(ack_packet)
-            else:
-                ack_packet = self.build_packet()
-                self.socket.send(ack_packet)                
-
+        ack_packet = self.build_packet()
+        self.socket.send(ack_packet)                       
 
     def handle(self, packet):
         state = self.protocol.state

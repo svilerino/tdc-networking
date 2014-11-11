@@ -15,11 +15,11 @@ import random
 import threading
 try:
     from ptc import Socket
-    from ptc import handler
+    from ptc import protocol
 except:
     sys.path.append('../../')
     from ptc import Socket
-    from ptc import handler
+    from ptc import protocol
 
 class FileTransferBase(object):
     
@@ -81,9 +81,9 @@ class FileTransferBase(object):
 # Delay por default = 0
 
     def set_delay(self):
-        handler.ACK_delay = 0
+        protocol.ACK_delay = 0
 
 # Probabilidad de enviar paquete por default = 1
 
     def set_chance(self):
-        handler.ACK_chance = 1
+        protocol.ACK_chance = 1

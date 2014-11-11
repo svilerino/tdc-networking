@@ -8,10 +8,12 @@
 #                       FCEN - UBA                       #
 #              Segundo cuatrimestre de 2014              #
 ##########################################################
+ACK_delay = float()
+ACK_chance = float()
 
 import threading
 import random
-
+import time
 
 from cblock import PTCControlBlock
 from constants import CLOSED, ESTABLISHED, SYN_SENT,\
@@ -149,7 +151,14 @@ class PTCProtocol(object):
             current_rto = self.rto_estimator.get_current_rto()
             self.retransmission_timer.start(current_rto)
 
-        self.socket.send(packet) 
+        r = random.random()
+
+        if r < ACK_chance:
+            if ACK_delay > 0:
+                time.sleep(ACK_delay)
+                self.socket.send(packet)
+            else:
+                self.socket.send(packet)    
         
     def set_destination_on_packet_builder(self, address, port):
         self.packet_builder.set_destination_address(address)

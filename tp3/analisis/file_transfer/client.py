@@ -18,6 +18,12 @@ class FileTransferClient(FileTransferBase):
         FileTransferBase.__init__(self)
         self.outgoing_filename = 'dwight.jpg'
         
+    def set_delay(self):
+        protocol.ACK_delay = 0.5
+
+    def set_chance(self):
+        protocol.ACK_chance = 1
+
     def _connect_socket(self, sock):
         sock.connect((self.server_ip, self.server_port), timeout=10)
 
