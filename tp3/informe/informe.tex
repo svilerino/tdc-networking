@@ -1,0 +1,120 @@
+%********************************************************************************************
+%								COMANDOS ÚTILES PARA LATEX EN ESTE TP							
+%
+%	\ : espacio simple
+%	\\ : nueva línea
+%	\par : va a la línea de abajo y deja sangría
+%	\vspace{##tamaño en pt##} o \vspace{\baselineskip} en general:
+%								 para dejar un espacio vertical
+%	\textbf{text} :text en negrita
+%	\textit{text} :text en itálica
+%
+% GRAFICOS CENTRADOS:
+%	\begin{center}
+%		\includegraphics[width=\textwidth]{./img/##ruta imagen (no hace falta extension)##}
+%	\end{center}
+%		--> se pueden agregar atributos como scale por si se hace muy grande
+%
+% TABLAS CENTRADAS:
+%	\begin{center}
+%	\begin{tabular}{|c|c|}
+%	\hline
+%	\ \textbf{Programa} & \textbf{Ticks} \\
+%	\hline
+%		ASM & 675127609 \\
+%	\hline
+%	\end{tabular}
+%	\end{center}
+%
+% ALGORITMOS (EN VARIOS LENGUAJES):
+% \begin{lstlisting}
+%	void sumoDiez(int &num)
+%	{
+%	    num += 10;
+%	}
+%	
+%	int main()
+%	{
+% 	   int i;
+%	    int numeroAProcesar = 20;
+%	    for (i = 0; i < 50; i++)
+%	    {
+%	        sumoDiez(numeroAProcesar);	//Proceso el numero en cada ciclo
+%	    } 
+%	    return 0;
+%	}
+%	\end{lstlisting}
+%
+% para info sobre todo lo que tiene el package detallado:
+% http://en.wikibooks.org/wiki/LaTeX/Source\_Code\_Listings
+%
+%********************************************************************************************
+
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
+\usepackage[spanish]{babel} % para que comandos como \today den el resultado en castellano
+\usepackage{a4wide} % márgenes un poco más anchos que lo usual
+\usepackage[conEntregas]{caratula}
+\usepackage{amssymb}
+\usepackage{fancybox}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{color}
+\usepackage[table]{xcolor}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{pdflscape}
+\usepackage{chngpage}
+\usepackage{lscape}
+
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\lstdefinestyle{customc}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=C,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\lstset{escapechar=@,style=customc}
+
+\begin{document}
+
+\titulo{Trabajo Práctico 3}
+\subtitulo{Capa de Transporte}
+
+\fecha{\today}
+
+\materia{Teoría de las Comunicaciones}
+\grupo{}
+
+\integrante{Barbeito, Nicolás}{147/10}{nicolasbarbeiton@gmail.com}
+\integrante{Garassino, Agustín Javier}{394/12}{ajgarassino@gmail.com}
+\integrante{Santos, Martín Nicolás}{413/11}{martin.n.santos@gmail.com}
+\integrante{Vileriño, Silvio}{106/12}{svilerino@gmail.com}
+
+\maketitle
+
+\tableofcontents
+\newpage
+\include{intro}
+\include{desarrollo}
+\section{Experimentación}
+\include{conclusion}
+
+
+\end{document}
