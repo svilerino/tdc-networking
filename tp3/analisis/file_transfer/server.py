@@ -17,14 +17,13 @@ class FileTransferServer(FileTransferBase):
 
     def __init__(self):
         FileTransferBase.__init__(self)
-        self.incoming_filename = 'dwight.jpg'
-        self.outgoing_filename = 'thunder.jpg'
+        self.incoming_filename = 'yo.jpg'
 
     def set_delay(self):
-        handler.ACK_delay = 0.0
+        handler.ACK_delay = 5
 
     def set_chance(self):
-        handler.ACK_chance = 0.95          
+        handler.ACK_chance = 1          
         
     def _connect_socket(self, sock):
         sock.bind((self.server_ip, self.server_port))
@@ -38,7 +37,6 @@ class FileTransferServer(FileTransferBase):
             # El cliente se conecta activamente mientras que el servidor se
             # ligará a una dirección determinada y escuchará allí.
             self._connect_socket(sock)
-            i = 0
             # Para recibir el archivo, iterar hasta que el tamaño deseado
             # queda totalmente cubierto.
             while len(self.received_bytes) < expected_size:
@@ -46,7 +44,6 @@ class FileTransferServer(FileTransferBase):
                 # podemos mandar datos a nuestro interlocutor.
                 chunk = sock.recv(self.CHUNK_SIZE)
                 self.received_bytes += chunk
-                i += self.CHUNK_SIZE
         self._write_file()        
 
 if __name__ == '__main__':

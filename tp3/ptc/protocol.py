@@ -126,9 +126,6 @@ class PTCProtocol(object):
 
     def send_and_queue(self, packet, is_retransmission=False):
 
-        def send_packet():
-            self.socket.send(packet)
-
         if is_retransmission:
             # Algoritmo de Karn: no usar paquetes retransmitidos para
             # actualizar las estimaciones del RTO.
@@ -150,7 +147,9 @@ class PTCProtocol(object):
         if not self.retransmission_timer.is_running():
             # Usar la estimación actual del RTO para medir este paquete.
             current_rto = self.rto_estimator.get_current_rto()
-            self.retransmission_timer.start(current_rto) 
+            self.retransmission_timer.start(current_rto)
+
+        self.socket.send(packet) 
         
     def set_destination_on_packet_builder(self, address, port):
         self.packet_builder.set_destination_address(address)
