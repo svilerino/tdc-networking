@@ -37,10 +37,9 @@ class IncomingPacketHandler(object):
     def set_state(self, state):
         self.protocol.set_state(state)
 
-    def send_with_delay(self):
+    def send_ack_bis(self):
         ack_packet = self.build_packet()
         self.socket.send(ack_packet) 
-        print "holii"       
         
     def send_ack(self):
 
@@ -49,9 +48,10 @@ class IncomingPacketHandler(object):
         if r < ACK_chance:
             if ACK_delay > 0:
                 print "Ack delay: " + str(ACK_delay)
-                threading.Timer(ACK_delay, self.send_with_delay).start()
+                t = threading.Timer(ACK_delay, self.send_ack_bis)
+                t.start()
             else:
-                self.send_with_delay()
+                self.send_ack_bis()
 
 
     def handle(self, packet):
@@ -145,7 +145,6 @@ class IncomingPacketHandler(object):
         else:
             self.process_on_control_block(packet)
             if not self.control_block.has_data_to_send():
-                print "Entre"
                 # Si hay datos a punto de enviarse, "piggybackear" el ACK ahí
                 # mismo. No es necesario mandar un ACK manualmente.
                 self.send_ack_for_packet_only_if_it_has_payload(packet)

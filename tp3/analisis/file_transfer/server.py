@@ -17,7 +17,7 @@ class FileTransferServer(FileTransferBase):
 
     def __init__(self):
         FileTransferBase.__init__(self)
-        self.incoming_filename = 'yo.jpg'
+        self.incoming_filename = 'dwight.jpg'
 
     def set_delay(self):
         handler.ACK_delay = 5
