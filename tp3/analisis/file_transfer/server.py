@@ -12,18 +12,11 @@
 
 from base import *
 
-
 class FileTransferServer(FileTransferBase):
 
     def __init__(self):
         FileTransferBase.__init__(self)
-        self.incoming_filename = 'dwight.jpg'
-
-    def set_delay(self):
-        handler.ACK_delay = 0.5
-
-    def set_chance(self):
-        handler.ACK_chance = 1          
+        self.incoming_filename = 'dwight.jpg'          
         
     def _connect_socket(self, sock):
         sock.bind((self.server_ip, self.server_port))
