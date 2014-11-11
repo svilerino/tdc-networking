@@ -20,7 +20,7 @@ class FileTransferServer(FileTransferBase):
         self.incoming_filename = 'dwight.jpg'
 
     def set_delay(self):
-        handler.ACK_delay = 5
+        handler.ACK_delay = 0.5
 
     def set_chance(self):
         handler.ACK_chance = 1          

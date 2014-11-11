@@ -14,6 +14,7 @@ ACK_chance = float()
 
 import random
 import threading
+import time
 
 from constants import CLOSED, SYN_RCVD, ESTABLISHED, SYN_SENT,\
                       LISTEN, FIN_WAIT1, FIN_WAIT2, CLOSE_WAIT,\
@@ -35,11 +36,7 @@ class IncomingPacketHandler(object):
         return self.protocol.build_packet(*args, **kwargs)
     
     def set_state(self, state):
-        self.protocol.set_state(state)
-
-    def send_ack_bis(self):
-        ack_packet = self.build_packet()
-        self.socket.send(ack_packet) 
+        self.protocol.set_state(state) 
         
     def send_ack(self):
 
@@ -47,11 +44,12 @@ class IncomingPacketHandler(object):
 
         if r < ACK_chance:
             if ACK_delay > 0:
-                print "Ack delay: " + str(ACK_delay)
-                t = threading.Timer(ACK_delay, self.send_ack_bis)
-                t.start()
+                time.sleep(ACK_delay)
+                ack_packet = self.build_packet()
+                self.socket.send(ack_packet)
             else:
-                self.send_ack_bis()
+                ack_packet = self.build_packet()
+                self.socket.send(ack_packet)                
 
 
     def handle(self, packet):
