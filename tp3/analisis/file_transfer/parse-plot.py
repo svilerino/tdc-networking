@@ -1,9 +1,11 @@
 import sys
 from glob import glob
 import os
-from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+
+#http://stackoverflow.com/questions/25383698/error-string-to-bool-in-mplot3d-workaround-found
 
 class Data:
 	def __init__(self):
@@ -22,6 +24,12 @@ class Data:
 		for filename in sorted(glob(os.path.join(path, '*.resultado'))):
 			file = open(filename, "r")
 			lines = file.readlines()
+			
+			#ignoro archivos vacios
+			if len(lines) == 0:
+				continue
+
+			#Parseo
 
 			rttsTmp = []
 			rtosTmp = []
@@ -48,7 +56,7 @@ class Data:
 			rttsTmp = []
 			rtosTmp = []
 
-	def show():
+	def show(self):
 		print "Alphas: "
 		print self.alfas
 		print "-----------------"
@@ -59,7 +67,7 @@ class Data:
 		print self.delays
 		print "-----------------"
 		print "pErros: "
-		print self.pErros
+		print self.pErrors
 		print "-----------------"
 		print "RTO prom: "
 		print self.rtosProm
@@ -68,46 +76,44 @@ class Data:
 		print self.rttsProm
 		print "-----------------"
 		print "RTO's: "
-		print self.rtts
+		print self.rtos
 		print "-----------------"
 		print "RTT's: "
-		print self.rtos
+		print self.rtts
 
-
-def graph(data, ejex, ejey, ejez):
+def graph(data, ejex, ejey, ejez, graph_type, color_param):
 	fig = plt.figure()
 	ax = fig.add_subplot(111, projection='3d')
-#	ax.set_xlim([0,1])
-#	ax.set_ylim([0,1])
-	ax.set_zlim([600,1200])
-#	for c, z in zip(['r', 'g', 'b', 'y', 'r']*5, data.betas):
-	for c, z in zip(['r', 'g', 'b', 'y', 'r']*5, data.betas):
-
-	    xs = data.alfas
-#	    xs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
-
-	    ys = data.rtosProm
-#	    ys = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
-
-	    # You can provide either a single color or an array. To demonstrate this,
-	    # the first bar of each set will be colored cyan.
-	    cs = [c] * len(xs)
-	    cs[0] = 'c'
-	    ax.bar(xs, ys, zs=z, zdir='y', color=cs, alpha=0.8)
-
 	ax.set_xlabel(ejex)
 	ax.set_ylabel(ejey)
 	ax.set_zlabel(ejez)
 
+	if(graph_type == 1):
+		ax.plot(data.alfas, data.betas, data.rtosProm, color=color_param)
 
-	plt.show()
+	if(graph_type == 2):
+		ax.plot_wireframe(data.alfas, data.betas, data.rtosProm, color=color_param)
+
+	if(graph_type == 3):
+		ax.plot_surface(data.alfas, data.betas, data.rtosProm, color=color_param)
+
+	#plt.show()
+	plt.savefig("grafico.png")
 
 if __name__ == '__main__':
+
 	d = Data()
+#	print d.alfas
+#	print d.betas
+#	print d.rtosProm
+#	print d.rttsProm
+	
 	ejex = "Alfa"
 	ejey = "Beta"
 	ejez = "RTO"
-	#graph(d,ejex,ejey,ejez)
 	d.show()
 
-			
+#	graph_type = 2#tipo grafico(ver ifs en metodo graph)
+#	color_param = "blue"
+#	graph(d, ejex, ejey, ejez, graph_type, color_param)
+		
