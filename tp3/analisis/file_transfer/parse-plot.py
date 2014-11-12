@@ -10,7 +10,9 @@ import numpy as np
 class Data:
 	def __init__(self):
 		self.alfas = []
+		self.alfasRep = []
 		self.betas = []
+		self.betasRep = []
 		self.rtos = []
 		self.rtts = []
 		self.rtosProm = []
@@ -56,6 +58,9 @@ class Data:
 			rttsTmp = []
 			rtosTmp = []
 
+		self.alfasRep = [[a]*len(self.alfas) for a in self.alfas]
+		self.betasRep = [[b]*len(self.betas) for b in self.betas]
+
 	def show(self):
 		print "Alphas: "
 		print self.alfas
@@ -88,11 +93,12 @@ def graph(data, ejex, ejey, ejez, graph_type, color_param):
 	ax.set_ylabel(ejey)
 	ax.set_zlabel(ejez)
 
+
 	if(graph_type == 1):
 		ax.plot(data.alfas, data.betas, data.rtosProm, color=color_param)
 
 	if(graph_type == 2):
-		ax.plot_wireframe(data.alfas, data.betas, data.rtosProm, color=color_param)
+		ax.plot_wireframe(data.alfasRep, data.betasRep, data.rtos, color=color_param)
 
 	if(graph_type == 3):
 		ax.plot_surface(data.alfas, data.betas, data.rtosProm, color=color_param)
@@ -111,9 +117,9 @@ if __name__ == '__main__':
 	ejex = "Alfa"
 	ejey = "Beta"
 	ejez = "RTO"
-	d.show()
+#	d.show()
 
-#	graph_type = 2#tipo grafico(ver ifs en metodo graph)
-#	color_param = "blue"
-#	graph(d, ejex, ejey, ejez, graph_type, color_param)
+	graph_type = 2#tipo grafico(ver ifs en metodo graph)
+	color_param = "blue"
+	graph(d, ejex, ejey, ejez, graph_type, color_param)
 		
