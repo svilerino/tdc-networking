@@ -10,6 +10,7 @@
 ##########################################################
 ACK_delay = float()
 ACK_chance = float()
+retr = int()
 
 import threading
 import random
@@ -129,6 +130,8 @@ class PTCProtocol(object):
     def send_and_queue(self, packet, is_retransmission=False):
 
         if is_retransmission:
+            global retr
+            retr = retr + 1
             # Algoritmo de Karn: no usar paquetes retransmitidos para
             # actualizar las estimaciones del RTO.
             if self.rto_estimator.is_tracking_packets():

@@ -54,3 +54,4 @@ if __name__ == '__main__':
     fileTransfer.set_chance(1-pError_param)
 #    print "RTT", "¦", "RTO"
     fileTransfer.run(alpha_param, beta_param)
+    print protocol.retr

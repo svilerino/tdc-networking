@@ -33,7 +33,8 @@ class FileTransferBase(object):
         self.received_bytes = str()
         self._initialize_address()
         self.set_delay(self.DEFAULT_DELAY)     
-        self.set_chance(self.DEFAULT_CHANCE)  
+        self.set_chance(self.DEFAULT_CHANCE)
+        protocol.retr = 0  
         
     def _initialize_address(self):
         # La dirección y el puerto pueden venir como opciones de línea de

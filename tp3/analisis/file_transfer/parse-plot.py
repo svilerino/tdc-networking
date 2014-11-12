@@ -19,6 +19,9 @@ class Data:
 		self.rttsProm = []
 		self.delays = []
 		self.pErrors = []
+		self.retransmissions = []
+		self.diffsRtoRtt = []
+		self.diffsRtoPromRttProm = []
 		self.fill_with_data()
 
 	def fill_with_data(self):
@@ -35,6 +38,8 @@ class Data:
 
 			rttsTmp = []
 			rtosTmp = []
+			diffsRtoRttTmp = []
+			retr = 0
 
 			for line in lines:
 				line = line.split()
@@ -43,22 +48,29 @@ class Data:
 					pError = float(line[1])
 					alfa = float(line[2])
 					beta = float(line[3])
-				if len(line)==2:
+				if len(line)==3:
 					rttsTmp.append(float(line[0]))
 					rtosTmp.append(float(line[1]))
+					diffsRtoRttTmp.append(float(line[2]))
+				if len(line)==1:
+					retr = int(line[0])
 
 			self.alfas.append(alfa)
 			self.betas.append(beta)
 			self.rtosProm.append(sum(rtosTmp)/len(rtosTmp))
 			self.rttsProm.append(sum(rttsTmp)/len(rttsTmp))
+			self.diffsRtoPromRttProm.append(sum(diffsRtoRttTmp)/len(diffsRtoRttTmp))
+			self.diffsRtoRtt.append(diffsRtoRttTmp)
 			self.delays.append(delay)
 			self.pErrors.append(pError)
 			self.rtts.append(rttsTmp)
 			self.rtos.append(rtosTmp)
+			self.retransmissions.append(retr)
 			self.alfasRep.append([alfa]*len(rtosTmp))
 			self.betasRep.append([beta]*len(rtosTmp))
 			rttsTmp = []
 			rtosTmp = []			
+			diffsRtoRttTmp = []
 
 #		self.alfasRep = [[a]*len(self.alfas) for a in self.alfas]
 #		self.betasRep = [[b]*len(self.betas) for b in self.betas]
@@ -75,6 +87,9 @@ class Data:
 		print "-----------------"
 		print "pErros: "
 		print self.pErrors
+		print "-----------------"
+		print "Retransmissions: "
+		print self.retransmissions		
 		print "-----------------"
 		print "RTO prom: "
 		print self.rtosProm
@@ -119,10 +134,10 @@ if __name__ == '__main__':
 	ejex = "Alfa"
 	ejey = "Beta"
 	ejez = "RTO"
-#	d.show()
+	d.show()
 
-	graph_type = 2#tipo grafico(ver ifs en metodo graph)
-	color_param = "blue"
-	graph(d, ejex, ejey, ejez, graph_type, color_param)
+#	graph_type = 2#tipo grafico(ver ifs en metodo graph)
+#	color_param = "blue"
+#	graph(d, ejex, ejey, ejez, graph_type, color_param)
 
 		

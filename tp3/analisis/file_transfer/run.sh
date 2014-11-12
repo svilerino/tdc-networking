@@ -7,7 +7,7 @@ PORT_DST="6677"
 #alpha_values=(0 0.25 0.50 0.75 1)
 #beta_values=(0 0.25 0.50 0.75 1)
 delay_values=(0.25)
-prob_error_values=(0)
+prob_error_values=(0.1)
 alpha_values=(0.1 0.3 0.5 0.7 0.9)
 beta_values=(0.1 0.3 0.5 0.7 0.9)
 
