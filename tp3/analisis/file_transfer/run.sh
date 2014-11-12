@@ -1,13 +1,16 @@
 #!/bin/bash
+
+#elimino experimentos viejos
+rm ../experimentos/*.resultado --force
+
+#variables globales
 IP_DST="127.0.0.1"
 PORT_DST="6677"
 
-#delay_values=(0 0.25 0.5 0.75)
-#prob_error_values=(0 0.25 0.50 0.75 1)
-#alpha_values=(0 0.25 0.50 0.75 1)
-#beta_values=(0 0.25 0.50 0.75 1)
+#delay_values=(0.1 0.25)
 delay_values=(0.25)
-prob_error_values=(0.1)
+#prob_error_values=(0 0.3 0.5)
+prob_error_values=(0)
 alpha_values=(0.1 0.3 0.5 0.7 0.9)
 beta_values=(0.1 0.3 0.5 0.7 0.9)
 
@@ -24,7 +27,7 @@ do
 				(sudo python server.py &)
 				echo "Ok!"
 				echo -n "Esperando que el servidor escuche..."
-				sleep 2
+				sleep 3
 				echo "Ok!"
 				echo -n "Lanzando cliente..."
 			   	sudo python client.py "$IP_DST" "$PORT_DST" "$delay_var" "$prob_error_var" "$alpha_var" "$beta_var" > "../experimentos/$IP_DST"."$PORT_DST"."$delay_var"."$prob_error_var"."$alpha_var"."$beta_var"."resultado"
