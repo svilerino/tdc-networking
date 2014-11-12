@@ -24,6 +24,7 @@ class Data:
 		self.diffsRtoRtt = []
 		self.diffsRttVsRTOProm = []
 		self.fill_with_data()
+		self.export_as_csv()
 
 	def fill_with_data(self):
 		path="../experimentos"
@@ -74,8 +75,13 @@ class Data:
 			rtosTmp = []			
 			diffsRtoRttTmp = []
 
-#		self.alfasRep = [[a]*len(self.alfas) for a in self.alfas]
-#		self.betasRep = [[b]*len(self.betas) for b in self.betas]
+	def export_as_csv(self):
+		for i in range(0,len(self.rtts)):
+			f = open("../csvs/" + str(self.delays[i]) + "." + str(self.retransmissions[i]) + "." + str(self.alfas[i]) + "." + str(self.betas[i]) + ".csv", "w")
+			f.write("RTT,RTO,Diferencia RTT-RTO\n")
+			for j in range(0,len(self.rtts[i])):
+				f.write(str(self.rtts[i][j]) + "," + str(self.rtos[i][j]) + "," + str(self.diffsRtoRtt[i][j]) + "\n")
+
 
 	def show(self):
 		print "Alphas: "
