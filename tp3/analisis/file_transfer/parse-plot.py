@@ -55,11 +55,13 @@ class Data:
 			self.pErrors.append(pError)
 			self.rtts.append(rttsTmp)
 			self.rtos.append(rtosTmp)
+			self.alfasRep.append([alfa]*len(rtosTmp))
+			self.betasRep.append([beta]*len(rtosTmp))
 			rttsTmp = []
-			rtosTmp = []
+			rtosTmp = []			
 
-		self.alfasRep = [[a]*len(self.alfas) for a in self.alfas]
-		self.betasRep = [[b]*len(self.betas) for b in self.betas]
+#		self.alfasRep = [[a]*len(self.alfas) for a in self.alfas]
+#		self.betasRep = [[b]*len(self.betas) for b in self.betas]
 
 	def show(self):
 		print "Alphas: "
@@ -122,4 +124,5 @@ if __name__ == '__main__':
 	graph_type = 2#tipo grafico(ver ifs en metodo graph)
 	color_param = "blue"
 	graph(d, ejex, ejey, ejez, graph_type, color_param)
+
 		
