@@ -41,14 +41,16 @@ class FileTransferClient(FileTransferBase):
         
 if __name__ == '__main__':
     #parametros 1 y 2 son ip y puerto servidor!!
-    print "Ip Dst:", sys.argv[1], "Port Dst:", sys.argv[2]
+#    print "Ip Dst:", sys.argv[1], "Port Dst:", sys.argv[2]
     delay_param = float(sys.argv[3])
     pError_param = float(sys.argv[4])    
     alpha_param = float(sys.argv[5])
     beta_param = float(sys.argv[6])    
-    print "Delay:", delay_param, "Probabilidad Error:", pError_param, "ALPHA:", alpha_param, "BETA:", beta_param
+#    print "Delay:", delay_param, "Probabilidad Error:", pError_param, "ALPHA:", alpha_param, "BETA:", beta_param
+    print delay_param, pError_param, alpha_param, beta_param
+
     fileTransfer = FileTransferClient()
     fileTransfer.set_delay(delay_param)
     fileTransfer.set_chance(1-pError_param)
-    print "RTT", "¦", "RTO"
+#    print "RTT", "¦", "RTO"
     fileTransfer.run(alpha_param, beta_param)

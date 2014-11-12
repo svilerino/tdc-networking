@@ -69,7 +69,7 @@ class RTOEstimator(object):
             if self.ack_covers_tracked_packet(ack_packet.get_ack_number()):
                 sampled_rtt = self.protocol.get_ticks() - self.rtt_start_time
                 #print self.protocol.get_ticks()
-                print (sampled_rtt*CLOCK_TICK)*1000, "¦", (self.rto*CLOCK_TICK)*1000
+                print (sampled_rtt*CLOCK_TICK)*1000, (self.rto*CLOCK_TICK)*1000
                 self.update_rtt_estimation_with(sampled_rtt)
                 self.update_rto()
                 self.untrack()

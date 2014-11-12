@@ -6,10 +6,10 @@ PORT_DST="6677"
 #prob_error_values=(0 0.25 0.50 0.75 1)
 #alpha_values=(0 0.25 0.50 0.75 1)
 #beta_values=(0 0.25 0.50 0.75 1)
-delay_values=(0 0.25 0.5 0.75)
+delay_values=(0.25)
 prob_error_values=(0)
-alpha_values=(0.25)
-beta_values=(0.25)
+alpha_values=(0.1 0.3 0.5 0.7 0.9)
+beta_values=(0.1 0.3 0.5 0.7 0.9)
 
 for delay_var in "${delay_values[@]}"
 do
@@ -27,7 +27,7 @@ do
 				sleep 2
 				echo "Ok!"
 				echo -n "Lanzando cliente..."
-			   	sudo python client.py "$IP_DST" "$PORT_DST" "$delay_var" "$prob_error_var" "$alpha_var" "$beta_var" > "$IP_DST"."$PORT_DST"."$delay_var"."$prob_error_var"."$alpha_var"."$beta_var"."txt"
+			   	sudo python client.py "$IP_DST" "$PORT_DST" "$delay_var" "$prob_error_var" "$alpha_var" "$beta_var" > "../experimentos/$IP_DST"."$PORT_DST"."$delay_var"."$prob_error_var"."$alpha_var"."$beta_var"."resultado"
 			   	echo "Ok!"
 			   	echo -n "Matando python..."
 			   	sudo killall python
