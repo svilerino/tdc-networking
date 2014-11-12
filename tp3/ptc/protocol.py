@@ -38,7 +38,7 @@ from timer import RetransmissionTimer
 
 class PTCProtocol(object):
     
-    def __init__(self):
+    def __init__(self, alpha, beta):
         self.state = CLOSED
         self.control_block = None
         self.packet_builder = PacketBuilder()
@@ -49,7 +49,7 @@ class PTCProtocol(object):
         self.read_stream_open = True
         self.write_stream_open = True
         self.packet_handler = IncomingPacketHandler(self)
-        self.rto_estimator = RTOEstimator(self)
+        self.rto_estimator = RTOEstimator(self, alpha, beta)
         self.ticks = 0
         self.retransmissions = 0
         self.close_mode = NO_WAIT

@@ -25,13 +25,15 @@ class FileTransferBase(object):
     
     CHUNK_SIZE = 500
     DEFAULT_IP = '127.0.0.1'
-    DEFAULT_PORT = 6677    
+    DEFAULT_PORT = 6677  
+    DEFAULT_DELAY = 0.5
+    DEFAULT_CHANCE = 1
     
     def __init__(self):
         self.received_bytes = str()
         self._initialize_address()
-        self.set_delay()     
-        self.set_chance()  
+        self.set_delay(self.DEFAULT_DELAY)     
+        self.set_chance(self.DEFAULT_CHANCE)  
         
     def _initialize_address(self):
         # La dirección y el puerto pueden venir como opciones de línea de
@@ -78,12 +80,8 @@ class FileTransferBase(object):
     def _connect_socket(self, sock):
         raise NotImplementedError
 
-# Delay por default = 0
+    def set_delay(self, var):
+        protocol.ACK_delay = var
 
-    def set_delay(self):
-        protocol.ACK_delay = 0
-
-# Probabilidad de enviar paquete por default = 1
-
-    def set_chance(self):
-        protocol.ACK_chance = 1
+    def set_chance(self, var):
+        protocol.ACK_chance = var

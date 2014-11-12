@@ -23,9 +23,9 @@ class FileTransferServer(FileTransferBase):
         sock.listen()
         sock.accept(timeout=10)
 
-    def run(self):
+    def run(self, alpha, beta):
         expected_size = len(open(self.incoming_filename).read())
-        with Socket() as sock:
+        with Socket(alpha, beta) as sock:
             # La conexión del socket queda definida por cada subclase.
             # El cliente se conecta activamente mientras que el servidor se
             # ligará a una dirección determinada y escuchará allí.
@@ -40,4 +40,6 @@ class FileTransferServer(FileTransferBase):
         self._write_file()        
 
 if __name__ == '__main__':
-    FileTransferServer().run()
+    alpha=0.25
+    beta=0.25
+    FileTransferServer().run(alpha, beta)

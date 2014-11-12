@@ -12,20 +12,22 @@
 
 import threading
 
-from constants import INITIAL_RTO, MAX_RTO, ALPHA, BETA, K
+from constants import INITIAL_RTO, MAX_RTO, K, CLOCK_TICK
 from seqnum import SequenceNumber
 
 
 # Estimación de RTO según el RFC 6298, pero implementado en forma naive.
 class RTOEstimator(object):
     
-    def __init__(self, protocol):
+    def __init__(self, protocol, ALPHA, BETA):
         self.srtt = 0
         self.rttvar = 0
         self.rto = INITIAL_RTO
         self.protocol = protocol
         self.tracking = False
         self.lock = threading.RLock()
+        self.ALPHA=ALPHA
+        self.BETA=BETA
     
     def get_current_rto(self):
         with self.lock:
@@ -66,12 +68,11 @@ class RTOEstimator(object):
                 return
             if self.ack_covers_tracked_packet(ack_packet.get_ack_number()):
                 sampled_rtt = self.protocol.get_ticks() - self.rtt_start_time
-                print self.protocol.get_ticks()
-                print "RTT: ", sampled_rtt
+                #print self.protocol.get_ticks()
+                print (sampled_rtt*CLOCK_TICK)*1000, "¦", (self.rto*CLOCK_TICK)*1000
                 self.update_rtt_estimation_with(sampled_rtt)
                 self.update_rto()
                 self.untrack()
-                print "RTO: ", self.rto
                 
     def update_rtt_estimation_with(self, sampled_rtt):
         if self.srtt == 0:
@@ -83,8 +84,8 @@ class RTOEstimator(object):
             # Tenemos por lo menos una muestra, por lo que actualizamos los
             # valores según el paso 2.2 del RFC.
             deviation = abs(self.srtt - sampled_rtt)
-            self.rttvar = (1 - BETA) * self.rttvar + BETA * deviation
-            self.srtt = (1 - ALPHA) * self.srtt + ALPHA * sampled_rtt
+            self.rttvar = (1 - self.BETA) * self.rttvar + self.BETA * deviation
+            self.srtt = (1 - self.ALPHA) * self.srtt + self.ALPHA * sampled_rtt
             
     def update_rto(self):
         self.rto = self.srtt + max(1, K * self.rttvar)
