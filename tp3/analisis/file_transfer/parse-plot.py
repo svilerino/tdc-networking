@@ -4,6 +4,7 @@ import os
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
+import matplotlib.cm as cm
 
 #http://stackoverflow.com/questions/25383698/error-string-to-bool-in-mplot3d-workaround-found
 
@@ -21,7 +22,7 @@ class Data:
 		self.pErrors = []
 		self.retransmissions = []
 		self.diffsRtoRtt = []
-		self.diffsRtoPromRttProm = []
+		self.diffsRttVsRTOProm = []
 		self.fill_with_data()
 
 	def fill_with_data(self):
@@ -59,7 +60,8 @@ class Data:
 			self.betas.append(beta)
 			self.rtosProm.append(sum(rtosTmp)/len(rtosTmp))
 			self.rttsProm.append(sum(rttsTmp)/len(rttsTmp))
-			self.diffsRtoPromRttProm.append(sum(diffsRtoRttTmp)/len(diffsRtoRttTmp))
+			
+			self.diffsRttVsRTOProm.append(sum(diffsRtoRttTmp)/len(diffsRtoRttTmp))
 			self.diffsRtoRtt.append(diffsRtoRttTmp)
 			self.delays.append(delay)
 			self.pErrors.append(pError)
@@ -91,6 +93,9 @@ class Data:
 		print "Retransmissions: "
 		print self.retransmissions		
 		print "-----------------"
+		print "|RTO-RTT| diff: "
+		print self.diffsRttVsRTOProm
+		print "-----------------"
 		print "RTO prom: "
 		print self.rtosProm
 		print "-----------------"
@@ -103,41 +108,86 @@ class Data:
 		print "RTT's: "
 		print self.rtts
 
-def graph(data, ejex, ejey, ejez, graph_type, color_param):
+def plot(data, graph_type, file_prefix, label_param):
 	fig = plt.figure()
 	ax = fig.add_subplot(111, projection='3d')
-	ax.set_xlabel(ejex)
-	ax.set_ylabel(ejey)
-	ax.set_zlabel(ejez)
 
+	if(graph_type == 1):#heatmap alfa beta vs accuracy rto vs rtt	
+		title="Aproximacion Rtt vs Rto"
+		ax.set_title(title)
+		ancho_barra_x=([0.1]*len(data.alfas))
+		ancho_barra_y=([0.1]*len(data.alfas))
+		pos_inicial_z=([0]*len(data.alfas))
+		#con el calculo loco de aca abajo, entre 0 y 1 los valores normalizados indican, mientras mas grande el valor, mas cerca RTT y RTO
+		normalized_values = [1-(elem/float(max(data.diffsRttVsRTOProm))) for elem in data.diffsRttVsRTOProm]
+		bar_colors_heat = [cm.hot(heat) for heat in normalized_values]
+		ejex = "Alpha"
+		ejey = "Beta"
+		ejez = "Precision"
+		ax.set_xlabel(ejex)
+		ax.set_ylabel(ejey)
+		ax.set_zlabel(ejez)
+		#parametros:
+		#pos_inicial_x, pos_inicial_y, pos_inicial_z, ancho_barra_x, ancho_barra_y, altura_barra_z, color=color_barras, alpha= transparencia entre 0 y 1
+		ax.bar3d(data.alfas, data.betas, pos_inicial_z, ancho_barra_x, ancho_barra_y, normalized_values, color=bar_colors_heat, alpha=1)
+		plt.suptitle(label_param)		
 
-	if(graph_type == 1):
-		ax.plot(data.alfas, data.betas, data.rtosProm, color=color_param)
+		plt.savefig(file_prefix + "_rtt_vs_rto.png")
+		#plt.show()
+		plt.close()
 
 	if(graph_type == 2):
-		ax.plot_wireframe(data.alfasRep, data.betasRep, data.rtos, color=color_param)
+		title="Cant. Retransmisiones"
+		ax.set_title(title)
+		ancho_barra_x=([0.1]*len(data.alfas))
+		ancho_barra_y=([0.1]*len(data.alfas))
+		pos_inicial_z=([0]*len(data.alfas))
+		#con el calculo loco de aca abajo, entre 0 y 1 los valores normalizados indican, mientras mas grande el valor, mas cerca RTT y RTO
+		normalized_values = [(elem/float(max(data.retransmissions))) for elem in data.retransmissions]
+		bar_colors_heat = [cm.hot(heat) for heat in normalized_values]		
+		ejex = "Alpha"
+		ejey = "Beta"
+		ejez = "Cant. Retransmisiones"
+		ax.set_xlabel(ejex)
+		ax.set_ylabel(ejey)
+		ax.set_zlabel(ejez)
+		#parametros:
+		#pos_inicial_x, pos_inicial_y, pos_inicial_z, ancho_barra_x, ancho_barra_y, altura_barra_z, color=color_barras, alpha= transparencia entre 0 y 1
+		ax.bar3d(data.alfas, data.betas, pos_inicial_z, ancho_barra_x, ancho_barra_y, data.retransmissions, color=bar_colors_heat, alpha=1)
+		plt.suptitle(label_param)
+
+		plt.savefig(file_prefix + "_retransmisiones.png")
+		#plt.show()
+		plt.close()
 
 	if(graph_type == 3):
-		ax.plot_surface(data.alfas, data.betas, data.rtosProm, color=color_param)
+		title="Rtx Timeout(RTO)"
+		ax.set_title(title)
+		ancho_barra_x=([0.1]*len(data.alfas))
+		ancho_barra_y=([0.1]*len(data.alfas))
+		pos_inicial_z=([0]*len(data.alfas))
+		#con el calculo loco de aca abajo, entre 0 y 1 los valores normalizados indican, mientras mas grande el valor, mas cerca RTT y RTO
+		normalized_values = [(elem/float(max(data.rtosProm))) for elem in data.rtosProm]
+		bar_colors_heat = [cm.hot(heat) for heat in normalized_values]		
+		ejex = "Alpha"
+		ejey = "Beta"
+		ejez = "RTO"
+		ax.set_xlabel(ejex)
+		ax.set_ylabel(ejey)
+		ax.set_zlabel(ejez)
+		#parametros:
+		#pos_inicial_x, pos_inicial_y, pos_inicial_z, ancho_barra_x, ancho_barra_y, altura_barra_z, color=color_barras, alpha= transparencia entre 0 y 1
+		ax.bar3d(data.alfas, data.betas, pos_inicial_z, ancho_barra_x, ancho_barra_y, data.rtosProm, color=bar_colors_heat, alpha=1)
+		plt.suptitle(label_param)
 
-	#plt.show()
-	plt.savefig("grafico.png")
+		plt.savefig(file_prefix + "_rto.png")
+		#plt.show()
+		plt.close()
 
 if __name__ == '__main__':
-
-	d = Data()
-#	print d.alfas
-#	print d.betas
-#	print d.rtosProm
-#	print d.rttsProm
+	data = Data()
+	#data.show()
 	
-	ejex = "Alfa"
-	ejey = "Beta"
-	ejez = "RTO"
-	d.show()
-
-#	graph_type = 2#tipo grafico(ver ifs en metodo graph)
-#	color_param = "blue"
-#	graph(d, ejex, ejey, ejez, graph_type, color_param)
-
-		
+	plot(data, 1, sys.argv[1], sys.argv[2])
+	plot(data, 2, sys.argv[1], sys.argv[2])
+	plot(data, 3, sys.argv[1], sys.argv[2])
