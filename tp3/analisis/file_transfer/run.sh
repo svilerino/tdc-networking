@@ -15,7 +15,7 @@ PORT_DST="6677"
 delay_values=(0.1 0.2 0.3 0.4 0.5)
 prob_error_values=(0.01 0.02 0.03 0.04 0.05)
 alpha_values=(0.5)
-beta_values=(0.25)
+beta_values=(0.5)
 
 for delay_var in "${delay_values[@]}"
 do
