@@ -7,7 +7,7 @@ Durante la primera etapa, analizaremos c\'omo evoluciona la estimaci\'on de RTO 
 Durante la segunda etapa, observaremos c\'omo se comportan las combinaciones anteriores. Para ello volveremos a analizar como evoluciona la estimaci\'on de RTO en el cliente pero, esta vez, iremos variando el delay y la probabilidad de p\'erdida de paquetes. 
 
 \subsection{Etapa Inicial: Estimacion de $\alpha$ y $\beta$}
-Con una probabilidad de error nula y un delay de 0.25 segundos, fijaremos los parametros \'optimos de la estimacion del RTO para los siguientes valores $\alpha$ y $\beta$: 0.25, 0.5, 0.75 y 0.9. La idea es combinar todos con todos, es decir, testear los casos para $\alpha$=0.25 y $\beta$=0.25, $\alpha$=0.25 y $\beta$=0.5 y as\'i sucesivamente hasta llegar a $\alpha$=0.9, $\beta$=0.9.\\
+Con una probabilidad de error nula y un delay de 0.25 segundos, fijaremos los parametros \'optimos de la estimacion del RTO para los siguientes valores de $\alpha$ y $\beta$: 0.25, 0.5, 0.75 y 0.9. La idea es combinar todos con todos, es decir, testear los casos para $\alpha$=0.25 y $\beta$=0.25, $\alpha$=0.25 y $\beta$=0.5 y as\'i sucesivamente hasta llegar a $\alpha$=0.9, $\beta$=0.9.\\
 
 En funci\'on de las distintas combinaciones de $\alpha$ y $\beta$ graficamos la efectividad en la aproximaci\'on del RTO y RTT real, la cantidad de retransmisiones y el RTO obtenido.\\
 
@@ -49,7 +49,7 @@ Observando la figura 1 podemos mencionar que ninguna de las combinaciones de $\a
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
 
-Este gr\'afico puede complementarse con la figura 1. Mientras m\'as bajos sean los valores de RTO para un $\alpha$ y $\beta$ dados, m\'as cercano estar\'a del RTT real. Esto sucede ya que valores de RTO por debajo del RTT real no tendrian sentido. Si reenviamos un paquete antes del tiempo estimado en que recibimos un ACK, el protocolo retransmitir\'ia siempre, relentizando la comunicaci\'on.
+Este gr\'afico puede complementarse con la figura 1. Mientras m\'as bajos son los valores de RTO para un $\alpha$ y $\beta$ dados, m\'as cercano se encontrar\'a del RTT real. Esto sucede ya que valores de RTO por debajo del RTT real no tendrian sentido. Si reenviamos un paquete antes del tiempo estimado en que recibimos un ACK, el protocolo retransmitir\'ia siempre, relentizando la comunicaci\'on.
 
 Analizando los resultados obtenidos para cada una de las combinaciones destacadas de la secci\'on 3.1.1 podemos mencionar que los RTO estimados se corresponden con los resultados de antes. Las barras, como podemos observar para estas combinaciones, son las que menos altura tienen respecto de las dem\'as, es decir, el RTO es m\'as bajo y por lo tanto m\'as se aproxima al RTT real.
 
