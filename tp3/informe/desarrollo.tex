@@ -8,9 +8,9 @@ De manera similar, para introducir la probabilidad de p\'erdida de paquetes modi
 Por otro lado, como el objetivo del trabajo pr\'actico es observar qu\'e valores de $\alpha$ y $\mathcal{B}$ optimizan el c\'aluclo de RTO, introducimos la posibilidad de cambiar estos par\'ametros antes de comenzar la transmisi\'on de paquetes entre el cliente y el servidor. De nuevo, el cliente es el encargado de hacerlo. Al momento de llamar al m\'etodo 'run' se le pasan ambos par\'ametros, los cuales son considerados cuando la clase $RTO$ $estimator$ llama al m\'etodo $update\_rtt\_estimation\_with$.
 
 Para realizar las experimentaciones, que detallaremos en la secci\'on siguiente, haremos uso del script $run.sh$
-que b\'asicamente realiza lo siguiente:
+que, b\'asicamente, realiza lo siguiente:
 \begin{itemize}
-	\item Fija los par\'ametros de deley, probabilidad de p\'erdidad de paquetes, $\alpha$ y $\mathcal{B}$.
+	\item Fija los par\'ametros de delay, probabilidad de p\'erdidad de paquetes, $\alpha$ y $\mathcal{B}$.
 	\item Abre un servidor que solo reconoce datos.
 	\item El cliente se conecta al servidor y env\'ia un archivo de 80Kb ($thunder.jpg$). Durante la transferencia del mismo, el script va extrayendo la cantidad de retransmisiones de paquetes y las estimaciones de RTT y RTO que realiza el protocolo. Se guarda toda la informaci\'on para luego procesarla.
 	\item Procesa toda la informaci\'on y realiza los gr\'aficos pertinentes.
