@@ -194,7 +194,7 @@ def plot(data, graph_type, file_prefix, label_param):
 		title="Aproximacion Rtt vs Rto"
 		ax.set_title(title)
 		ancho_barra_x=([0.1]*len(data.delays))
-		ancho_barra_y=([0.1]*len(data.pErrors))
+		ancho_barra_y=([0.01]*len(data.pErrors))
 		pos_inicial_z=([0]*len(data.delays))
 		#con el calculo loco de aca abajo, entre 0 y 1 los valores normalizados indican, mientras mas grande el valor, mas cerca RTT y RTO
 		normalized_values = [1-(elem/float(max(data.diffsRttVsRTOProm))) for elem in data.diffsRttVsRTOProm]
@@ -218,7 +218,7 @@ def plot(data, graph_type, file_prefix, label_param):
 		title="Cant. Retransmisiones"
 		ax.set_title(title)
 		ancho_barra_x=([0.1]*len(data.delays))
-		ancho_barra_y=([0.1]*len(data.pErrors))
+		ancho_barra_y=([0.01]*len(data.pErrors))
 		pos_inicial_z=([0]*len(data.delays))
 		#con el calculo loco de aca abajo, entre 0 y 1 los valores normalizados indican, mientras mas grande el valor, mas cerca RTT y RTO
 		normalized_values = [(elem/float(max(data.retransmissions))) for elem in data.retransmissions]
@@ -242,7 +242,7 @@ def plot(data, graph_type, file_prefix, label_param):
 		title="Rtx Timeout(RTO)"
 		ax.set_title(title)
 		ancho_barra_x=([0.1]*len(data.delays))
-		ancho_barra_y=([0.1]*len(data.pErrors))
+		ancho_barra_y=([0.01]*len(data.pErrors))
 		pos_inicial_z=([0]*len(data.delays))
 		#con el calculo loco de aca abajo, entre 0 y 1 los valores normalizados indican, mientras mas grande el valor, mas cerca RTT y RTO
 		normalized_values = [(elem/float(max(data.rtosProm))) for elem in data.rtosProm]

@@ -12,7 +12,7 @@ rm *.png --force
 IP_DST="127.0.0.1"
 PORT_DST="6677"
 
-delay_values=(0.05 0.15 0.2 0.3)
+delay_values=(0.1 0.2 0.3 0.4 0.5)
 prob_error_values=(0.01 0.02 0.03 0.04 0.05)
 alpha_values=(0.5)
 beta_values=(0.25)
@@ -45,4 +45,8 @@ do
 	done
 done
 
-sudo python parse-plot.py "$IP_DST"."$PORT_DST"."$delay_var"."$prob_error_var" "Destino:$IP_DST:$PORT_DST	Delay:$delay_var	Prob.Error:$prob_error_var"
+#para graficar con titulo delay y proba error fijos
+#sudo python parse-plot.py "$IP_DST"."$PORT_DST"."Delay $delay_var"."_Beta $prob_error_var" "Destino:$IP_DST:$PORT_DST    Delay:$delay_var    Prob.Error:$prob_error_var"
+
+#para graficar con titulo alfa y beta fijos
+sudo python parse-plot.py "$IP_DST"."$PORT_DST"."_Alpha $alpha_var _Beta"." $prob_error_var" "Destino:$IP_DST:$PORT_DST    Alpha:$alpha_var    Beta:$beta_var"
