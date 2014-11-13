@@ -16,7 +16,7 @@ class FileTransferServer(FileTransferBase):
 
     def __init__(self):
         FileTransferBase.__init__(self)
-        self.incoming_filename = 'dwight.jpg'          
+        self.incoming_filename = 'thunder.jpg'          
         
     def _connect_socket(self, sock):
         sock.bind((self.server_ip, self.server_port))

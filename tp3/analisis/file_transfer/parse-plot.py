@@ -190,10 +190,86 @@ def plot(data, graph_type, file_prefix, label_param):
 		#plt.show()
 		plt.close()
 
+	if(graph_type == 4):#heatmap alfa beta vs accuracy rto vs rtt	
+		title="Aproximacion Rtt vs Rto"
+		ax.set_title(title)
+		ancho_barra_x=([0.1]*len(data.delays))
+		ancho_barra_y=([0.1]*len(data.pErrors))
+		pos_inicial_z=([0]*len(data.delays))
+		#con el calculo loco de aca abajo, entre 0 y 1 los valores normalizados indican, mientras mas grande el valor, mas cerca RTT y RTO
+		normalized_values = [1-(elem/float(max(data.diffsRttVsRTOProm))) for elem in data.diffsRttVsRTOProm]
+		bar_colors_heat = [cm.hot(heat) for heat in normalized_values]
+		ejex = "Delay"
+		ejey = "Probabilidad de Error"
+		ejez = "Precision"
+		ax.set_xlabel(ejex)
+		ax.set_ylabel(ejey)
+		ax.set_zlabel(ejez)
+		#parametros:
+		#pos_inicial_x, pos_inicial_y, pos_inicial_z, ancho_barra_x, ancho_barra_y, altura_barra_z, color=color_barras, alpha= transparencia entre 0 y 1
+		ax.bar3d(data.delays, data.pErrors, pos_inicial_z, ancho_barra_x, ancho_barra_y, normalized_values, color=bar_colors_heat, alpha=1)
+		plt.suptitle(label_param)		
+
+		plt.savefig(file_prefix + "dp_rtt_vs_rto.png")
+		#plt.show()
+		plt.close()
+
+	if(graph_type == 5):
+		title="Cant. Retransmisiones"
+		ax.set_title(title)
+		ancho_barra_x=([0.1]*len(data.delays))
+		ancho_barra_y=([0.1]*len(data.pErrors))
+		pos_inicial_z=([0]*len(data.delays))
+		#con el calculo loco de aca abajo, entre 0 y 1 los valores normalizados indican, mientras mas grande el valor, mas cerca RTT y RTO
+		normalized_values = [(elem/float(max(data.retransmissions))) for elem in data.retransmissions]
+		bar_colors_heat = [cm.hot(heat) for heat in normalized_values]		
+		ejex = "Delay"
+		ejey = "Probabildad de Error"
+		ejez = "Cant. Retransmisiones"
+		ax.set_xlabel(ejex)
+		ax.set_ylabel(ejey)
+		ax.set_zlabel(ejez)
+		#parametros:
+		#pos_inicial_x, pos_inicial_y, pos_inicial_z, ancho_barra_x, ancho_barra_y, altura_barra_z, color=color_barras, alpha= transparencia entre 0 y 1
+		ax.bar3d(data.delays, data.pErrors, pos_inicial_z, ancho_barra_x, ancho_barra_y, data.retransmissions, color=bar_colors_heat, alpha=1)
+		plt.suptitle(label_param)
+
+		plt.savefig(file_prefix + "dp_retransmisiones.png")
+		#plt.show()
+		plt.close()
+
+	if(graph_type == 6):
+		title="Rtx Timeout(RTO)"
+		ax.set_title(title)
+		ancho_barra_x=([0.1]*len(data.delays))
+		ancho_barra_y=([0.1]*len(data.pErrors))
+		pos_inicial_z=([0]*len(data.delays))
+		#con el calculo loco de aca abajo, entre 0 y 1 los valores normalizados indican, mientras mas grande el valor, mas cerca RTT y RTO
+		normalized_values = [(elem/float(max(data.rtosProm))) for elem in data.rtosProm]
+		bar_colors_heat = [cm.hot(heat) for heat in normalized_values]		
+		ejex = "Delay"
+		ejey = "Probabilidad de Error"
+		ejez = "RTO"
+		ax.set_xlabel(ejex)
+		ax.set_ylabel(ejey)
+		ax.set_zlabel(ejez)
+		#parametros:
+		#pos_inicial_x, pos_inicial_y, pos_inicial_z, ancho_barra_x, ancho_barra_y, altura_barra_z, color=color_barras, alpha= transparencia entre 0 y 1
+		ax.bar3d(data.delays, data.pErrors, pos_inicial_z, ancho_barra_x, ancho_barra_y, data.rtosProm, color=bar_colors_heat, alpha=1)
+		plt.suptitle(label_param)
+
+		plt.savefig(file_prefix + "_rto.png")
+		#plt.show()
+		plt.close()		
+
 if __name__ == '__main__':
 	data = Data()
 	#data.show()
 	
-	plot(data, 1, sys.argv[1], sys.argv[2])
-	plot(data, 2, sys.argv[1], sys.argv[2])
-	plot(data, 3, sys.argv[1], sys.argv[2])
+#	plot(data, 1, sys.argv[1], sys.argv[2])
+#	plot(data, 2, sys.argv[1], sys.argv[2])
+#	plot(data, 3, sys.argv[1], sys.argv[2])
+
+	plot(data, 4, sys.argv[1], sys.argv[2])
+	plot(data, 5, sys.argv[1], sys.argv[2])
+	plot(data, 6, sys.argv[1], sys.argv[2])
