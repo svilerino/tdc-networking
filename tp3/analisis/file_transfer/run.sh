@@ -6,14 +6,16 @@ rm ../experimentos/*.resultado --force
 #elimino graficos viejos
 rm *.png --force
 
+#alpha_values=(0.25 0.5 0.75 0.9)
+#beta_values=(0.25 0.5 0.75 0.9)
 #variables globales
 IP_DST="127.0.0.1"
 PORT_DST="6677"
 
-delay_values=(0.1 0.25 0.5 0.75)
-prob_error_values=(0 0.3 0.5)
-alpha_values=(0.25 0.5 0.75 0.9)
-beta_values=(0.25 0.5 0.75 0.9)
+delay_values=(0.05 0.15 0.2 0.3)
+prob_error_values=(0.01 0.02 0.03 0.04 0.05)
+alpha_values=(0.5)
+beta_values=(0.25)
 
 for delay_var in "${delay_values[@]}"
 do
@@ -40,6 +42,7 @@ do
 			   	echo ""
 			done
 		done   
-		sudo python parse-plot.py "$IP_DST"."$PORT_DST"."$delay_var"."$prob_error_var" "Destino:$IP_DST:$PORT_DST	Delay:$delay_var	Prob.Error:$prob_error_var"
 	done
 done
+
+sudo python parse-plot.py "$IP_DST"."$PORT_DST"."$delay_var"."$prob_error_var" "Destino:$IP_DST:$PORT_DST	Delay:$delay_var	Prob.Error:$prob_error_var"
