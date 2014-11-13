@@ -1,6 +1,13 @@
 \section{Experimentaci\'on}
+
+Como fue previamente mencionado, la idea ser\'a estudiar qu\' par\'ametros optimizan el c\'alculo de RTO. Para realizar esto, dividiremos la experimentaci\'on en dos etapas.
+
+Durante la primera etapa, analizaremos c\'omo evoluciona la estimaci\'on de RTO en el cliente con distintas combinaciones de $\alpha$ y $\mathcal{B}$ para un delay fijo y proabilidad de p\'erdida de paquetes nula. A partir de esta experimentaci\'on nos quedaremos con 4 combinaciones de $\alpha$ y $\mathcal{B}$ que a nuestro crtierio son los mejores para estimar el RTO.
+
+Durante la segunda etapa, decidiremos cu\'al de las combinaciones anteriores es la mejor. Para ello volveremos a analizar como evoluciona la estimaci\'on de RTO en el cliente pero, esta vez, iremos variando el delay y la probabilidad de p\'erdida de paquetes. 
+
 \subsection{Etapa Inicial: Estimacion de $\alpha$ y $\beta$}
-Con una probabilidad de error nula y un delay nulo, fijaremos los parametros \'optimos de la estimacion del RTO.
+Con una probabilidad de error nula y un delay de 0.25 segundos, fijaremos los parametros \'optimos de la estimacion del RTO.
 Explicar heatmap de los graficos (colores de las barras varian segun magnitud Z del grafico)
 
 \subsubsection{Efectividad en la aproximacion del RTO y el Rtt Real}

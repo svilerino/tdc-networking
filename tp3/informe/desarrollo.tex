@@ -5,6 +5,13 @@ Para introducir latencia en el env\'io de paquetes modificamos el archivo 'proto
 
 De manera similar, para introducir la probabilidad de p\'erdida de paquetes modificamos el mismo m\'etodo ($'send\_and\_queue'$) agreg\'andole una condici\'on que chequee si un valor random (entre 0 y 1) es menor a la chance de perder el paquete ($ACK\_chance$, tambi\'en determinado por el cliente antes de enviar datos al servidor). De ser as\'i, el m\'etodo no llama a la funci\'on $send$ de Socket y se encola para ser retransmitido en un futuro.
 
-Por otro lado, como el objetivo del trabajo pr\'actico es observar qu\'e valores de $\alpha$ y $\mathcal{B}$ optimizan el c\'aluclo de RTO, introducimos la posibilidad de cambiar estos par\'ametros antes de comenzar la transmisi\'on de paquetes entre el cliente y el servidor. De nuevo, el cliente es el encargado de hacerlo. Al momento de llamar al m\'etodo 'run' se le pasan ambos par\'ametros, los cuales son considerados cuando en $rto.py$ se llama al m\'etodo $update\_rtt\_estimation\_with$.
+Por otro lado, como el objetivo del trabajo pr\'actico es observar qu\'e valores de $\alpha$ y $\mathcal{B}$ optimizan el c\'aluclo de RTO, introducimos la posibilidad de cambiar estos par\'ametros antes de comenzar la transmisi\'on de paquetes entre el cliente y el servidor. De nuevo, el cliente es el encargado de hacerlo. Al momento de llamar al m\'etodo 'run' se le pasan ambos par\'ametros, los cuales son considerados cuando la clase $RTO$ $estimator$ llama al m\'etodo $update\_rtt\_estimation\_with$.
 
-Para realizar las experimentaciones, que detallaremos en la secci\'on siguiente, haremos uso del script $run.sh$, en el cual seteamos los par\'ametros de delay, probabilidad de p\'erdidad de paquetes, $\alpha$ y $\mathcal{B}$. Luego, en el mismo script, abrimos el servidor, conectamos el cliente y enviamos un archivo del cliente al servidor con los par\'ametros previamente mencionados. Volcamos los resultados de cada experimento en el directorio $experimentos/$. En esta etapa, recolectaremos informaci\'on de todo tipo como por ejemplo: variaci\'on de RTT y RTO a lo largo de la transmisi\'on, cantidad de retransmisiones, RTT promedio, RTO promedio, diferencia entre el RTT y RTO, etc. La informaci\'on recolectada es parseada y ploteada con el script $parse-plot.py$
+Para realizar las experimentaciones, que detallaremos en la secci\'on siguiente, haremos uso del script $run.sh$
+que b\'asicamente realiza lo siguiente:
+\begin{itemize}
+	\item Fija los par\'ametros de deley, probabilidad de p\'erdidad de paquetes, $\alpha$ y $\mathcal{B}$.
+	\item Abre un servidor que solo reconoce datos.
+	\item El cliente se conecta al servidor y env\'ia un archivo de 80Kb ($thunder.jpg$). Durante la transferencia del mismo, el script va extrayendo la cantidad de retransmisiones de paquetes y las estimaciones de RTT y RTO que realiza el protocolo. Se guarda toda la informaci\'on para luego procesarla.
+	\item Procesa toda la informaci\'on y realiza los gr\'aficos pertinentes.
+\end{itemize}
