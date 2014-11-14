@@ -64,4 +64,151 @@ Analizando los resultados obtenidos para cada una de las combinaciones destacada
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
 
+
+
+
+
+
+
 \subsection{Segunda Etapa - Simulacion de problemas de red: Delay y Errores inducidos con probabilidad}
+En esta etapa simulamos el comportamiento del protocolo en una red con distintas propiedades. Las propiedades de la red son simuladas con paquetes que se pierden con una probabilidad $p$ y un delay en el reconocimiento de los paquetes (ACK); ambos parámetros pueden simular el congestionamiento de la red, la confiabilidad del canal de comunicación, entre otras cosas. Los experimentos se realizan con las estimaciones de $\alpha$ y $\beta$ encontrados anteriormente.
+
+
+
+
+
+
+
+
+\subsubsection{Simulación con $\alpha$: 0.5, $\beta$: 0.25}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%gráficos a comentar
+
+
+En el gráfico de la figura $4$ podemos observar la cantidad de paquetes retransmitidos para distintos valores de delay y probabilidad de pérdida de paquetes. Se puede observar que, como se esperaba, al aumentar la probabilidad de perder paquetes, fijado un delay, la cantidad de retransmisiones también aumenta. Se puede observar una tendencia al aumento de retransmisiones al aumentar la probabilidad y el delay.
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.5-0.25_2/retransmisiones.png}
+  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquete, para $\alpha$: 0.5, $\beta$: 0.25}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+En la figura $5$ están los datos del experimento que se realizó para analizar el impacto en el cálculo del RTO al variar el delay y la probabilidad de pérdidas de paquetes. Podemos notar en el gráfico que el valor del RTO aumenta cuando también lo hace el delay y pa probabilidad. El mayor valor del RTO se encuentra en delay $= 0.3$ y probabilidad $= 0.02$ , pero mirando la distribución de los demás valores, éste parece ser un valor atípico.
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.5-0.25_2/rto.png}
+  \caption{RTO en función del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.5, $\beta$: 0.25}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.5-0.25_2/rtt_vs_rto.png}
+  \caption{Diferencia entre RTT y RTO en funci\'on del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.5, $\beta$: 0.25}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Simulación con $\alpha$: 0.5, $\beta$: 0.5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%gráficos a comentar
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.5-0.5/retransmisiones.png}
+  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquete, para $\alpha$: 0.5, $\beta$: 0.5}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.5-0.5/rto.png}
+  \caption{RTO en función del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.5, $\beta$: 0.5}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.5-0.5/rtt_vs_rto.png}
+  \caption{Diferencia entre RTT y RTO en funci\'on del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.5, $\beta$: 0.5}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+
+
+
+
+
+
+
+
+\subsubsection{Simulación con $\alpha$: 0.9, $\beta$: 0.5}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%gráficos a comentar
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.9-0.5/retransmisiones.png}
+  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquete, para $\alpha$: 0.9, $\beta$: 0.5}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.9-0.5/rto.png}
+  \caption{RTO en función del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.9, $\beta$: 0.5}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.9-0.5/rtt_vs_rto.png}
+  \caption{Diferencia entre RTT y RTO en funci\'on del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.9, $\beta$: 0.5}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Simuación con $\alpha$: 0.9, $\beta$: 0.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%gráficos a comentar
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.9-0.9/retransmisiones.png}
+  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquete, para $\alpha$: 0.9, $\beta$: 0.9}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.9-0.9/rto.png}
+  \caption{RTO en función del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.9, $\beta$: 0.9}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
+\begin{figure}[H]
+  \centering	
+	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.9-0.9/rtt_vs_rto.png}
+  \caption{Diferencia entre RTT y RTO en funci\'on del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.9, $\beta$: 0.9}
+	\label{fig:histo-src-sitiotrabajo}
+\end{figure}
+
