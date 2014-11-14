@@ -90,7 +90,7 @@ En el gráfico de la figura $4$ podemos observar la cantidad de paquetes retrans
 \begin{figure}[H]
   \centering	
 	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.5-0.25_2/retransmisiones.png}
-  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquete, para $\alpha$: 0.5, $\beta$: 0.25}
+  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.5, $\beta$: 0.25}
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
 
@@ -103,7 +103,7 @@ En la figura $5$ están los datos del experimento que se realizó para analizar 
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
 
-
+En la figura $6$ podemos observar la relación entre el RTO y el RTT en función del delay y la probabilidad de error. Claramente al aumentar el delay y la probabilidad, la precisión desciende. Puede verse también que si se fija el delay, al disminuir la probabilidad de error, disminuye la precición. Este análisis es importante debido a que el RTO define cuando un paquete se puede dar por perdido. Si el RTO es demasiado grande, se tarda en dar por perdido un paquete, mientras que si es muy chico, el paquete se da por perdido demasiado rápido. Concluimos que tener una red más confiable (sin congestión, por ejemplo) ayuda al cálculo del RTO.
 
 \begin{figure}[H]
   \centering	
@@ -125,12 +125,17 @@ En la figura $5$ están los datos del experimento que se realizó para analizar 
 \subsubsection{Simulación con $\alpha$: 0.5, $\beta$: 0.5}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %gráficos a comentar
+
+Llevamos a cabo un experimento para medir la cantidad de retransmisiones en función del delay y la probabilidad de pérdida de los paquetes. Los resultados se encuentran en el gráfico de la figura $7$. Podemos ver que la distribución de la cantidad de retransmisiones es bastante estática, es decir, no hay cambios bruscos en la cantidad de retransmisiones al mover los parámetros. Aún así, puede observarse que cuando el delay se encuentra entre $0.1$ y $0.3$ y la probabilidad entre $0.01$ y $0.03$ se alcanza una distribución con una media menor. Podemos concluir entonces que la cantidad de retransmisiones que ocurren disminuyen al disminuir los parámetros mencionados.
+
 \begin{figure}[H]
   \centering	
 	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.5-0.5/retransmisiones.png}
-  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquete, para $\alpha$: 0.5, $\beta$: 0.5}
+  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.5, $\beta$: 0.5}
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
+
+En el gráfico de la figura $8$ se volcaron los datos obtenidos al medir RTO estimado por el protocolo en función del delay y la probailidad de error. Podemos ver que para la mayoría de los valores el RTO es menor a los $10000$. Los valores de RTO mayores se encuentran con un delay de $0.5$ y una probabilidad de $0.03$. Se puede observar que el RTO medio para un delay de $0.5$ es mayor a los otros. La distribución de valores del RTO no es demasiado clara, aunque parece ser que tener un mayor delay aumenta el RTO. Esta última observación es esperable, ya que al aumentar el delay, el RTT parec ser mayor, y entonces, el RTO debe también aumentar.
 
 \begin{figure}[H]
   \centering	
@@ -138,6 +143,8 @@ En la figura $5$ están los datos del experimento que se realizó para analizar 
   \caption{RTO en función del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.5, $\beta$: 0.5}
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
+
+En la figura $9$ podemos ver la relación entre RTT y RTO al variar la probabilidad de error y el delay al reconocer los paquetes (envio del ACK). Como con los demás valores de $\alpha$ y $\beta$ con los que se llevo a cabo este experimento, un aumento de delay y probabilidad se traduce en una disminución de la precisión. 
 
 \begin{figure}[H]
   \centering	
@@ -157,12 +164,18 @@ En la figura $5$ están los datos del experimento que se realizó para analizar 
 \subsubsection{Simulación con $\alpha$: 0.9, $\beta$: 0.5}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %gráficos a comentar
+
+En el gráfico de la figura $10$ están representados los datos obtenidos al medir la cantidad de retransmisiones en función de las probabilidad de perder paquetes y el delay al enviar los ACK. Podemos ver que al aumentar el delay y la probabilidad, la cantidad de paquetes retransmitidos aumenta. Como se explicó anteriormente esto tiene sentido, ya que el aumento de ambos parámetros indica que más paquetes se pierden y se tarda más en reconocer los paquetes que arrivan, lo que puede ocasionar un time out. Podemos ver también que, fijando un delay, un aumento de la probabilidad de pérdida de paquetes genera un aumento en la cantidad de retransmisiones.
+
 \begin{figure}[H]
   \centering	
 	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.9-0.5/retransmisiones.png}
-  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquete, para $\alpha$: 0.9, $\beta$: 0.5}
+  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.9, $\beta$: 0.5}
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
+
+En el gráfico de la figura $11$ podemos ver el impacto de la variación de la probabilidad de pérdida de paquetes y el delay en el cálculo del RTO. Podemos ver que, para la gran mayoría de los valores de los parámetros, el RTO no alcanza los $50000$ y hay un máximo en delay $0.5$ y probabilidad $0.06$. 
+
 
 \begin{figure}[H]
   \centering	
@@ -170,6 +183,8 @@ En la figura $5$ están los datos del experimento que se realizó para analizar 
   \caption{RTO en función del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.9, $\beta$: 0.5}
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
+
+En el gráfico de la figura $12$ podemos ver la relación entre el RTO medido en el protocolo y el RTT entre el cliente y el servidor, en función del delay y la probabilidad de pérdida de los paquetes. Como en los experimentos en que medimos la misma relación con distintos $\alpha$ y $\beta$, al aumentar el delay y la probabilidad, se observa una precisión menor. Pero también, comparando con los experimento anteriores, notamos que la variación es menor pronunciada.
 
 \begin{figure}[H]
   \centering	
@@ -191,12 +206,17 @@ En la figura $5$ están los datos del experimento que se realizó para analizar 
 \subsubsection{Simuación con $\alpha$: 0.9, $\beta$: 0.9}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %gráficos a comentar
+
+En la figura $13$ podemos ver la relación entre la cantidad de retransmisiones y la probabilidad de error y el delay. Para estos valores de $\alpha$ y $\beta$ observamos que la relación entre las variables no es tan clara como en experimentos similares anteriores. Si eliminamos algunos datos atípicos (por ejemplo delay $0.4$ y probabilidad $0.02$), se puede ver que la relación es más clara, es decir, el aumento de delay y probabilidad parece estar correlacionado con un aumento en la cantidad de paquetes que deben ser retransmitidos.
+
 \begin{figure}[H]
   \centering	
 	\includegraphics[scale=0.5]{../analisis/graficos_tablas/graficos_en_funcion_de_delay_probaerror/0.9-0.9/retransmisiones.png}
-  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquete, para $\alpha$: 0.9, $\beta$: 0.9}
+  \caption{Retransmisiones en funci\'on del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.9, $\beta$: 0.9}
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
+
+En el gráfico de la figura $14$ se muestra la relación medida experimentalmente entre el RTO y el delay y la probabilidad de errores. Podemos ver que se alcanza un máximo en delay $0.3$ y probabilidad de error $0.03$. Notamos que este dato es un valor atípico, ya que su magnitud es mucho mayor a los demás datos. No podemos observar una relación claraen este experimento.
 
 \begin{figure}[H]
   \centering	
@@ -204,6 +224,8 @@ En la figura $5$ están los datos del experimento que se realizó para analizar 
   \caption{RTO en función del delay y la probabilidad de pérdida de paquetes, para $\alpha$: 0.9, $\beta$: 0.9}
 	\label{fig:histo-src-sitiotrabajo}
 \end{figure}
+
+En el gráfico de la figura $15$ están los datos obtenidos experimentalmente sobre la precisión del RTO en relación al RTT, al variar el delay y la probabilidad de error. Podemos ver que al aumentar estos dos valores la precisión parece disminuir. También notamos que la relación no es muy evidente, como lo es para otros $\alpha$ y $\beta$.
 
 \begin{figure}[H]
   \centering	
